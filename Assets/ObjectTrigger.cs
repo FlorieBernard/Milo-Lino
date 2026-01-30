@@ -2,7 +2,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectTrigger : MonoBehaviour
+
+
 {
+    public GameObject Lino;
+
     [SerializeField] private GameObject objectToDisappear;
     [SerializeField] private string miloTag = "Milo";
     [SerializeField] private bool destroyInsteadOfDisable = false;
@@ -20,6 +24,15 @@ public class ObjectTrigger : MonoBehaviour
                 else
                 {
                     objectToDisappear.SetActive(false);
+
+
+                    BloquerLino bloquer = Lino.GetComponent<BloquerLino>();
+                    if (bloquer != null)
+                    {
+                        bloquer.Debloquer();
+                    }
+
+
                 }
             }
             Destroy(gameObject);
