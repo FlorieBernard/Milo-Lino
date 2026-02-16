@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovementLino : MonoBehaviour
 {
+    private BloquerLino bloquerLino;
+
     public float horizontal;
     public float speed = 8f;
     public float jumpingPower = 16f;
@@ -11,12 +13,17 @@ public class PlayerMovementLino : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+    private void Start()
+    {
+        bloquerLino = GetComponent<BloquerLino>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded() && bloquerLino.EstBloque == false)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }

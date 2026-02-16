@@ -1,9 +1,10 @@
+using UnityEditor;
 using UnityEngine;
 
 public class CharacterSwitcher : MonoBehaviour
 {
-    [SerializeField] private MonoBehaviour miloMovement;
-    [SerializeField] private MonoBehaviour linoMovement;
+    [SerializeField] private PlayerMovementMilo miloMovement;
+    [SerializeField] private PlayerMovementLino linoMovement;
     [SerializeField] private Collider2D miloCollider;
     [SerializeField] private Collider2D linoCollider;
 
@@ -60,6 +61,14 @@ public class CharacterSwitcher : MonoBehaviour
             // Inverse l'état des scripts de mouvement
             miloMovement.enabled = !miloMovement.enabled;
             linoMovement.enabled = !linoMovement.enabled;
+
+            // Stop la vélocité des personnages (stopper leur mouvement)
+            miloMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
+                new Vector2(0, miloMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
+            linoMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
+                new Vector2(0, linoMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
+
+
 
             // Change quel personnage est actif
             isPlayingMilo = !isPlayingMilo;

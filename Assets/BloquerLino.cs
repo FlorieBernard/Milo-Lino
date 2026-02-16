@@ -4,6 +4,11 @@ using UnityEngine;
 public class BloquerLino : MonoBehaviour
 {
     private bool estBloque = true;
+    public bool EstBloque 
+    {  get { return estBloque; } 
+        private set { estBloque = value; }
+    }
+
     private Rigidbody2D rb;
 
     void Start()
@@ -11,14 +16,14 @@ public class BloquerLino : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (estBloque)
         {
             // Bloque tous les mouvements de Lino
             if (rb != null)
             {
-                rb.linearVelocity = Vector2.zero;
+                rb.linearVelocity = new Vector2(0,rb.linearVelocity.y);
             }
         }
     }
