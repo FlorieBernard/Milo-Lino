@@ -5,7 +5,7 @@ public class PlayerMovementMilo : MonoBehaviour
     public float horizontal;
     public float speed = 8f;
     public float jumpingPower = 16f;
-    public bool isFacingRight = true;
+    // public bool isFacingRight = true; <-- n'a plus aucun intérêt
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -24,7 +24,11 @@ public class PlayerMovementMilo : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocity.y * 0.5f);
         }
-        Flip();
+
+        if (horizontal != 0f)// <-- j'ai ajouté une vérification pour que le flip soit actif uniquement durant le déplacement
+        {
+            Flip(horizontal); // <-- Flip() + la direction en paramètre
+        }
     }
 
     private void FixedUpdate()
@@ -38,11 +42,12 @@ public class PlayerMovementMilo : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
-    private void Flip()
+
+    private void Flip(float localScaleDirection) // <-- j'ai ajouté un paramètre afin d'y apliquer la direction de Milo
     {
-        isFacingRight = !isFacingRight;
+        // isFacingRight = !isFacingRight;  <-- n'a plus aucun intérêt
         Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
+        localScale.x = localScaleDirection; // <-- j'ai remplacé *=-1 par le paramètre çi-dessus
         transform.localScale = localScale;
     }
 }
