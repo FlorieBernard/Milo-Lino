@@ -6,9 +6,13 @@ public class CameraFollow : MonoBehaviour
     public Transform lino;
     public float vitesseSuivi = 5f;
     public float offsetZ = -10f; // Pour la 2D, la caméra doit être en arrière
+    public bool isGreatRoom = true;
 
     void LateUpdate()
     {
+        if(isGreatRoom)
+                return;
+
         if (milo != null && lino != null)
         {
             // Calcule le point milieu entre Milo et Lino

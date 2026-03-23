@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerMovementMilo : MonoBehaviour
 
@@ -14,13 +15,14 @@ public class PlayerMovementMilo : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool inGround = true;
+    [SerializeField] private bool canJump = true;
 
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
 
@@ -28,6 +30,7 @@ public class PlayerMovementMilo : MonoBehaviour
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocity.y * 0.5f);
+            canJump = false;
             
         }
 
@@ -39,6 +42,11 @@ public class PlayerMovementMilo : MonoBehaviour
 
         if (!isGrounded())
         {
+            if (canJump)
+            {
+                Debug.Log("Try call remove jump");
+                Invoke(nameof(RemoveJumpAction), 0.5f);
+            }
             inGround = false;
         }
         else
@@ -48,9 +56,20 @@ public class PlayerMovementMilo : MonoBehaviour
                 SpawnSmoke();
                 Debug.Log("Is landing");
                 inGround = true;
+               
             }
+            canJump = true;
         }
         
+    }
+
+    private void RemoveJumpAction()
+    {
+        if (!inGround)
+        {
+            canJump = false;
+            Debug.Log("Remove jump");
+        }
     }
 
     private void FixedUpdate()
@@ -60,7 +79,6 @@ public class PlayerMovementMilo : MonoBehaviour
     }
 
     private bool isGrounded()
-
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
