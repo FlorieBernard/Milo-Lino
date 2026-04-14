@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerMovementLino : MonoBehaviour
 {
@@ -34,10 +35,11 @@ public class PlayerMovementLino : MonoBehaviour
         Flip();
     }
 
+
+
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
-
+            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
 
     private bool isGrounded()
