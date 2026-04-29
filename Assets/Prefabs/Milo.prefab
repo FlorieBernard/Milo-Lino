@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49843f6c4f6da0469f1133dfaf31935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokePrefab: {fileID: 8349124432484061036, guid: 3d6ef748b13ff8446990f09f1b3c90cf, type: 3}
+  smokePrefab: {fileID: 0}
   horizontal: 0
   speed: 6
   jumpingPower: 7.5
