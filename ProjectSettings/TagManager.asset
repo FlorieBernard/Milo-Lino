@@ -43,5 +43,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: midground
+    uniqueID: 3186664475
+    locked: 0
   m_RenderingLayers:
   - Default
