@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba0125eb391edc245834c678954c45dd
+guid: 8040e0573ee376544a5e42e12aa103a5
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Coolvetica
+  - RawengulkSans
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
