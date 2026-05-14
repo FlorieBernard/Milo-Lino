@@ -1,114 +1,100 @@
-using UnityEditor;
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CharacterSwitcher : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementMilo miloMovement;
-    [SerializeField] private PlayerMovementLino linoMovement;
-    [SerializeField] private Collider2D miloCollider;
-    [SerializeField] private Collider2D linoCollider;
+    [SerializeField] private PlayerMovementMilo _miloMovement;
+    [SerializeField] private PlayerMovementLino _linoMovement;
+    [SerializeField] private Collider2D _miloCollider;
+    [SerializeField] private Collider2D _linoCollider;
 
-    [Header("Effets visuels")]
-    [SerializeField] private SpriteRenderer miloSprite;
-    [SerializeField] private SpriteRenderer linoSprite;
-    [SerializeField] private Camera mainCamera;
+    [Header("Visual Effects")]
+    [SerializeField] private SpriteRenderer _miloSprite;
+    [SerializeField] private SpriteRenderer _linoSprite;
+    [SerializeField] private Camera _mainCamera;
 
-    [Header("Objets exclusifs à Lino")]
-    [SerializeField] private GameObject[] linoOnlyObjects;
-    [SerializeField] private Transform miloTransform;
-    [SerializeField] private float detectionDistance = 3f;
+    [Header("Lino Exclusive Objects")]
+    [SerializeField] private GameObject[] _linoOnlyObjects;
+    [SerializeField] private Transform _miloTransform;
+    [SerializeField] private float _detectionDistance = 3f;
 
-    private bool isPlayingMilo = true;
+    [Header("Controls")]
+    [SerializeField] private bool _switchingEnabled = true;
 
-    void Start()
+    private static readonly Color SkyBlue = new Color(0.53f, 0.81f, 0.92f);
+    private static readonly Color DimGray = new Color(0.5f, 0.5f, 0.5f);
+
+    private bool _isPlayingMilo = true;
+    private Rigidbody2D _miloRb;
+    private Rigidbody2D _linoRb;
+
+    public bool IsPlayingMilo => _isPlayingMilo;
+
+    private void Start()
     {
-        // Milo actif au départ, Lino désactivé
-        if (miloMovement != null) miloMovement.enabled = true;
-        if (linoMovement != null) linoMovement.enabled = false;
-
-        // Ignorer les collisions entre Milo et Lino
-        if (miloCollider != null && linoCollider != null)
+        if (_miloMovement != null)
         {
-            Physics2D.IgnoreCollision(miloCollider, linoCollider, true);
+            _miloMovement.enabled = true;
+            _miloRb = _miloMovement.GetComponent<Rigidbody2D>();
         }
-
-        // Si miloTransform n'est pas défini, essayer de le trouver
-        if (miloTransform == null && miloMovement != null)
+        if (_linoMovement != null)
         {
-            miloTransform = miloMovement.transform;
+            _linoMovement.enabled = false;
+            _linoRb = _linoMovement.GetComponent<Rigidbody2D>();
         }
+        if (_miloCollider != null && _linoCollider != null)
+            Physics2D.IgnoreCollision(_miloCollider, _linoCollider, true);
 
-        // Couleurs et objets normaux au départ
+        if (_miloTransform == null && _miloMovement != null)
+            _miloTransform = _miloMovement.transform;
+
         UpdateColors();
         UpdateLinoObjects();
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
+        if (_switchingEnabled && Input.GetKeyDown(KeyCode.Tab))
             SwitchCharacter();
-        }
 
-        // Met à jour la visibilité des objets en fonction de la distance
         UpdateLinoObjects();
     }
 
-    void SwitchCharacter()
+    public void ForceMilo()
     {
-        if (miloMovement != null && linoMovement != null)
-        {
-            // Inverse l'état des scripts de mouvement
-            miloMovement.enabled = !miloMovement.enabled;
-            linoMovement.enabled = !linoMovement.enabled;
-
-            // Stop la vélocité des personnages (stopper leur mouvement)
-            miloMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
-                new Vector2(0, miloMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
-            linoMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
-                new Vector2(0, linoMovement.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
-
-
-
-            // Change quel personnage est actif
-            isPlayingMilo = !isPlayingMilo;
-
-            // Met à jour les couleurs
-            UpdateColors();
-        }
+        if (_isPlayingMilo) return;
+        SwitchCharacter();
     }
 
-    void UpdateColors()
+    private void SwitchCharacter()
     {
-        if (isPlayingMilo)
-        {
-            // Milo actif : couleurs normales
-            if (miloSprite != null) miloSprite.color = Color.white;
-            if (linoSprite != null) linoSprite.color = Color.gray;
-            if (mainCamera != null) mainCamera.backgroundColor = new Color(0.53f, 0.81f, 0.92f); // Bleu ciel
-        }
-        else
-        {
-            // Lino actif : tout en gris
-            if (miloSprite != null) miloSprite.color = Color.gray;
-            if (linoSprite != null) linoSprite.color = Color.white;
-            if (mainCamera != null) mainCamera.backgroundColor = new Color(0.5f, 0.5f, 0.5f); // Gris
-        }
+        if (_miloMovement == null || _linoMovement == null) return;
+
+        _miloMovement.enabled = !_miloMovement.enabled;
+        _linoMovement.enabled = !_linoMovement.enabled;
+
+        if (_miloRb != null) _miloRb.linearVelocity = new Vector2(0, _miloRb.linearVelocity.y);
+        if (_linoRb != null) _linoRb.linearVelocity = new Vector2(0, _linoRb.linearVelocity.y);
+
+        _isPlayingMilo = !_isPlayingMilo;
+
+        UpdateColors();
     }
 
-    void UpdateLinoObjects()
+    private void UpdateColors()
     {
-        // Active/désactive les objets exclusifs à Lino
-        foreach (GameObject obj in linoOnlyObjects)
-        {
-            if (obj != null && miloTransform != null)
-            {
-                float distance = Vector3.Distance(miloTransform.position, obj.transform.position);
+        if (_miloSprite != null) _miloSprite.color = _isPlayingMilo ? Color.white : Color.gray;
+        if (_linoSprite != null) _linoSprite.color = _isPlayingMilo ? Color.gray : Color.white;
+        if (_mainCamera != null) _mainCamera.backgroundColor = _isPlayingMilo ? SkyBlue : DimGray;
+    }
 
-                // Visible si on joue avec Lino OU si Milo est proche
-                bool shouldBeVisible = !isPlayingMilo || distance <= detectionDistance;
-                obj.SetActive(shouldBeVisible);
-            }
+    private void UpdateLinoObjects()
+    {
+        if (_miloTransform == null) return;
+        foreach (GameObject obj in _linoOnlyObjects)
+        {
+            if (obj == null) continue;
+            float distance = Vector3.Distance(_miloTransform.position, obj.transform.position);
+            obj.SetActive(!_isPlayingMilo || distance <= _detectionDistance);
         }
     }
 }

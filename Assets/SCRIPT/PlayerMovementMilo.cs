@@ -1,106 +1,63 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class PlayerMovementMilo : MonoBehaviour
-
-
+public class PlayerMovementMilo : PlayerMovementBase
 {
-    public ParticleSystem smokePrefab;
-    public float horizontal;
-    public float speed = 8f;
-    public float jumpingPower = 16f;
-    // public bool isFacingRight = true; <-- n'a plus aucun intérêt
+    [SerializeField] private ParticleSystem smokePrefab;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private bool inGround = true;
-    [SerializeField] private bool canJump = true;
+    private bool _wasGrounded = true;
+    private bool _canJump = true;
+    private bool _removeJumpInvoked = false;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
+            TryJump();
+
+        UpdateGroundState();
+    }
+
+    private void UpdateGroundState()
+    {
+        if (!IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-
-        }
-        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocity.y * 0.5f);
-            canJump = false;
-            
-        }
-
-        if (horizontal != 0f)// <-- j'ai ajouté une vérification pour que le flip soit actif uniquement durant le déplacement
-        {
-            Flip(horizontal); // <-- Flip() + la direction en paramètre
-        }
-
-
-        if (!isGrounded())
-        {
-            if (canJump)
+            if (_canJump && !_removeJumpInvoked)
             {
-                Debug.Log("Try call remove jump");
-                Invoke(nameof(RemoveJumpAction), 0.5f);
+                _removeJumpInvoked = true;
+                Invoke(nameof(DisableJump), 0.5f);
             }
-            inGround = false;
+            _wasGrounded = false;
         }
         else
         {
-            if (!inGround)
+            _removeJumpInvoked = false;
+
+            if (!_wasGrounded)
             {
                 SpawnSmoke();
-                Debug.Log("Is landing");
-                inGround = true;
-               
+                AudioManager.Instance?.Play("Land");
+                _wasGrounded = true;
             }
-            canJump = true;
-        }
-        
-    }
 
-    private void RemoveJumpAction()
-    {
-        if (!inGround)
-        {
-            canJump = false;
-            Debug.Log("Remove jump");
+            _canJump = true;
         }
     }
 
-    private void FixedUpdate()
+    private void DisableJump()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
-
+        if (!IsGrounded())
+            _canJump = false;
     }
 
-    private bool isGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
-
-    private void Flip(float localScaleDirection) // <-- j'ai ajouté un paramètre afin d'y apliquer la direction de Milo
-    {
-        // isFacingRight = !isFacingRight;  <-- n'a plus aucun intérêt
-        Vector3 localScale = transform.localScale;
-        localScale.x = localScaleDirection; // <-- j'ai remplacé *=-1 par le paramètre çi-dessus
-        transform.localScale = localScale;
-
-    }
-
-
-    void SpawnSmoke()
+    private void SpawnSmoke()
     {
         if (smokePrefab == null) return;
 
-        Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        Vector3 spawnPos = transform.position + new Vector3(0f, -0.5f, 0f);
         ParticleSystem smoke = Instantiate(smokePrefab, spawnPos, Quaternion.identity);
         smoke.Play();
-
         Destroy(smoke.gameObject, smoke.main.duration + smoke.main.startLifetime.constantMax);
     }
 }

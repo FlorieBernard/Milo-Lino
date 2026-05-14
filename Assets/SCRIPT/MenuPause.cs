@@ -1,33 +1,38 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuPause : MonoBehaviour
 {
-    public GameObject container;
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            container.SetActive(true);
-            Time.timeScale = 0;
+    [SerializeField] private GameObject _container;
 
+    private void Start()
+    {
+        _container.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _container.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
     public void ResumeButton()
     {
-        container.SetActive(false);
+        _container.SetActive(false);
         Time.timeScale = 1;
-
     }
 
     public void MainMenuButton()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame()
     {
-
         Application.Quit();
     }
 }

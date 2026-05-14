@@ -1,41 +1,26 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectTrigger : MonoBehaviour
-
-
 {
-    public GameObject Lino;
-
-    [SerializeField] private GameObject objectToDisappear;
-    [SerializeField] private string miloTag = "Milo";
-    [SerializeField] private bool destroyInsteadOfDisable = false;
+    [SerializeField] private GameObject _lino;
+    [SerializeField] private GameObject _objectToDisappear;
+    [SerializeField] private string _miloTag = "Milo";
+    [SerializeField] private bool _destroyInsteadOfDisable = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(miloTag))
+        if (!other.CompareTag(_miloTag) || _objectToDisappear == null) return;
+
+        if (_destroyInsteadOfDisable)
         {
-            if (objectToDisappear != null)
-            {
-                if (destroyInsteadOfDisable)
-                {
-                    Destroy(objectToDisappear);
-                }
-                else
-                {
-                    objectToDisappear.SetActive(false);
-
-
-                    BloquerLino bloquer = Lino.GetComponent<BloquerLino>();
-                    if (bloquer != null)
-                    {
-                        bloquer.Debloquer();
-                    }
-
-
-                }
-            }
-            Destroy(gameObject);
+            Destroy(_objectToDisappear);
         }
+        else
+        {
+            _objectToDisappear.SetActive(false);
+            _lino?.GetComponent<LinoBlocker>()?.Unblock();
+        }
+
+        Destroy(gameObject);
     }
 }

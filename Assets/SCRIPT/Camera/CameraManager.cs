@@ -4,35 +4,28 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
-    [SerializeField] private Vector3 _camTransform;
+    [SerializeField] private Vector3 _camStartPosition;
     [SerializeField] private float _camSize;
 
     [SerializeField] private CinemachineCamera _cineFollowCam;
     [SerializeField] private CinemachineCamera _cineFixedCam;
 
-
-    public void Awake()
+    private void Awake()
     {
-        SetUpCameraOnStart();
-    }
-
-    public void SetUpCameraOnStart()
-    {
-        _cam.transform.position = _camTransform;
-        _cam.orthographicSize = _camSize;
+        SetUpCamera();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ActiveCinemachine(_cineFollowCam);
-            DesactiveCinemachine(_cineFixedCam);
+            _cineFollowCam.gameObject.SetActive(true);
+            _cineFixedCam.gameObject.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            ActiveCinemachine(_cineFixedCam);
-            DesactiveCinemachine(_cineFollowCam);
+            _cineFixedCam.gameObject.SetActive(true);
+            _cineFollowCam.gameObject.SetActive(false);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -40,14 +33,10 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void ActiveCinemachine(CinemachineCamera cineCam)
+    private void SetUpCamera()
     {
-        cineCam.gameObject.SetActive(true);
-    }
-
-    public void DesactiveCinemachine(CinemachineCamera cineCam)
-    {
-        cineCam.gameObject.SetActive(false);
+        _cam.transform.position = _camStartPosition;
+        _cam.orthographicSize = _camSize;
     }
 
     public void SwitchCamera()

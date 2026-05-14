@@ -1,71 +1,62 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
 
 public class DialogueZone : MonoBehaviour
 {
-    [Header("Dialogue")]
-    public Sprite portraitMilo;
-    public Sprite portraitLino;
+    private const string MiloName = "Milo";
+
+    [Header("Dialogue Content")]
+    [SerializeField] private Sprite _miloPortrait;
+    [SerializeField] private Sprite _linoPortrait;
     [TextArea(2, 4)]
-    public string[] lignes;
-    public string[] nomPersonnages;
+    [SerializeField] private string[] _lines;
+    [SerializeField] private string[] _speakerNames;
 
-    [Header("UI")]
-    public GameObject panneauDialogue;
-    public Image portrait;
-    public TextMeshProUGUI nomTexte;
-    public TextMeshProUGUI dialogueTexte;
+    [Header("UI References")]
+    [SerializeField] private GameObject _dialoguePanel;
+    [SerializeField] private Image _portrait;
+    [SerializeField] private TextMeshProUGUI _nameText;
+    [SerializeField] private TextMeshProUGUI _dialogueText;
 
-    private int indexLigne = 0;
-    private bool enCours = false;
-    private bool dejaJoue = false;
-    private int loopInt = 0;
+    [Header("Timings")]
+    [SerializeField] private float _letterDelay = 0.04f;
+    [SerializeField] private float _linePause = 2f;
+
+    private bool _isRunning = false;
+    private bool _hasPlayed = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Start dialogue");
-        if (!other.CompareTag("Milo")) return;
-        Debug.Log("PlayerDetected");
-        if (dejaJoue || enCours) return;
-
-        StartCoroutine(LancerDialogue());
+        if (!other.CompareTag(MiloName) || _hasPlayed || _isRunning) return;
+        StartCoroutine(StartDialogue());
     }
 
-    private IEnumerator LancerDialogue()
+    private IEnumerator StartDialogue()
     {
-        enCours = true;
-        dejaJoue = true;
-        panneauDialogue.SetActive(true);
-        
-        loopInt = 0;
+        _isRunning = true;
+        _hasPlayed = true;
+        _dialoguePanel.SetActive(true);
 
-        foreach (string ligne in lignes)
+        int lineCount = Mathf.Min(_lines.Length, _speakerNames.Length);
+
+        for (int i = 0; i < lineCount; i++)
         {
-            nomTexte.text = nomPersonnages[loopInt];
-            if (nomPersonnages[loopInt] == "Milo") 
+            _nameText.text = _speakerNames[i];
+            _portrait.sprite = _speakerNames[i] == MiloName ? _miloPortrait : _linoPortrait;
+            _dialogueText.text = string.Empty;
+
+            foreach (char c in _lines[i])
             {
-                portrait.sprite = portraitMilo;
-            }
-            else 
-            {
-                portrait.sprite = portraitLino;
-            }
-                dialogueTexte.text = "";
-            foreach (char c in ligne)
-            {
-                dialogueTexte.text += c;
-                
-                yield return new WaitForSeconds(0.04f);
+                _dialogueText.text += c;
+                yield return new WaitForSeconds(_letterDelay);
             }
 
-            loopInt++;
-            yield return new WaitForSeconds(2f); // pause entre les lignes
+            yield return new WaitForSeconds(_linePause);
         }
 
-        panneauDialogue.SetActive(false);
-        enCours = false;
+        _dialoguePanel.SetActive(false);
+        _isRunning = false;
     }
 }
-
