@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 2bf831a9499729343a0dbb47900d0b99
+guid: 4667583182700074f9f96e7ac2ca8b5b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7457196279165805544
-    second: "Lino couch\xE9_0"
+      213: -1340564295957048731
+    second: AutomneLvl_0
   - first:
-      213: -6188201682653430527
-    second: "Lino couch\xE9_1"
+      213: 8085333436812641675
+    second: AutomneLvl_1
+  - first:
+      213: 5488530536104797000
+    second: AutomneLvl_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 230
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Lino couch\xE9_0"
+      name: AutomneLvl_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 44
-        width: 558
-        height: 227
+        x: 0
+        y: 0
+        width: 1920
+        height: 1009
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81c15f77e77b28890800000000000000
-      internalID: -7457196279165805544
+      spriteID: 56298ec10eb556de0800000000000000
+      internalID: -1340564295957048731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "Lino couch\xE9_1"
+      name: AutomneLvl_1
       rect:
         serializedVersion: 2
-        x: 59
-        y: 248
-        width: 98
-        height: 67
+        x: 235
+        y: 1009
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +143,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10db7fa2b571f1aa0800000000000000
-      internalID: -6188201682653430527
+      spriteID: b854ecf3cefd43070800000000000000
+      internalID: 8085333436812641675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AutomneLvl_2
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 997
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 843296f617d2b2c40800000000000000
+      internalID: 5488530536104797000
       vertices: []
       indices: 
       edges: []
@@ -150,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Lino couch\xE9_0": -7457196279165805544
-      "Lino couch\xE9_1": -6188201682653430527
+      AutomneLvl_0: -1340564295957048731
+      AutomneLvl_1: 8085333436812641675
+      AutomneLvl_2: 5488530536104797000
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -26,7 +26,7 @@ public class PlayerMovementMilo : PlayerMovementBase
             if (_canJump && !_removeJumpInvoked)
             {
                 _removeJumpInvoked = true;
-                Invoke(nameof(DisableJump), 0.5f);
+                Invoke(nameof(DisableJump), 0f);
             }
             _wasGrounded = false;
         }

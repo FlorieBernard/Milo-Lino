@@ -87,13 +87,13 @@ public class CharacterSwitcher : MonoBehaviour
         if (_mainCamera != null) _mainCamera.backgroundColor = _isPlayingMilo ? SkyBlue : DimGray;
     }
 
-    private void UpdateLinoObjects()
+    private void UpdateLinoObjects()// only object visible
     {
         if (_miloTransform == null) return;
         foreach (GameObject obj in _linoOnlyObjects)
         {
             if (obj == null) continue;
-            float distance = Vector3.Distance(_miloTransform.position, obj.transform.position);
+            float distance = Vector3.Distance(_miloTransform.position, obj.transform.position); 
             obj.SetActive(!_isPlayingMilo || distance <= _detectionDistance);
         }
     }

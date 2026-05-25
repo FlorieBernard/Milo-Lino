@@ -78,5 +78,6 @@ public class Firefly : MonoBehaviour
             _linoBlocker.Unblock();
 
         gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

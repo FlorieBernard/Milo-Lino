@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Milo
-  - Couloir
+  - Corridor
+  - Ice
+  - Lino
   layers:
   - Default
   - TransparentFX

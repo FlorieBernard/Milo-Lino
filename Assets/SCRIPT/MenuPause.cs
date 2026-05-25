@@ -21,6 +21,7 @@ public class MenuPause : MonoBehaviour
 
     public void ResumeButton()
     {
+        Debug.Log("resume");
         _container.SetActive(false);
         Time.timeScale = 1;
     }

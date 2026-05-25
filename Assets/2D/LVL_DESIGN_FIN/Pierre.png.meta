@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: 2bf831a9499729343a0dbb47900d0b99
+guid: d701241fd2a81244b82f251b6395ad6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7457196279165805544
-    second: "Lino couch\xE9_0"
+      213: 2291901516356788292
+    second: IMG_0495_0
   - first:
-      213: -6188201682653430527
-    second: "Lino couch\xE9_1"
+      213: -1678323613375477692
+    second: IMG_0495_1
+  - first:
+      213: 2968315197237198186
+    second: IMG_0495_2
+  - first:
+      213: -1486907556135286878
+    second: IMG_0495_3
+  - first:
+      213: 2771538840039937874
+    second: IMG_0495_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,12 +58,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 230
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Lino couch\xE9_0"
+      name: IMG_0495_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 44
-        width: 558
-        height: 227
+        x: 1302
+        y: 0
+        width: 618
+        height: 388
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +127,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81c15f77e77b28890800000000000000
-      internalID: -7457196279165805544
+      spriteID: 44020ae39487ecf10800000000000000
+      internalID: 2291901516356788292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "Lino couch\xE9_1"
+      name: IMG_0495_1
       rect:
         serializedVersion: 2
-        x: 59
-        y: 248
-        width: 98
-        height: 67
+        x: 1360
+        y: 387
+        width: 37
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +149,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10db7fa2b571f1aa0800000000000000
-      internalID: -6188201682653430527
+      spriteID: 448ca96d09565b8e0800000000000000
+      internalID: -1678323613375477692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_0495_2
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 386
+        width: 31
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d77b0f1f2913920800000000000000
+      internalID: 2968315197237198186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_0495_3
+      rect:
+        serializedVersion: 2
+        x: 1431
+        y: 386
+        width: 75
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a746b6a4717d5be0800000000000000
+      internalID: -1486907556135286878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_0495_4
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 373
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25757c904eb767620800000000000000
+      internalID: 2771538840039937874
       vertices: []
       indices: 
       edges: []
@@ -150,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Lino couch\xE9_0": -7457196279165805544
-      "Lino couch\xE9_1": -6188201682653430527
+      IMG_0495_0: 2291901516356788292
+      IMG_0495_1: -1678323613375477692
+      IMG_0495_2: 2968315197237198186
+      IMG_0495_3: -1486907556135286878
+      IMG_0495_4: 2771538840039937874
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
