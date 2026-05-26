@@ -35,6 +35,8 @@ public class CharacterSwitcher : MonoBehaviour
     private bool _isPlayingMilo = true;
     private Rigidbody2D _miloRb;
     private Rigidbody2D _linoRb;
+    private RigidbodyConstraints2D _miloOriginalConstraints;
+    private RigidbodyConstraints2D _linoOriginalConstraints;
 
     // Maps each greyed SpriteRenderer to its original color for restoration.
     private readonly Dictionary<SpriteRenderer, Color> _originalColors = new();
@@ -47,11 +49,14 @@ public class CharacterSwitcher : MonoBehaviour
         {
             _miloMovement.enabled = true;
             _miloRb = _miloMovement.GetComponent<Rigidbody2D>();
+            _miloOriginalConstraints = _miloRb.constraints;
         }
         if (_linoMovement != null)
         {
             _linoMovement.enabled = false;
             _linoRb = _linoMovement.GetComponent<Rigidbody2D>();
+            _linoOriginalConstraints = _linoRb.constraints;
+            _linoRb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         if (_miloCollider != null && _linoCollider != null)
             Physics2D.IgnoreCollision(_miloCollider, _linoCollider, true);
@@ -85,10 +90,24 @@ public class CharacterSwitcher : MonoBehaviour
         _miloMovement.enabled = !_miloMovement.enabled;
         _linoMovement.enabled = !_linoMovement.enabled;
 
-        if (_miloRb != null) _miloRb.linearVelocity = new Vector2(0, _miloRb.linearVelocity.y);
-        if (_linoRb != null) _linoRb.linearVelocity = new Vector2(0, _linoRb.linearVelocity.y);
-
         _isPlayingMilo = !_isPlayingMilo;
+
+        // Freeze the inactive character so they don't slide on slopes.
+        Rigidbody2D nowActive   = _isPlayingMilo ? _miloRb : _linoRb;
+        Rigidbody2D nowInactive = _isPlayingMilo ? _linoRb : _miloRb;
+        RigidbodyConstraints2D activeConstraints = _isPlayingMilo
+            ? _miloOriginalConstraints
+            : _linoOriginalConstraints;
+
+        if (nowInactive != null)
+        {
+            nowInactive.linearVelocity = Vector2.zero;
+            nowInactive.constraints    = RigidbodyConstraints2D.FreezeAll;
+        }
+        if (nowActive != null)
+        {
+            nowActive.constraints = activeConstraints;
+        }
         UpdateColors();
     }
 
