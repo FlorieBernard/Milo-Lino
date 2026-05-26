@@ -3,14 +3,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Triggers a dialogue sequence when a character enters the zone.
+/// Drop on any GameObject with a Trigger Collider2D.
+/// </summary>
 public class DialogueZone : MonoBehaviour
 {
-    private const string MiloName = "Milo";
+    public enum TriggerTarget { Milo, Lino, Both }
+
+    [Header("Trigger")]
+    [Tooltip("Which character(s) can start this dialogue.")]
+    [SerializeField] private TriggerTarget _triggerTarget = TriggerTarget.Both;
+    [Tooltip("Can this dialogue play more than once?")]
+    [SerializeField] private bool _repeatable = false;
 
     [Header("Dialogue Content")]
     [SerializeField] private Sprite _miloPortrait;
     [SerializeField] private Sprite _linoPortrait;
-    [TextArea(2, 4)]
+    [TextArea(2, 5)]
     [SerializeField] private string[] _lines;
     [SerializeField] private string[] _speakerNames;
 
@@ -19,44 +29,117 @@ public class DialogueZone : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _dialogueText;
+    [Tooltip("Optional — shown while waiting for player input.")]
+    [SerializeField] private GameObject _continueIndicator;
 
     [Header("Timings")]
     [SerializeField] private float _letterDelay = 0.04f;
+    [Tooltip("If Wait For Input is false, pause between lines (seconds).")]
     [SerializeField] private float _linePause = 2f;
 
-    private bool _isRunning = false;
-    private bool _hasPlayed = false;
+    [Header("Interaction")]
+    [Tooltip("Player presses Space/Enter to advance instead of auto-timer.")]
+    [SerializeField] private bool _waitForInput = true;
+    [Tooltip("Skip typing and show full line instantly on input.")]
+    [SerializeField] private bool _skipTypingOnInput = true;
+
+    private bool _isRunning  = false;
+    private bool _hasPlayed  = false;
+    private bool _inputPressed = false;
+    private bool _isTyping   = false;
+
+    private void Update()
+    {
+        if (_isRunning && Input.GetButtonDown("Jump"))
+            _inputPressed = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag(MiloName) || _hasPlayed || _isRunning) return;
-        StartCoroutine(StartDialogue());
+        if (_isRunning) return;
+        if (!_repeatable && _hasPlayed) return;
+        if (!CanTrigger(other)) return;
+
+        StartCoroutine(RunDialogue());
     }
 
-    private IEnumerator StartDialogue()
+    private bool CanTrigger(Collider2D other)
+    {
+        return _triggerTarget switch
+        {
+            TriggerTarget.Milo => other.CompareTag("Milo"),
+            TriggerTarget.Lino => other.CompareTag("Lino"),
+            TriggerTarget.Both => other.CompareTag("Milo") || other.CompareTag("Lino"),
+            _                  => false
+        };
+    }
+
+    private IEnumerator RunDialogue()
     {
         _isRunning = true;
         _hasPlayed = true;
+        _inputPressed = false;
+
         _dialoguePanel.SetActive(true);
+        if (_continueIndicator != null) _continueIndicator.SetActive(false);
 
         int lineCount = Mathf.Min(_lines.Length, _speakerNames.Length);
 
         for (int i = 0; i < lineCount; i++)
         {
-            _nameText.text = _speakerNames[i];
-            _portrait.sprite = _speakerNames[i] == MiloName ? _miloPortrait : _linoPortrait;
+            _nameText.text    = _speakerNames[i];
+            _portrait.sprite  = PickPortrait(_speakerNames[i]);
             _dialogueText.text = string.Empty;
+            _inputPressed = false;
 
-            foreach (char c in _lines[i])
+            yield return StartCoroutine(TypeLine(_lines[i]));
+
+            // Line finished — wait for input or auto-pause
+            if (_continueIndicator != null) _continueIndicator.SetActive(true);
+
+            if (_waitForInput)
             {
-                _dialogueText.text += c;
-                yield return new WaitForSeconds(_letterDelay);
+                yield return new WaitUntil(() => _inputPressed);
+                _inputPressed = false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(_linePause);
             }
 
-            yield return new WaitForSeconds(_linePause);
+            if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
 
         _dialoguePanel.SetActive(false);
         _isRunning = false;
+    }
+
+    private IEnumerator TypeLine(string line)
+    {
+        _isTyping = true;
+
+        foreach (char c in line)
+        {
+            // Skip typing instantly if player presses input while typing
+            if (_skipTypingOnInput && _inputPressed)
+            {
+                _dialogueText.text = line;
+                _inputPressed = false;
+                break;
+            }
+
+            _dialogueText.text += c;
+            yield return new WaitForSeconds(_letterDelay);
+        }
+
+        _dialogueText.text = line; // ensure full line is displayed
+        _isTyping = false;
+    }
+
+    private Sprite PickPortrait(string speakerName)
+    {
+        if (speakerName == "Milo") return _miloPortrait;
+        if (speakerName == "Lino") return _linoPortrait;
+        return _miloPortrait; // fallback
     }
 }

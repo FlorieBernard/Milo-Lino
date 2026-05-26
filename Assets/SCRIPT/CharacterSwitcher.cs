@@ -1,5 +1,10 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
+/// <summary>
+/// Manages character switching between Milo and Lino.
+/// When Lino is active, the entire world is tinted grey except Lino himself and Fireflies.
+/// </summary>
 public class CharacterSwitcher : MonoBehaviour
 {
     [SerializeField] private PlayerMovementMilo _miloMovement;
@@ -7,25 +12,32 @@ public class CharacterSwitcher : MonoBehaviour
     [SerializeField] private Collider2D _miloCollider;
     [SerializeField] private Collider2D _linoCollider;
 
-    [Header("Visual Effects")]
+    [Header("Visual — Milo")]
     [SerializeField] private SpriteRenderer _miloSprite;
+    [SerializeField] private Color _miloSkyColor = new Color(0.53f, 0.81f, 0.92f);
+
+    [Header("Visual — Lino")]
     [SerializeField] private SpriteRenderer _linoSprite;
+    [SerializeField] private Color _linoActiveColor  = new Color(1f, 0.85f, 0.1f, 1f);
+    [SerializeField] private Color _linoSkyColor     = new Color(0.30f, 0.30f, 0.30f, 1f);
+    [SerializeField] private Color _worldGreyTint    = new Color(0.35f, 0.35f, 0.35f, 1f);
+
     [SerializeField] private Camera _mainCamera;
 
     [Header("Lino Exclusive Objects")]
     [SerializeField] private GameObject[] _linoOnlyObjects;
-    [SerializeField] private Transform _miloTransform;
-    [SerializeField] private float _detectionDistance = 3f;
+    [SerializeField] private Transform    _miloTransform;
+    [SerializeField] private float        _detectionDistance = 3f;
 
     [Header("Controls")]
     [SerializeField] private bool _switchingEnabled = true;
 
-    private static readonly Color SkyBlue = new Color(0.53f, 0.81f, 0.92f);
-    private static readonly Color DimGray = new Color(0.5f, 0.5f, 0.5f);
-
     private bool _isPlayingMilo = true;
     private Rigidbody2D _miloRb;
     private Rigidbody2D _linoRb;
+
+    // Maps each greyed SpriteRenderer to its original color for restoration.
+    private readonly Dictionary<SpriteRenderer, Color> _originalColors = new();
 
     public bool IsPlayingMilo => _isPlayingMilo;
 
@@ -59,6 +71,7 @@ public class CharacterSwitcher : MonoBehaviour
         UpdateLinoObjects();
     }
 
+    /// <summary>Forces a switch to Milo if Lino is currently active.</summary>
     public void ForceMilo()
     {
         if (_isPlayingMilo) return;
@@ -76,25 +89,97 @@ public class CharacterSwitcher : MonoBehaviour
         if (_linoRb != null) _linoRb.linearVelocity = new Vector2(0, _linoRb.linearVelocity.y);
 
         _isPlayingMilo = !_isPlayingMilo;
-
         UpdateColors();
     }
 
     private void UpdateColors()
     {
-        if (_miloSprite != null) _miloSprite.color = _isPlayingMilo ? Color.white : Color.gray;
-        if (_linoSprite != null) _linoSprite.color = _isPlayingMilo ? Color.gray : Color.white;
-        if (_mainCamera != null) _mainCamera.backgroundColor = _isPlayingMilo ? SkyBlue : DimGray;
+        if (_isPlayingMilo)
+        {
+            RestoreWorldColors();
+            if (_miloSprite != null) _miloSprite.color = Color.white;
+            if (_linoSprite != null) _linoSprite.color = Color.gray;
+            if (_mainCamera != null) _mainCamera.backgroundColor = _miloSkyColor;
+        }
+        else
+        {
+            ApplyGreyToWorld();
+            if (_miloSprite != null) _miloSprite.color = _worldGreyTint;
+            if (_linoSprite != null) _linoSprite.color = _linoActiveColor;
+            if (_mainCamera != null) _mainCamera.backgroundColor = _linoSkyColor;
+        }
     }
 
-    private void UpdateLinoObjects()// only object visible
+    // ── World grey effect ─────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Greys all active SpriteRenderers in the scene, excluding Lino and Fireflies.
+    /// Stores original colors for later restoration.
+    /// </summary>
+    private void ApplyGreyToWorld()
+    {
+        _originalColors.Clear();
+        foreach (SpriteRenderer sr in FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None))
+        {
+            if (IsExcluded(sr)) continue;
+            _originalColors[sr] = sr.color;
+            sr.color = _worldGreyTint;
+        }
+    }
+
+    /// <summary>Restores all SpriteRenderers to their original colors.</summary>
+    private void RestoreWorldColors()
+    {
+        foreach (var kvp in _originalColors)
+        {
+            if (kvp.Key != null)
+                kvp.Key.color = kvp.Value;
+        }
+        _originalColors.Clear();
+    }
+
+    /// <summary>
+    /// Applies grey tint to a newly activated object's renderers while Lino is active.
+    /// </summary>
+    private void GreyObject(GameObject obj)
+    {
+        foreach (SpriteRenderer sr in obj.GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (IsExcluded(sr)) continue;
+            if (!_originalColors.ContainsKey(sr))
+                _originalColors[sr] = sr.color;
+            sr.color = _worldGreyTint;
+        }
+    }
+
+    /// <summary>
+    /// Returns true for renderers that must keep their original color:
+    /// Lino, Milo, and any Firefly.
+    /// </summary>
+    private bool IsExcluded(SpriteRenderer sr)
+    {
+        return sr == _linoSprite
+            || sr == _miloSprite
+            || sr.GetComponent<Firefly>() != null;
+    }
+
+    // ── Lino-only objects ─────────────────────────────────────────────────────
+
+    private void UpdateLinoObjects()
     {
         if (_miloTransform == null) return;
         foreach (GameObject obj in _linoOnlyObjects)
         {
             if (obj == null) continue;
-            float distance = Vector3.Distance(_miloTransform.position, obj.transform.position); 
-            obj.SetActive(!_isPlayingMilo || distance <= _detectionDistance);
+            float distance = Vector3.Distance(_miloTransform.position, obj.transform.position);
+            bool shouldBeActive = !_isPlayingMilo || distance <= _detectionDistance;
+            bool wasActive      = obj.activeSelf;
+
+            obj.SetActive(shouldBeActive);
+
+            // Grey a newly activated object if Lino is currently playing.
+            if (!_isPlayingMilo && shouldBeActive && !wasActive)
+                GreyObject(obj);
         }
     }
 }
