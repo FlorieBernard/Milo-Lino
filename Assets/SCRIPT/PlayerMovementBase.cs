@@ -9,6 +9,8 @@ public abstract class PlayerMovementBase : MonoBehaviour
     [Header("Movement")]
     [SerializeField] protected float speed = 8f;
     [SerializeField] protected float jumpingPower = 16f;
+    [Tooltip("Time window (seconds) during which the player can still jump after walking off a ledge.")]
+    [SerializeField] private float _coyoteTime = 0.15f;
 
     [Header("Ground Detection")]
     [SerializeField] private Rigidbody2D _rb;
@@ -27,12 +29,17 @@ public abstract class PlayerMovementBase : MonoBehaviour
     protected float Horizontal { get; private set; }
     protected Rigidbody2D Rb => _rb;
 
-    private bool _isOnIce = false;
+    private bool  _isOnIce = false;
     private float _currentHorizontalSpeed = 0f;
+    private float _coyoteTimer = 0f;
+
+    /// <summary>True while the player may jump (grounded or within coyote window).</summary>
+    protected bool CanJump => _coyoteTimer > 0f;
 
     protected virtual void Update()
     {
         Horizontal = Input.GetAxisRaw("Horizontal");
+        UpdateCoyoteTimer();
         HandleJumpCut();
         HandleFlip();
         HandleRunVFX();
@@ -55,9 +62,18 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     protected void TryJump()
     {
+        _coyoteTimer = 0f; // consume the window so the player can't jump again mid-air
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         AudioManager.Instance?.Play("Jump");
         if (_jumpVFX != null) _jumpVFX.Play();
+    }
+
+    private void UpdateCoyoteTimer()
+    {
+        if (IsGrounded())
+            _coyoteTimer = _coyoteTime;
+        else
+            _coyoteTimer -= Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

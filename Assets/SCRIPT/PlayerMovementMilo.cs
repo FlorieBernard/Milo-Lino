@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementMilo : PlayerMovementBase
@@ -6,49 +5,28 @@ public class PlayerMovementMilo : PlayerMovementBase
     [SerializeField] private ParticleSystem smokePrefab;
 
     private bool _wasGrounded = true;
-    private bool _canJump = true;
-    private bool _removeJumpInvoked = false;
 
     protected override void Update()
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && CanJump)
             TryJump();
 
-        UpdateGroundState();
+        HandleLanding();
     }
 
-    private void UpdateGroundState()
+    private void HandleLanding()
     {
-        if (!IsGrounded())
+        bool grounded = IsGrounded();
+
+        if (grounded && !_wasGrounded)
         {
-            if (_canJump && !_removeJumpInvoked)
-            {
-                _removeJumpInvoked = true;
-                Invoke(nameof(DisableJump), 0f);
-            }
-            _wasGrounded = false;
+            SpawnSmoke();
+            AudioManager.Instance?.Play("Land");
         }
-        else
-        {
-            _removeJumpInvoked = false;
 
-            if (!_wasGrounded)
-            {
-                SpawnSmoke();
-                AudioManager.Instance?.Play("Land");
-                _wasGrounded = true;
-            }
-
-            _canJump = true;
-        }
-    }
-
-    private void DisableJump()
-    {
-        if (!IsGrounded())
-            _canJump = false;
+        _wasGrounded = grounded;
     }
 
     private void SpawnSmoke()
