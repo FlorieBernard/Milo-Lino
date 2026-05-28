@@ -18,32 +18,68 @@ Guide de configuration des scènes pour reproduire le projet à partir des scrip
 9. [OptionsMenu — Menu options](#9-optionsmenu--menu-options)
 10. [LocalizationManager — Système de langue](#10-localizationmanager--système-de-langue)
 11. [LocalizedText — Texte UI localisé](#11-localizedtext--texte-ui-localisé)
+12. [AudioManager — Gestion du son](#12-audiomanager--gestion-du-son)
+13. [SceneMusic — Musique par scène](#13-scenemusic--musique-par-scène)
+14. [CameraFollow — Caméra](#14-camerafollow--caméra)
+15. [Firefly — Luciole](#15-firefly--luciole)
+16. [LinoFollower — Lino suit Milo](#16-linofollower--lino-suit-milo)
+17. [LinoBlocker — Blocage de Lino](#17-linoblocker--blocage-de-lino)
+18. [ObjectTrigger — Trigger d'objet](#18-objecttrigger--trigger-dobjet)
+19. [MovingPlatform — Plateforme mobile](#19-movingplatform--plateforme-mobile)
+20. [RespawnOnFall — Respawn](#20-respawnонfall--respawn)
+
+21. [TypingEffect — Effet de frappe (intro/outro)](#21-typingeffect--effet-de-frappe-introoutro)
+22. [Menu — Écran titre](#22-menu--écran-titre)
 
 ---
 
 ## 1. Structure des scènes
 
-Le projet contient plusieurs scènes. La scène **Debut** est la scène de démarrage et contient les singletons persistants.
+### Scènes du projet
+
+| Scène | Rôle |
+|---|---|
+| **Menu** | Écran titre — boutons Jouer / Quitter |
+| **Debut** | Scène de lancement. Contient tous les singletons persistants. N'est jamais rechargée. |
+| **Level1** | Niveau 1 |
+| **Level2** | Niveau 2 |
+| **Level3** | Niveau 3 |
+| **Fin** | Écran de fin |
+| **Corridor1 / Corridor2** | Scènes héritées — **supprimées de la progression**. Peuvent être retirées du projet. |
+| **R&D / TestLinoFollow** | Scènes de test — ne pas inclure dans le build final |
+
+### Singletons persistants (scène Debut uniquement)
+
+Ces GameObjects ont `DontDestroyOnLoad` et ne doivent exister **que dans Debut** :
+
+| GameObject | Script |
+|---|---|
+| `GameManager` | `GameManager` |
+| `SceneFader` | `SceneFader` |
+| `AudioManager` | `AudioManager` |
+| `LocalizationManager` | `LocalizationManager` *(optionnel)* |
+
+### Ordre de progression — GameManager
+
+Le `GameManager` dans Debut a un tableau `_sceneOrder` configurable dans l'Inspector :
 
 ```
-Debut       ← scène de lancement (GameManager, SceneFader, AudioManager, LocalizationManager)
-Level1
-Level2
-Level3
-Fin
+Menu → Debut → Level1 → Level2 → Level3 → Fin
 ```
 
-> Les GameObjects avec `DontDestroyOnLoad` doivent être placés **uniquement dans Debut**, jamais dans les niveaux.
+> Pour ajouter un niveau : ajouter son nom dans le tableau `_sceneOrder`. L'`ExitZone` de chaque niveau appelle automatiquement `LoadNextScene()`.
 
-### GameManager — ordre des scènes
+### Build Settings
 
-Le `GameManager` dans la scène Debut a un tableau `_sceneOrder` configurable dans l'Inspector :
+Dans **File > Build Settings**, les scènes actives doivent être dans cet ordre :
+1. Menu
+2. Debut
+3. Level1
+4. Level2
+5. Level3
+6. Fin
 
-```
-Debut → Level1 → Level2 → Level3 → Fin
-```
-
-Pour ajouter un niveau : ajouter son nom dans le tableau. L'`ExitZone` de chaque niveau appelle automatiquement `LoadNextScene()`.
+Ne pas inclure Corridor1, Corridor2, R&D, TestLinoFollow.
 
 ---
 
@@ -405,6 +441,275 @@ Le texte se met à jour automatiquement au chargement et à chaque changement de
 > Si `LocalizationManager` est absent de la scène, le texte reste inchangé (pas d'erreur).
 
 ---
+
+---
+
+## 12. AudioManager — Gestion du son
+
+**Script :** `Assets/SCRIPT/AudioManager.cs`
+**Placement :** GameObject vide dans la scène **Debut**, nommé `AudioManager`.
+
+### Setup
+
+1. Créer un GameObject vide `AudioManager` dans Debut.
+2. Attacher le script `AudioManager`.
+3. Dans `_sounds`, ajouter autant d'entrées que de SFX :
+
+| Champ | Description |
+|---|---|
+| **Name** | Identifiant appelé depuis le code (ex: `"Jump"`, `"Land"`, `"FireflyCatch"`) |
+| **Clip** | L'AudioClip à jouer |
+| **Volume** | Volume de base [0-1] |
+| **Pitch** | Hauteur [0.1-3] |
+| **Loop** | Cocher si le son doit boucler |
+
+### Paramètres musique
+
+| Champ | Description | Valeur par défaut |
+|---|---|---|
+| **Music Volume** | Volume global de la musique [0-1] | 0.8 |
+| **Fade Duration** | Durée du crossfade entre deux musiques | 1s |
+
+### API
+
+```csharp
+AudioManager.Instance?.Play("Jump");          // jouer un SFX
+AudioManager.Instance?.Stop("Jump");          // arrêter un SFX
+AudioManager.Instance?.StopAll();             // arrêter tous les SFX
+AudioManager.Instance?.SetMusicVolume(0.5f);  // changer volume musique
+AudioManager.Instance?.SetSfxVolume(0.8f);   // changer volume SFX
+```
+
+---
+
+## 13. SceneMusic — Musique par scène
+
+**Script :** `Assets/SCRIPT/SceneMusic.cs`
+**Placement :** Un GameObject dans **chaque scène** où une musique doit jouer.
+
+### Setup
+
+1. Créer un GameObject vide `SceneMusic` dans la scène.
+2. Attacher `SceneMusic`.
+3. Assigner l'`AudioClip` de la musique dans `_musicClip`.
+
+### Comportement
+
+- Au démarrage de la scène, appelle `AudioManager.PlayMusic()` avec un crossfade automatique.
+- Si `_musicClip` est vide → la musique en cours s'arrête.
+- Si la même musique joue déjà (ex: même clip entre deux niveaux) → elle ne repart pas du début.
+
+---
+
+## 14. CameraFollow — Caméra
+
+**Script :** `Assets/SCRIPT/CameraFollow.cs`
+**Placement :** Sur la **Main Camera** de chaque scène de jeu.
+
+### Paramètres Inspector
+
+| Champ | Description |
+|---|---|
+| **Milo** | Transform du GameObject Milo |
+| **Lino** | Transform du GameObject Lino |
+| **Follow Speed** | Vitesse de lerp de la caméra vers la cible |
+| **Offset Z** | Décalage Z de la caméra (généralement -10) |
+| **Is Great Room** | Si coché, la caméra est **fixe** (ne suit pas les personnages) |
+
+### Comportement
+
+- **Is Great Room coché** → caméra statique, aucun suivi.
+- **Is Great Room décoché** → la caméra suit le **point médian** entre Milo et Lino avec lerp.
+
+---
+
+## 15. Firefly — Luciole
+
+**Script :** `Assets/SCRIPT/Firefly.cs`
+**Placement :** Sur le GameObject de la luciole, avec un `Collider2D` en mode **Trigger**.
+
+### Setup
+
+1. Créer le GameObject luciole avec un `SpriteRenderer` et un `Collider2D` (Trigger).
+2. Attacher `Firefly`.
+3. Remplir les références :
+
+| Champ | Description |
+|---|---|
+| **Visible To** | Quel chat peut voir et attraper la luciole (Milo ou Lino) |
+| **Character Switcher** | Le `CharacterSwitcher` de la scène |
+| **Float Speed** | Vitesse de l'animation flottante |
+| **Float Amplitude** | Amplitude (hauteur) du mouvement |
+| **Obstacle To Destroy** | *(Optionnel)* GameObject supprimé quand la luciole est attrapée |
+| **Lino Blocker** | *(Optionnel)* `LinoBlocker` débloqué quand la luciole est attrapée |
+
+### Comportement
+
+- La luciole flotte verticalement en boucle.
+- Elle n'est **visible que pour le bon chat** (le script masque le `SpriteRenderer` sinon).
+- Quand le bon chat la touche → SFX `"FireflyCatch"`, obstacle détruit, `LinoBlocker` débloqué.
+
+> La luciole est **exclue de l'effet gris** du CharacterSwitcher (le composant `Firefly` sert de marqueur d'exclusion).
+
+---
+
+## 16. LinoFollower — Lino suit Milo
+
+**Script :** `Assets/SCRIPT/LinoFollower.cs`
+**Placement :** Sur le GameObject **Lino**.
+
+### Setup
+
+1. Attacher `LinoFollower` à Lino.
+2. Assigner le `Transform` de Milo dans `_milo`.
+3. Placer des **zones Corridor** (voir ci-dessous) aux endroits où Lino doit suivre Milo.
+
+### Paramètres Inspector
+
+| Champ | Description | Valeur par défaut |
+|---|---|---|
+| **Milo** | Transform du GameObject Milo | — |
+| **Speed** | Vitesse de déplacement de Lino vers Milo | 3 |
+| **Min Distance** | Distance minimale avant que Lino s'arrête | 0.5 |
+| **Follow Delay** | Délai (secondes) avec lequel Lino rejoue le chemin de Milo | 0.3s |
+
+### Zones Corridor (tag requis)
+
+Pour définir une zone où Lino suit Milo :
+
+1. Créer un GameObject avec un `Collider2D` → **Is Trigger**.
+2. Lui donner le tag Unity **`Corridor`**.
+3. Positionner la zone dans le niveau.
+
+Tant que Lino est dans une zone `Corridor`, il reproduit le chemin de Milo avec un léger retard.
+
+---
+
+## 17. LinoBlocker — Blocage de Lino
+
+**Script :** `Assets/SCRIPT/LinoBlocker.cs`
+**Placement :** Sur le GameObject **Lino**, en complément de `LinoFollower`.
+
+### Comportement
+
+- Par défaut, **Lino ne peut pas avancer** (vélocité X forcée à 0).
+- Appeler `Unblock()` pour libérer Lino — déclenché par une `Firefly` ou un `ObjectTrigger`.
+
+### API
+
+```csharp
+// Depuis Firefly ou ObjectTrigger
+linoBlocker.Unblock();
+
+// Lire l'état
+bool bloque = linoBlocker.IsBlocked;
+```
+
+---
+
+## 18. ObjectTrigger — Trigger d'objet
+
+**Script :** `Assets/SCRIPT/ObjectTrigger.cs`
+**Placement :** Sur un GameObject avec un `Collider2D` en mode **Trigger**.
+
+### Setup
+
+| Champ | Description |
+|---|---|
+| **Lino** | GameObject de Lino *(pour accéder au `LinoBlocker`)* |
+| **Object To Disappear** | L'objet à désactiver (ou détruire) quand Milo entre |
+| **Milo Tag** | Tag du déclencheur (par défaut `"Milo"`) |
+| **Destroy Instead Of Disable** | Si coché, détruit l'objet au lieu de le désactiver |
+
+### Comportement
+
+- Quand Milo entre dans le trigger → l'objet cible disparaît + `LinoBlocker.Unblock()` est appelé.
+- Le trigger se détruit lui-même après le déclenchement (one-shot).
+
+---
+
+## 19. MovingPlatform — Plateforme mobile
+
+**Script :** `Assets/SCRIPT/MovingPlatform.cs`
+**Placement :** Sur le GameObject de la plateforme.
+
+### Paramètres Inspector
+
+| Champ | Description | Valeur par défaut |
+|---|---|---|
+| **Direction** | Horizontal ou Vertical | Horizontal |
+| **Distance** | Amplitude du mouvement (en unités Unity) | 3 |
+| **Speed** | Vitesse du mouvement (fréquence du sinus) | 2 |
+
+### Comportement
+
+Mouvement sinusoïdal automatique. Pas de Rigidbody requis — le Transform est déplacé directement.
+
+> Pour que le chat reste sur la plateforme, la plateforme doit avoir un Collider2D **non-trigger** avec un tag ou layer que le ground check du personnage détecte.
+
+---
+
+## 20. RespawnOnFall — Respawn
+
+**Script :** `Assets/SCRIPT/RespawnOnFall.cs`
+**Placement :** Sur **Milo** et **Lino**.
+
+### Paramètres Inspector
+
+| Champ | Description | Valeur par défaut |
+|---|---|---|
+| **Death Height** | Hauteur Y en dessous de laquelle le respawn se déclenche | -10 |
+
+### Comportement
+
+- Mémorise la position de départ au `Start()`.
+- Si le personnage descend en dessous de `_deathHeight` → téléportation à la position de départ + vélocité remise à zéro.
+
+> Ajuster `_deathHeight` selon la géométrie de chaque niveau.
+
+---
+
+## 21. TypingEffect — Effet de frappe (intro/outro)
+
+**Script :** `Assets/SCRIPT/TypingEffect.cs`
+**Placement :** Sur un GameObject UI dans une scène d'intro ou de fin.
+
+### Setup
+
+1. Créer un GameObject avec un `TextMeshProUGUI`.
+2. Attacher `TypingEffect`.
+3. Assigner le `TextMeshProUGUI` dans `_textDisplay` *(auto-détecté si absent)*.
+4. Remplir le tableau `_phrases`.
+
+### Paramètres Inspector
+
+| Champ | Description | Valeur par défaut |
+|---|---|---|
+| **Phrases** | Tableau de textes affichés en séquence | — |
+| **Text Display** | Le `TextMeshProUGUI` cible | auto |
+| **Letter Delay** | Délai entre chaque lettre (secondes) | 0.05s |
+| **Phrase Delay** | Pause entre chaque phrase (secondes) | 1s |
+| **Load Next Scene On Complete** | Si coché, charge la scène suivante après la dernière phrase | false |
+| **Scene Load Delay** | Délai avant le chargement de scène | 1s |
+
+---
+
+## 22. Menu — Écran titre
+
+**Script :** `Assets/SCRIPT/Menu.cs`
+**Placement :** Sur un GameObject dans la scène **Menu**.
+
+### Wiring des boutons
+
+| Bouton | Méthode |
+|---|---|
+| Jouer / Play | `Menu.PlayGame()` |
+| Quitter / Quit | `Menu.QuitGame()` |
+
+### Comportement
+
+- `PlayGame()` → appelle `GameManager.ResetAndStart()` (repart depuis le début de `_sceneOrder`).
+- Si le `GameManager` n'est pas encore chargé → charge directement la scène `"Debut"`.
 
 ---
 
