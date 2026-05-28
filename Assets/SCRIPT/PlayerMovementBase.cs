@@ -59,7 +59,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
         // Detect moving platform each frame via the same ground check.
         Collider2D groundCol = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
-        _platform = groundCol != null ? groundCol.GetComponent<MovingPlatform>() : null;
+        _platform = groundCol != null ? groundCol.GetComponentInParent<MovingPlatform>() : null;
 
         // Carry the character with the platform.
         if (_platform != null)
