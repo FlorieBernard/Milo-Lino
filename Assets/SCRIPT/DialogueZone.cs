@@ -22,6 +22,8 @@ public class DialogueZone : MonoBehaviour
     [SerializeField] private Sprite _linoPortrait;
     [TextArea(2, 5)]
     [SerializeField] private string[] _lines;
+    [Tooltip("Optional. CSV keys for localized text. If set and LocalizationManager is present, overrides _lines.")]
+    [SerializeField] private string[] _lineKeys;
     [SerializeField] private string[] _speakerNames;
 
     [Header("UI References")]
@@ -83,7 +85,10 @@ public class DialogueZone : MonoBehaviour
         _dialoguePanel.SetActive(true);
         if (_continueIndicator != null) _continueIndicator.SetActive(false);
 
-        int lineCount = Mathf.Min(_lines.Length, _speakerNames.Length);
+        int lineCount = Mathf.Min(
+            Mathf.Max(_lines.Length, _lineKeys?.Length ?? 0),
+            _speakerNames.Length
+        );
 
         for (int i = 0; i < lineCount; i++)
         {
@@ -92,7 +97,7 @@ public class DialogueZone : MonoBehaviour
             _dialogueText.text = string.Empty;
             _inputPressed = false;
 
-            yield return StartCoroutine(TypeLine(_lines[i]));
+            yield return StartCoroutine(TypeLine(GetLine(i)));
 
             // Line finished — wait for input or auto-pause
             if (_continueIndicator != null) _continueIndicator.SetActive(true);
@@ -134,6 +139,23 @@ public class DialogueZone : MonoBehaviour
 
         _dialogueText.text = line; // ensure full line is displayed
         _isTyping = false;
+    }
+
+    /// <summary>
+    /// Returns the text for a line. Uses localization key if LocalizationManager is present
+    /// and a key is defined, otherwise falls back to the raw _lines entry.
+    /// </summary>
+    private string GetLine(int index)
+    {
+        if (LocalizationManager.Instance != null
+            && _lineKeys != null
+            && index < _lineKeys.Length
+            && !string.IsNullOrEmpty(_lineKeys[index]))
+        {
+            return LocalizationManager.Instance.Get(_lineKeys[index]);
+        }
+
+        return (index < _lines.Length) ? _lines[index] : string.Empty;
     }
 
     private Sprite PickPortrait(string speakerName)
