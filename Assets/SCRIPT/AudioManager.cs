@@ -62,7 +62,39 @@ public class AudioManager : MonoBehaviour
         _musicSource = gameObject.AddComponent<AudioSource>();
         _musicSource.loop = true;
         _musicSource.volume = 0f;
+
+        // Restore saved volumes
+        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", _musicVolume));
+        SetSfxVolume(PlayerPrefs.GetFloat("SfxVolume", 1f));
     }
+
+    // ── Volume control ────────────────────────────────────────────────────────
+
+    /// <summary>Sets music volume [0-1] and persists to PlayerPrefs.</summary>
+    public void SetMusicVolume(float volume)
+    {
+        _musicVolume = Mathf.Clamp01(volume);
+        _musicSource.volume = _musicVolume;
+        PlayerPrefs.SetFloat("MusicVolume", _musicVolume);
+    }
+
+    /// <summary>Sets SFX volume [0-1] for all sound effects and persists to PlayerPrefs.</summary>
+    public void SetSfxVolume(float volume)
+    {
+        float v = Mathf.Clamp01(volume);
+        foreach (Sound s in _sounds)
+        {
+            if (s.source != null)
+                s.source.volume = s.volume * v;
+        }
+        PlayerPrefs.SetFloat("SfxVolume", v);
+    }
+
+    /// <summary>Current music volume [0-1].</summary>
+    public float MusicVolume => _musicVolume;
+
+    /// <summary>Current SFX volume [0-1].</summary>
+    public float SfxVolume => PlayerPrefs.GetFloat("SfxVolume", 1f);
 
     // ── SFX ─────────────────────────────────────────────────────────────────
 
