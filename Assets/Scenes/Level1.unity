@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.05
+  m_Intensity: 0.96
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -1357,8 +1357,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -1.2641, y: 0.97010005, z: 0}
-    m_Extent: {x: 4.1802998, y: 2.3786001, z: 0}
+    m_Center: {x: -0.88944983, y: 0.98955005, z: 0}
+    m_Extent: {x: 4.0654497, y: 2.43995, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1366,29 +1366,29 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.4
+  m_ShapeLightFalloffSize: 0.66
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -4.1237316, y: -0.5281384, z: 0}
-  - {x: -3.6458778, y: -0.44740224, z: 0}
-  - {x: -2.8050156, y: -0.16507626, z: 0}
-  - {x: -2.0410442, y: -0.023363113, z: 0}
-  - {x: -1.3842278, y: 0.25167537, z: 0}
+  - {x: -3.8818645, y: -0.78957295, z: 0}
+  - {x: -3.3765287, y: -0.6606364, z: 0}
+  - {x: -2.6815643, y: -0.38953352, z: 0}
+  - {x: -1.9624844, y: -0.14681435, z: 0}
+  - {x: -1.3393364, y: 0.10577822, z: 0}
   - {x: -0.5857754, y: 0.58979034, z: 0}
   - {x: 0.6455374, y: 1.4370613, z: 0}
   - {x: 1.4748545, y: 1.9698048, z: 0}
   - {x: 2.516408, y: 2.563723, z: 0}
-  - {x: 2.4275599, y: 2.9494853, z: 0}
-  - {x: 1.2126818, y: 2.1058025, z: 0}
+  - {x: 2.5084963, y: 2.770018, z: 0}
+  - {x: 1.2654657, y: 2.0354228, z: 0}
   - {x: -0.15549946, y: 1.127274, z: 0}
-  - {x: -0.85845757, y: 0.6985514, z: 0}
-  - {x: -1.9509802, y: 0.18623948, z: 0}
-  - {x: -3.446333, y: -0.1102376, z: 0}
-  - {x: -3.826792, y: -0.23455155, z: 0}
-  - {x: -4.0948505, y: -0.27769613, z: 0}
-  - {x: -4.480174, y: -0.3522358, z: 0}
-  - {x: -4.9087152, y: -0.66873336, z: 0}
-  - {x: -5.0453415, y: -1.0091159, z: 0}
+  - {x: -0.757452, y: 0.6199913, z: 0}
+  - {x: -1.7826376, y: 0.118902445, z: 0}
+  - {x: -2.3464937, y: -0.1102376, z: 0}
+  - {x: -2.9177408, y: -0.3131113, z: 0}
+  - {x: -3.2868052, y: -0.38992476, z: 0}
+  - {x: -3.784357, y: -0.5205784, z: 0}
+  - {x: -4.296136, y: -0.7455671, z: 0}
+  - {x: -4.1547756, y: -0.74811125, z: 0}
 --- !u!1 &893831590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,7 +2473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2004952185
 Transform:
   m_ObjectHideFlags: 0
