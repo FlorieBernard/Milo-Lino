@@ -30,6 +30,8 @@
 | 20 | [💀 RespawnOnFall — Respawn](#20--respawnонfall--respawn) |
 | 21 | [⌨️ TypingEffect — Effet de frappe](#21-️-typingeffect--effet-de-frappe-introoutro) |
 | 22 | [🏠 Menu — Écran titre](#22--menu--écran-titre) |
+| 23 | [🌄 Parallax — Fond parallaxe](#23--parallax--fond-parallaxe) |
+| 24 | [🌊 ParallaxZone — Zone de transition parallaxe](#24--parallaxzone--zone-de-transition-parallaxe) |
 | ✅ | [Checklist Unity Editor](#-checklist-unity-editor--configuration-manuelle) |
 
 ---
@@ -695,6 +697,82 @@ Mouvement sinusoïdal automatique — aucun Rigidbody requis !
 
 ---
 
+## 23. 🌄 Parallax — Fond parallaxe
+
+**📄 Script :** `Assets/SCRIPT/Prallax/Parallax.cs`
+**📍 Placement :** Sur chaque **couche de fond** (background layer)
+
+Fait défiler un GameObject à une fraction de la vitesse de la caméra pour donner une illusion de profondeur.
+
+### 🎛️ Paramètres Inspector
+
+| Paramètre | Description |
+|---|---|
+| **Parallax Effect** | Facteur de défilement `[0–1]` |
+
+### 🎨 Valeurs recommandées
+
+| Couche | Valeur |
+|---|---|
+| 🌌 Ciel / très loin | `0.05 – 0.15` |
+| ⛰️ Montagnes / plans lointains | `0.2 – 0.4` |
+| 🌲 Arbres / plans intermédiaires | `0.4 – 0.6` |
+| 🌿 Buissons / plans proches | `0.7 – 0.9` |
+
+### ⚡ Tips importants
+
+> 💡 **LateUpdate, pas FixedUpdate** — Cinemachine met la caméra à jour en LateUpdate. Si le parallax tourne en Update ou FixedUpdate, les fonds tremblent légèrement à chaque frame.
+
+> 💡 **Offset relatif** — Le script mémorise la position X de la caméra au démarrage (`_startCamPosX`) et calcule un déplacement *relatif*. Avec l'ancienne formule `cam.x * factor`, si la caméra ne démarrait pas à x=0 les fonds sautaient au chargement.
+
+> 💡 **Cache Camera.main** — `Camera.main` fait un `GetComponent` en interne à chaque appel. Le cacher dans `Awake()` évite de l'appeler 60× par seconde.
+
+> 💡 **Parallax uniquement en X** — Le Y est intentionnellement ignoré. Un parallax vertical crée un effet désagréable et nauséeux sur les plateformers.
+
+> 💡 **Activer seulement dans les zones prévues** — Utilise `ParallaxZone` (section 24) pour n'activer le parallax que là où c'est nécessaire.
+
+---
+
+## 24. 🌊 ParallaxZone — Zone de transition parallaxe
+
+**📄 Script :** `Assets/SCRIPT/Prallax/ParallaxZone.cs`
+**📍 Placement :** Sur 2 GameObjects invisibles à l'entrée et à la sortie de chaque zone parallaxe
+
+### 💡 Principe
+
+Place **deux zones** aux limites d'une section parallaxe :
+
+```
+[Zone Start] ──── zone parallax (caméra mobile, pas de mort) ──── [Zone End]
+```
+
+- **Start zone** → active la caméra follow (parallax visible) + désactive le respawn
+- **End zone** → rétablit la caméra fixe + réactive le respawn
+
+### 🎛️ Paramètre Inspector
+
+| Paramètre | Description |
+|---|---|
+| **Mode** | `Start` = entrée zone · `End` = sortie zone |
+
+### 🛠️ Setup dans Unity
+
+1. Créer un **GameObject vide** à l'entrée de la zone parallaxe
+2. Ajouter un `Collider2D` → **Is Trigger ✅** *(bande verticale couvrant toute la hauteur du passage)*
+3. Attacher `ParallaxZone`, choisir **Mode = Start**
+4. Dupliquer le GameObject, le placer à la sortie, **Mode = End**
+
+### 🔗 Dépendances
+
+- **CameraManager** doit être présent dans la scène avec `_cineFollowCam` et `_cineFixedCam` configurés
+- **RespawnOnFall** sur les deux chats est automatiquement désactivé à l'entrée (pas de mort dans les zones parallax) et réactivé à la sortie
+
+### 🐛 Debug (éditeur uniquement)
+
+Les touches `I` / `O` permettent de basculer manuellement entre les caméras dans l'éditeur. Elles sont compilées uniquement en mode `UNITY_EDITOR` et n'apparaissent pas dans les builds.
+
+---
+
 ## ✅ Checklist Unity Editor — configuration manuelle
 
 > 🛠️ Ces étapes ne peuvent pas être scriptées — à faire directement dans Unity !
@@ -730,7 +808,13 @@ Mouvement sinusoïdal automatique — aucun Rigidbody requis !
 - [ ] Assigner `_musicSlider`, `_sfxSlider`, `_languageDropdown`, `_panel`
 - [ ] `_languageCodes` : `fr`, `en` *(même ordre que le Dropdown)*
 
-### 5️⃣ CSV dialogues — remplir les vrais textes
+### 5️⃣ ParallaxZone — une paire par section parallaxe
+
+- [ ] Créer un GameObject vide → `Collider2D` **Is Trigger ✅** → `ParallaxZone` → **Mode = Start**
+- [ ] Dupliquer → placer à la sortie → **Mode = End**
+- [ ] Vérifier que `CameraManager` a `_cineFollowCam` et `_cineFixedCam` assignés
+
+### 6️⃣ CSV dialogues — remplir les vrais textes
 
 Éditer `Assets/Resources/Localization/dialogues.csv` :
 
@@ -744,4 +828,4 @@ ma_cle,Texte en français,"Texte en anglais"
 
 ---
 
-*🐱 Document mis à jour — 2026-05-28*
+*🐱 Document mis à jour — 2026-05-28 — sections 23 & 24 ajoutées (Parallax + ParallaxZone)*
