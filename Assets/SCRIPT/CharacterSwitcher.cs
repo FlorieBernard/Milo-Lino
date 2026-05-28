@@ -127,6 +127,9 @@ public class CharacterSwitcher : MonoBehaviour
             if (_linoSprite != null) _linoSprite.color = _linoActiveColor;
             if (_mainCamera != null) _mainCamera.backgroundColor = _linoSkyColor;
         }
+
+        // Milo hears poorly — apply low-pass filter when he is active.
+        AudioManager.Instance?.SetMuffled(_isPlayingMilo);
     }
 
     // ── World grey effect ─────────────────────────────────────────────────────

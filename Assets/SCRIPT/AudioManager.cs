@@ -35,6 +35,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float _musicVolume = 0.8f;
     [SerializeField] private float _fadeDuration = 1f;
 
+    [Header("Hearing (Milo = muffled)")]
+    [Tooltip("Low-pass cutoff when Milo is active. Lower = more muffled. ~800 Hz recommended.")]
+    [SerializeField] private float _muffledCutoff = 800f;
+
     private AudioSource _musicSource;
     private Coroutine _fadeCoroutine;
 
@@ -95,6 +99,20 @@ public class AudioManager : MonoBehaviour
 
     /// <summary>Current SFX volume [0-1].</summary>
     public float SfxVolume => PlayerPrefs.GetFloat("SfxVolume", 1f);
+
+    /// <summary>
+    /// Applies or removes a low-pass filter on the AudioListener to simulate muffled hearing.
+    /// Call with true when Milo is active, false when Lino is active.
+    /// </summary>
+    public void SetMuffled(bool muffled)
+    {
+        AudioListener listener = FindFirstObjectByType<AudioListener>();
+        if (listener == null) return;
+
+        var filter = listener.GetComponent<AudioLowPassFilter>()
+            ?? listener.gameObject.AddComponent<AudioLowPassFilter>();
+        filter.cutoffFrequency = muffled ? _muffledCutoff : 22000f;
+    }
 
     // ── SFX ─────────────────────────────────────────────────────────────────
 
