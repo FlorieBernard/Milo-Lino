@@ -54,7 +54,13 @@ public abstract class PlayerMovementBase : MonoBehaviour
         else
             _currentHorizontalSpeed = targetSpeed;
 
-        _rb.linearVelocity = new Vector2(_currentHorizontalSpeed, _rb.linearVelocity.y);
+        // Prevent sliding down inclined surfaces (trees, ramps) when stationary.
+        // Only applies on non-ice ground; ice sliding is handled by the lerp above.
+        float verticalVelocity = _rb.linearVelocity.y;
+        if (!_isOnIce && IsGrounded() && Horizontal == 0f && verticalVelocity < 0f)
+            verticalVelocity = 0f;
+
+        _rb.linearVelocity = new Vector2(_currentHorizontalSpeed, verticalVelocity);
     }
 
     protected bool IsGrounded()
