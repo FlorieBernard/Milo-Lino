@@ -406,4 +406,55 @@ Le texte se met à jour automatiquement au chargement et à chaque changement de
 
 ---
 
+---
+
+## Checklist Unity Editor — configuration manuelle requise
+
+Les éléments suivants ne peuvent pas être scriptés et doivent être faits directement dans l'éditeur Unity.
+
+### 1. Scène Debut — ajouter LocalizationManager
+
+- Créer un **GameObject vide** nommé `LocalizationManager`
+- Attacher le script `LocalizationManager`
+- Dans `_csvFiles` : vérifier que `Localization/dialogues` est bien présent
+
+### 2. ExitZone — dans chaque niveau
+
+- Créer un **GameObject** à l'endroit de sortie du niveau
+- Ajouter un `Collider2D` → cocher **Is Trigger**
+- Attacher le script `ExitZone`
+- Répéter pour Level1, Level2, Level3
+
+### 3. MenuPause — ajouter le bouton Options
+
+- Dans le Canvas du menu pause, ajouter un bouton **Options**
+- Le wirer sur `MenuPause.OptionsButton()`
+- Dans l'Inspector du `MenuPause`, assigner `_optionsMenu` → le composant `OptionsMenu`
+
+### 4. OptionsMenu — créer le Panel UI
+
+Créer dans le Canvas un Panel `OptionsPanel` contenant :
+
+| Élément | Type Unity | Configuration |
+|---|---|---|
+| Slider musique | `Slider` | Min=0, Max=1 — `OnValueChanged` → `OptionsMenu.OnMusicVolumeChanged` |
+| Slider SFX | `Slider` | Min=0, Max=1 — `OnValueChanged` → `OptionsMenu.OnSfxVolumeChanged` |
+| Dropdown langue | `TMP_Dropdown` | Options : "Français", "English" — `OnValueChanged` → `OptionsMenu.OnLanguageChanged` |
+| Bouton Retour | `Button` | `OnClick` → `OptionsMenu.Hide()` |
+
+Attacher `OptionsMenu` au root du Panel. Assigner dans l'Inspector :
+- `_musicSlider`, `_sfxSlider`, `_languageDropdown`, `_panel`
+- `_languageCodes` : `fr`, `en` (dans le même ordre que les options du Dropdown)
+
+### 5. CSV dialogues — remplir les vraies clés
+
+Éditer `Assets/Resources/Localization/dialogues.csv` avec les textes du jeu :
+
+```
+key,fr,en
+nom_de_la_cle,Texte en français,"Texte en anglais"
+```
+
+Puis dans chaque `DialogueZone`, remplir le tableau `_lineKeys` avec les clés correspondantes.
+
 *Document mis à jour — 2026-05-28.*
