@@ -457,6 +457,18 @@ LocalizationManager.Instance.CurrentLanguage;        // "fr" / "en" / ...
 | **Music Volume** | Volume global musique [0-1] | 0.8 |
 | **Fade Duration** | Durée du crossfade | 1s |
 
+### 🦻 Son étouffé — Milo entend mal
+
+Quand **Milo** est le personnage actif, un filtre passe-bas (`AudioLowPassFilter`) est automatiquement appliqué sur l'`AudioListener` de la caméra. Tout l'audio (musique + SFX) sonne alors étouffé, comme si on entendait mal. Quand on repasse sur **Lino**, le filtre est retiré et le son revient à la normale.
+
+| Champ Inspector | Description | Défaut |
+|---|---|---|
+| **Muffled Cutoff** | Fréquence de coupure en Hz. Plus bas = plus étouffé | `800 Hz` |
+
+> 💡 Valeurs de référence : `400 Hz` = très sourd · `800 Hz` = clairement étouffé · `2000 Hz` = légèrement voilé
+
+Aucun setup manuel nécessaire — le filtre est créé et géré entièrement par le code.
+
 ### 💻 API
 
 ```csharp
@@ -465,6 +477,7 @@ AudioManager.Instance?.Stop("Jump");          // ⏹️ arrêter un SFX
 AudioManager.Instance?.StopAll();             // ⏹️ arrêter tous les SFX
 AudioManager.Instance?.SetMusicVolume(0.5f);  // 🎵 volume musique
 AudioManager.Instance?.SetSfxVolume(0.8f);   // 🔊 volume SFX
+AudioManager.Instance?.SetMuffled(true);      // 🦻 activer le filtre étouffé manuellement
 ```
 
 ---
