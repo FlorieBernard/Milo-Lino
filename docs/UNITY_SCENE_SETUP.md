@@ -45,7 +45,6 @@ Guide de configuration des scènes pour reproduire le projet à partir des scrip
 | **Level2** | Niveau 2 |
 | **Level3** | Niveau 3 |
 | **Fin** | Écran de fin |
-| **Corridor1 / Corridor2** | Scènes héritées — **supprimées de la progression**. Peuvent être retirées du projet. |
 | **R&D / TestLinoFollow** | Scènes de test — ne pas inclure dans le build final |
 
 ### Singletons persistants (scène Debut uniquement)
@@ -79,7 +78,7 @@ Dans **File > Build Settings**, les scènes actives doivent être dans cet ordre
 5. Level3
 6. Fin
 
-Ne pas inclure Corridor1, Corridor2, R&D, TestLinoFollow.
+Ne pas inclure R&D et TestLinoFollow.
 
 ---
 
