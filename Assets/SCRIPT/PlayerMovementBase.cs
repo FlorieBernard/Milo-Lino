@@ -57,9 +57,13 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
         _rb.linearVelocity = new Vector2(_currentHorizontalSpeed, _rb.linearVelocity.y);
 
-        // Carry the character when standing on a moving platform.
-        if (_platform != null && IsGrounded())
-            _rb.position += _platform.Delta;
+        // Detect moving platform each frame via the same ground check.
+        Collider2D groundCol = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        _platform = groundCol != null ? groundCol.GetComponent<MovingPlatform>() : null;
+
+        // Carry the character with the platform.
+        if (_platform != null)
+            _rb.MovePosition(_rb.position + _platform.Delta);
     }
 
     protected bool IsGrounded()
@@ -85,18 +89,12 @@ public abstract class PlayerMovementBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ice"))
             _isOnIce = true;
-
-        var platform = collision.gameObject.GetComponent<MovingPlatform>();
-        if (platform != null) _platform = platform;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ice"))
             _isOnIce = false;
-
-        if (_platform != null && collision.gameObject == _platform.gameObject)
-            _platform = null;
     }
 
     private void HandleJumpCut()
