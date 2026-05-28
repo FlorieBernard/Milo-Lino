@@ -61,9 +61,9 @@ public abstract class PlayerMovementBase : MonoBehaviour
         Collider2D groundCol = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
         _platform = groundCol != null ? groundCol.GetComponentInParent<MovingPlatform>() : null;
 
-        // Carry the character with the platform.
+        // Carry the character with the platform (position offset, does not conflict with linearVelocity).
         if (_platform != null)
-            _rb.MovePosition(_rb.position + _platform.Delta);
+            _rb.position += _platform.Delta;
     }
 
     protected bool IsGrounded()
