@@ -29,9 +29,10 @@ public abstract class PlayerMovementBase : MonoBehaviour
     protected float Horizontal { get; private set; }
     protected Rigidbody2D Rb => _rb;
 
-    private bool  _isOnIce = false;
-    private float _currentHorizontalSpeed = 0f;
-    private float _coyoteTimer = 0f;
+    private bool           _isOnIce = false;
+    private float          _currentHorizontalSpeed = 0f;
+    private float          _coyoteTimer = 0f;
+    private MovingPlatform _platform = null;
 
     /// <summary>True while the player may jump (grounded or within coyote window).</summary>
     protected bool CanJump => _coyoteTimer > 0f;
@@ -55,6 +56,10 @@ public abstract class PlayerMovementBase : MonoBehaviour
             _currentHorizontalSpeed = targetSpeed;
 
         _rb.linearVelocity = new Vector2(_currentHorizontalSpeed, _rb.linearVelocity.y);
+
+        // Carry the character when standing on a moving platform.
+        if (_platform != null && IsGrounded())
+            _rb.position += _platform.Delta;
     }
 
     protected bool IsGrounded()
@@ -80,12 +85,18 @@ public abstract class PlayerMovementBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ice"))
             _isOnIce = true;
+
+        var platform = collision.gameObject.GetComponent<MovingPlatform>();
+        if (platform != null) _platform = platform;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ice"))
             _isOnIce = false;
+
+        if (_platform != null && collision.gameObject == _platform.gameObject)
+            _platform = null;
     }
 
     private void HandleJumpCut()
