@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string[] _sceneOrder =
     {
         "Debut",
-        "Level1", "Corridor1",
-        "Level2", "Corridor2",
+        "Level1",
+        "Level2",
         "Level3",
         "Fin"
     };
