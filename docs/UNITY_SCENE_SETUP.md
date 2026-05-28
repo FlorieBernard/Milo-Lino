@@ -1,55 +1,56 @@
-# Unity Scene Setup — Milo & Lino
+# 🐱✨ Unity Scene Setup — Milo & Lino ✨🐱
 
-Guide de configuration des scènes pour reproduire le projet à partir des scripts existants.
-À compléter au fur et à mesure des sessions.
-
----
-
-## Table des matières
-
-1. [Structure des scènes](#1-structure-des-scènes)
-2. [SceneFader — Transitions entre scènes](#2-scenefader--transitions-entre-scènes)
-3. [CharacterSwitcher — Changement de personnage](#3-characterswitcher--changement-de-personnage)
-4. [DialogueZone — Zones de dialogue](#4-dialoguezone--zones-de-dialogue)
-5. [SpriteAnimator — Animations décoratives](#5-spriteanimator--animations-décoratives)
-6. [PlayerMovementBase — Coyote Time](#6-playermovementbase--coyote-time)
-7. [ExitZone — Passage au niveau suivant](#7-exitzone--passage-au-niveau-suivant)
-8. [MenuPause — Menu pause](#8-menupause--menu-pause)
-9. [OptionsMenu — Menu options](#9-optionsmenu--menu-options)
-10. [LocalizationManager — Système de langue](#10-localizationmanager--système-de-langue)
-11. [LocalizedText — Texte UI localisé](#11-localizedtext--texte-ui-localisé)
-12. [AudioManager — Gestion du son](#12-audiomanager--gestion-du-son)
-13. [SceneMusic — Musique par scène](#13-scenemusic--musique-par-scène)
-14. [CameraFollow — Caméra](#14-camerafollow--caméra)
-15. [Firefly — Luciole](#15-firefly--luciole)
-16. [LinoFollower — Lino suit Milo](#16-linofollower--lino-suit-milo)
-17. [LinoBlocker — Blocage de Lino](#17-linoblocker--blocage-de-lino)
-18. [ObjectTrigger — Trigger d'objet](#18-objecttrigger--trigger-dobjet)
-19. [MovingPlatform — Plateforme mobile](#19-movingplatform--plateforme-mobile)
-20. [RespawnOnFall — Respawn](#20-respawnонfall--respawn)
-
-21. [TypingEffect — Effet de frappe (intro/outro)](#21-typingeffect--effet-de-frappe-introoutro)
-22. [Menu — Écran titre](#22-menu--écran-titre)
+> 🌸 **Guide de configuration des scènes** — tout ce qu'il faut savoir pour setup le projet depuis zéro !
 
 ---
 
-## 1. Structure des scènes
+## 📋 Table des matières
+
+| # | Section |
+|---|---|
+| 1 | [🗂️ Structure des scènes](#1-️-structure-des-scènes) |
+| 2 | [🎬 SceneFader — Transitions](#2--scenefader--transitions-entre-scènes) |
+| 3 | [🔄 CharacterSwitcher — Changer de perso](#3--characterswitcher--changement-de-personnage) |
+| 4 | [💬 DialogueZone — Dialogues](#4--dialoguezone--zones-de-dialogue) |
+| 5 | [🌿 SpriteAnimator — Animations déco](#5--spriteanimator--animations-décoratives) |
+| 6 | [🐾 PlayerMovement — Coyote Time](#6--playermovementbase--coyote-time) |
+| 7 | [🚪 ExitZone — Niveau suivant](#7--exitzone--passage-au-niveau-suivant) |
+| 8 | [⏸️ MenuPause — Menu pause](#8-️-menupause--menu-pause) |
+| 9 | [⚙️ OptionsMenu — Options](#9-️-optionsmenu--menu-options) |
+| 10 | [🌍 LocalizationManager — Langues](#10--localizationmanager--système-de-langue) |
+| 11 | [🔤 LocalizedText — Texte UI localisé](#11--localizedtext--texte-ui-localisé) |
+| 12 | [🔊 AudioManager — Sons](#12--audiomanager--gestion-du-son) |
+| 13 | [🎵 SceneMusic — Musique par scène](#13--scenemusic--musique-par-scène) |
+| 14 | [🎥 CameraFollow — Caméra](#14--camerafollow--caméra) |
+| 15 | [✨ Firefly — Luciole](#15--firefly--luciole) |
+| 16 | [🐾 LinoFollower — Lino suit Milo](#16--linofollower--lino-suit-milo) |
+| 17 | [🚧 LinoBlocker — Bloquer Lino](#17--linoblocker--blocage-de-lino) |
+| 18 | [💥 ObjectTrigger — Trigger d'objet](#18--objecttrigger--trigger-dobjet) |
+| 19 | [🟫 MovingPlatform — Plateforme mobile](#19--movingplatform--plateforme-mobile) |
+| 20 | [💀 RespawnOnFall — Respawn](#20--respawnонfall--respawn) |
+| 21 | [⌨️ TypingEffect — Effet de frappe](#21-️-typingeffect--effet-de-frappe-introoutro) |
+| 22 | [🏠 Menu — Écran titre](#22--menu--écran-titre) |
+| ✅ | [Checklist Unity Editor](#-checklist-unity-editor--configuration-manuelle) |
+
+---
+
+## 1. 🗂️ Structure des scènes
 
 ### Scènes du projet
 
 | Scène | Rôle |
 |---|---|
-| **Menu** | Écran titre — boutons Jouer / Quitter |
-| **Debut** | Scène de lancement. Contient tous les singletons persistants. N'est jamais rechargée. |
-| **Level1** | Niveau 1 |
-| **Level2** | Niveau 2 |
-| **Level3** | Niveau 3 |
-| **Fin** | Écran de fin |
-| **R&D / TestLinoFollow** | Scènes de test — ne pas inclure dans le build final |
+| 🏠 **Menu** | Écran titre — boutons Jouer / Quitter |
+| ⭐ **Debut** | Scène de lancement. Contient tous les singletons persistants. N'est jamais rechargée. |
+| 🍃 **Level1** | Niveau 1 |
+| ❄️ **Level2** | Niveau 2 |
+| 🌸 **Level3** | Niveau 3 |
+| 🎉 **Fin** | Écran de fin |
+| 🧪 **R&D / TestLinoFollow** | Scènes de test — ne pas inclure dans le build final |
 
-### Singletons persistants (scène Debut uniquement)
+### 🔒 Singletons persistants (scène Debut uniquement)
 
-Ces GameObjects ont `DontDestroyOnLoad` et ne doivent exister **que dans Debut** :
+> ⚠️ Ces GameObjects ont `DontDestroyOnLoad` — ils doivent exister **uniquement dans Debut**, jamais dans les niveaux !
 
 | GameObject | Script |
 |---|---|
@@ -58,19 +59,18 @@ Ces GameObjects ont `DontDestroyOnLoad` et ne doivent exister **que dans Debut**
 | `AudioManager` | `AudioManager` |
 | `LocalizationManager` | `LocalizationManager` *(optionnel)* |
 
-### Ordre de progression — GameManager
-
-Le `GameManager` dans Debut a un tableau `_sceneOrder` configurable dans l'Inspector :
+### 🗺️ Ordre de progression
 
 ```
 Menu → Debut → Level1 → Level2 → Level3 → Fin
 ```
 
-> Pour ajouter un niveau : ajouter son nom dans le tableau `_sceneOrder`. L'`ExitZone` de chaque niveau appelle automatiquement `LoadNextScene()`.
+> 💡 Pour ajouter un niveau : ajouter son nom dans le tableau `_sceneOrder` du GameManager.
+> L'`ExitZone` de chaque niveau appelle automatiquement `LoadNextScene()`.
 
-### Build Settings
+### 🏗️ Build Settings
 
-Dans **File > Build Settings**, les scènes actives doivent être dans cet ordre :
+Dans **File > Build Settings**, ajouter les scènes dans cet ordre :
 1. Menu
 2. Debut
 3. Level1
@@ -78,289 +78,283 @@ Dans **File > Build Settings**, les scènes actives doivent être dans cet ordre
 5. Level3
 6. Fin
 
-Ne pas inclure R&D et TestLinoFollow.
+> ❌ Ne pas inclure R&D et TestLinoFollow.
 
 ---
 
-## 2. SceneFader — Transitions entre scènes
+## 2. 🎬 SceneFader — Transitions entre scènes
 
-**Script :** `Assets/SCRIPT/SceneFader.cs`
-**Placement :** GameObject vide dans la scène **Debut**, nommé par exemple `SceneFader`.
+**📄 Script :** `Assets/SCRIPT/SceneFader.cs`
+**📍 Placement :** GameObject vide dans la scène **Debut**
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un **GameObject vide** dans la scène Debut.
-2. Lui attacher le script `SceneFader`.
-3. Aucun Canvas ou Image à créer manuellement — le script les génère à l'exécution.
+1. Créer un **GameObject vide** dans Debut → nommer `SceneFader`
+2. Attacher le script `SceneFader`
+3. ✅ Aucun Canvas à créer — il se génère tout seul à l'exécution !
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Style** | Type de transition (Fade, SlideLeft, SlideRight, SlideUp, SlideDown) | Fade |
-| **Transition Color** | Couleur du panneau de transition | Noir |
-| **Fade Out Duration** | Durée de la sortie (avant chargement) | 0.5s |
-| **Hold Duration** | Pause écran plein avant le fade-in | 0.1s |
-| **Fade In Duration** | Durée d'apparition de la scène | 0.5s |
-| **Fade In Delay** | Délai avant le fade-in | 0s |
-| **Curve** | Courbe d'easing (AnimationCurve) | EaseInOut |
+| **Style** | Fade / SlideLeft / SlideRight / SlideUp / SlideDown | Fade |
+| **Transition Color** | Couleur du panneau | Noir |
+| **Fade Out Duration** | Durée de sortie | 0.5s |
+| **Hold Duration** | Pause écran plein | 0.1s |
+| **Fade In Duration** | Durée d'apparition | 0.5s |
+| **Fade In Delay** | Délai avant fade-in | 0s |
+| **Curve** | Courbe d'easing | EaseInOut |
 
-### Utilisation dans un script
+### 💻 Utilisation dans un script
 
 ```csharp
-// Depuis n'importe quel script
 SceneFader.Instance.FadeToScene("Level2");
 ```
 
-### Notes
+### 📝 Notes
 
-- Le fade-in se déclenche **automatiquement** à chaque chargement de scène via `SceneManager.sceneLoaded`.
-- Le `Canvas` créé a un `sortingOrder` de **999** — il s'affiche toujours au-dessus.
-- Le panneau bloque les raycasts : `blocksRaycasts = false` (pas d'interférence avec l'UI du jeu).
+- 🔁 Le fade-in se déclenche **automatiquement** à chaque chargement de scène
+- 👆 Le Canvas a un `sortingOrder` de **999** — toujours au-dessus de tout
+- 🖱️ `blocksRaycasts = false` — pas d'interférence avec l'UI du jeu
 
 ---
 
-## 3. CharacterSwitcher — Changement de personnage
+## 3. 🔄 CharacterSwitcher — Changement de personnage
 
-**Script :** `Assets/SCRIPT/CharacterSwitcher.cs`
-**Placement :** GameObject dans chaque scène de jeu (ou sur un manager persistant).
+**📄 Script :** `Assets/SCRIPT/CharacterSwitcher.cs`
+**📍 Placement :** GameObject dans chaque scène de jeu
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un **GameObject vide** nommé `CharacterSwitcher` dans la scène.
-2. Attacher le script `CharacterSwitcher`.
-3. Remplir les références Inspector :
+1. Créer un **GameObject vide** nommé `CharacterSwitcher` dans la scène
+2. Attacher le script `CharacterSwitcher`
+3. Remplir les références :
 
 | Champ | Ce qu'il faut glisser |
 |---|---|
-| **Milo Movement** | Component `PlayerMovementMilo` du GameObject Milo |
-| **Lino Movement** | Component `PlayerMovementLino` du GameObject Lino |
-| **Milo Collider** | `Collider2D` du GameObject Milo |
-| **Lino Collider** | `Collider2D` du GameObject Lino |
-| **Milo Sprite** | `SpriteRenderer` du GameObject Milo |
-| **Lino Sprite** | `SpriteRenderer` du GameObject Lino |
-| **Main Camera** | La caméra principale de la scène |
-| **Milo Transform** | Transform du GameObject Milo (auto-détecté si non renseigné) |
+| **Milo Movement** | Component `PlayerMovementMilo` de Milo |
+| **Lino Movement** | Component `PlayerMovementLino` de Lino |
+| **Milo Collider** | `Collider2D` de Milo |
+| **Lino Collider** | `Collider2D` de Lino |
+| **Milo Sprite** | `SpriteRenderer` de Milo |
+| **Lino Sprite** | `SpriteRenderer` de Lino |
+| **Main Camera** | La caméra principale |
+| **Milo Transform** | Transform de Milo *(auto-détecté si vide)* |
 
-### Paramètres visuels
+### 🎨 Paramètres visuels
 
 | Champ | Description |
 |---|---|
-| **Milo Sky Color** | Couleur du fond caméra quand Milo est actif |
-| **Lino Active Color** | Couleur du sprite de Lino quand il est actif (jaune) |
-| **Lino Sky Color** | Couleur du fond caméra quand Lino est actif (gris) |
-| **World Grey Tint** | Teinte appliquée à tous les sprites du monde quand Lino joue |
+| **Milo Sky Color** | Couleur du fond quand Milo joue |
+| **Lino Active Color** | Couleur de Lino quand il est actif (jaune 💛) |
+| **Lino Sky Color** | Couleur du fond quand Lino joue (gris 🩶) |
+| **World Grey Tint** | Teinte appliquée à tout le monde quand Lino joue |
 
-### Lino Only Objects
+### 👁️ Lino Only Objects
 
-- **Lino Only Objects** : liste de GameObjects visibles uniquement quand Lino joue ou que Milo s'en approche.
-- **Detection Distance** : distance (en unités Unity) à partir de laquelle l'objet s'active même si Milo joue.
+- **Lino Only Objects** : GameObjects visibles uniquement quand Lino joue ou que Milo s'approche
+- **Detection Distance** : distance à partir de laquelle l'objet s'active même avec Milo
 
-### Comportement
+### 🎮 Comportement
 
-- **Tab** : alterne entre Milo et Lino.
-- Quand **Lino est actif** : tout le monde est grisé sauf Lino, Milo, et les Fireflies (composant `Firefly`).
-- Le personnage **inactif** a son Rigidbody2D gelé (`FreezeAll`) pour ne pas glisser sur les pentes.
+- **Tab** : alterne entre Milo 🐱 et Lino 🐈
+- Quand **Lino est actif** → tout le monde est grisé sauf Lino, Milo et les Fireflies ✨
+- Le personnage **inactif** est gelé (`FreezeAll`) → ne glisse pas sur les pentes
 
-### Appel depuis un script
+### 💻 Appel depuis un script
 
 ```csharp
-// Forcer le retour sur Milo (ex : fin d'une séquence Lino)
 CharacterSwitcher switcher = FindObjectOfType<CharacterSwitcher>();
-switcher.ForceMilo();
+switcher.ForceMilo(); // forcer le retour sur Milo
 ```
 
 ---
 
-## 4. DialogueZone — Zones de dialogue
+## 4. 💬 DialogueZone — Zones de dialogue
 
-**Script :** `Assets/SCRIPT/DialogueZone.cs`
-**Placement :** Sur un GameObject avec un **Collider2D en mode Trigger**.
+**📄 Script :** `Assets/SCRIPT/DialogueZone.cs`
+**📍 Placement :** Sur un GameObject avec un **Collider2D Trigger**
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject (ex: `DialogueTrigger_Intro`).
-2. Ajouter un `Collider2D` (Box ou Circle) et cocher **Is Trigger**.
-3. Attacher le script `DialogueZone`.
+1. Créer un GameObject (ex: `DialogueTrigger_Intro`)
+2. Ajouter un `Collider2D` (Box ou Circle) → cocher **Is Trigger** ✅
+3. Attacher `DialogueZone`
 4. Créer un **Canvas UI** dans la scène avec :
-   - Un `Panel` (dialoguePanel)
-   - Un `Image` pour le portrait
-   - Deux `TextMeshProUGUI` : nom du personnage + texte du dialogue
-   - *(Optionnel)* Un indicateur "continuer" (flèche, icône...)
+   - Un `Panel` → le panneau de dialogue
+   - Un `Image` → portrait du personnage
+   - Deux `TextMeshProUGUI` → nom + texte
+   - *(Optionnel)* Un indicateur "continuer" ▶️
 
-### Références Inspector
+### 🔗 Références Inspector
 
 | Champ | Ce qu'il faut glisser |
 |---|---|
-| **Dialogue Panel** | Le Panel UI racine du dialogue |
+| **Dialogue Panel** | Le Panel UI racine |
 | **Portrait** | Le composant `Image` du portrait |
-| **Name Text** | Le `TextMeshProUGUI` du nom |
-| **Dialogue Text** | Le `TextMeshProUGUI` du texte |
-| **Continue Indicator** | *(Optionnel)* Un GameObject affiché en attente d'input |
+| **Name Text** | `TextMeshProUGUI` du nom |
+| **Dialogue Text** | `TextMeshProUGUI` du texte |
+| **Continue Indicator** | *(Optionnel)* Objet affiché en attente d'input |
 | **Milo Portrait** | Sprite portrait de Milo |
 | **Lino Portrait** | Sprite portrait de Lino |
 
-### Configuration du dialogue
+### 🎛️ Configuration
 
 | Champ | Description |
 |---|---|
-| **Trigger Target** | Qui peut déclencher (Milo / Lino / Both) |
-| **Repeatable** | Si coché, le dialogue se rejoue à chaque entrée |
-| **Lines** | Tableau des lignes de texte (fallback sans localisation) |
-| **Line Keys** | *(Optionnel)* Clés CSV pour le système de localisation — remplace `Lines` si `LocalizationManager` est présent |
-| **Speaker Names** | Tableau des noms (doit correspondre 1:1 avec Lines/LineKeys) |
-| **Letter Delay** | Vitesse de l'effet machine à écrire (secondes/lettre) |
-| **Line Pause** | Pause entre les lignes si Wait For Input est désactivé |
-| **Wait For Input** | Le joueur appuie sur Space/Jump pour passer |
-| **Skip Typing On Input** | Appuyer pendant la frappe affiche la ligne entière instantanément |
+| **Trigger Target** | Qui déclenche : Milo / Lino / Both |
+| **Repeatable** | ♻️ Si coché, se rejoue à chaque entrée |
+| **Lines** | Tableau des lignes *(fallback sans localisation)* |
+| **Line Keys** | 🌍 Clés CSV pour la localisation *(optionnel)* |
+| **Speaker Names** | Noms des personnages *(1:1 avec Lines)* |
+| **Letter Delay** | ⌨️ Vitesse de l'effet machine à écrire |
+| **Line Pause** | Pause entre lignes *(si Wait For Input désactivé)* |
+| **Wait For Input** | Space/Jump pour avancer |
+| **Skip Typing On Input** | Affiche la ligne entière instantanément sur input |
 
-> **Rétrocompatibilité :** Les DialogueZones existantes avec `Lines` rempli et sans `Line Keys` fonctionnent sans aucune modification.
+> 💡 **Rétrocompatibilité :** Les DialogueZones existantes avec `Lines` rempli fonctionnent sans modification !
 
-### Tags requis
+### 🏷️ Tags requis
 
-Les personnages doivent avoir les tags Unity suivants :
 - Milo → tag **`Milo`**
 - Lino → tag **`Lino`**
 
 ---
 
-## 5. SpriteAnimator — Animations décoratives
+## 5. 🌿 SpriteAnimator — Animations décoratives
 
-**Script :** `Assets/SCRIPT/SpriteAnimator.cs`
-**Placement :** Sur n'importe quel GameObject avec un `SpriteRenderer` (plantes, arbres, décos...).
+**📄 Script :** `Assets/SCRIPT/SpriteAnimator.cs`
+**📍 Placement :** Sur tout GameObject avec un `SpriteRenderer` (plantes, arbres, décos...)
 
-### Setup
+### ⚙️ Setup
 
-1. Sélectionner le GameObject décoratif.
-2. Attacher le script `SpriteAnimator` (le `SpriteRenderer` est requis automatiquement).
-3. Dans **Frames**, glisser les sprites dans l'ordre d'animation.
+1. Sélectionner le GameObject décoratif
+2. Attacher `SpriteAnimator` *(le `SpriteRenderer` est requis automatiquement)*
+3. Glisser les sprites dans **Frames** dans l'ordre d'animation
 
-### Paramètres
+### 🎛️ Paramètres
 
 | Champ | Description |
 |---|---|
-| **Frames** | Tableau de sprites à animer |
-| **FPS** | Vitesse de l'animation (images par seconde) |
+| **Frames** | 🖼️ Tableau de sprites à animer |
+| **FPS** | Vitesse de l'animation |
 | **Play Mode** | Loop / PingPong / Once |
-| **Random Offset** | Démarre à une frame aléatoire (évite la synchronisation visuelle entre objets similaires) |
+| **Random Offset** | 🎲 Démarre à une frame aléatoire *(évite la synchro visuelle)* |
 | **Play On Start** | Démarre automatiquement |
 
-### API (depuis un script)
+### 💻 API
 
 ```csharp
 SpriteAnimator anim = GetComponent<SpriteAnimator>();
-anim.Play();    // démarre
-anim.Pause();   // met en pause
-anim.Stop();    // arrête et remet à la frame 0
+anim.Play();    // ▶️ démarre
+anim.Pause();   // ⏸️ met en pause
+anim.Stop();    // ⏹️ arrête et remet à la frame 0
 ```
 
 ---
 
-## 6. PlayerMovementBase — Coyote Time
+## 6. 🐾 PlayerMovementBase — Coyote Time
 
-**Script :** `Assets/SCRIPT/PlayerMovementBase.cs`
-Ce paramètre est hérité par `PlayerMovementMilo` et `PlayerMovementLino`.
+**📄 Script :** `Assets/SCRIPT/PlayerMovementBase.cs`
+*(hérité par `PlayerMovementMilo` et `PlayerMovementLino`)*
 
-### Concept
+### 🐱 C'est quoi le Coyote Time ?
 
-Le **coyote time** permet au joueur de sauter pendant une courte fenêtre après avoir quitté une plateforme (comme Wile E. Coyote dans les cartoons). Cela rend les sauts en bord de plateforme plus indulgents.
+Le **coyote time** permet de sauter encore un court instant après avoir quitté le bord d'une plateforme — comme Wile E. Coyote qui court dans le vide avant de tomber ! Ça rend les sauts beaucoup plus agréables. 🎮
 
-### Paramètre Inspector
+### 🎛️ Paramètre Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Coyote Time** | Durée (secondes) pendant laquelle on peut encore sauter après avoir quitté le sol | 0.15s |
+| **Coyote Time** | Fenêtre de saut après avoir quitté le sol (secondes) | 0.15s |
 
-> Ce champ apparaît sur les composants `PlayerMovementMilo` et `PlayerMovementLino` dans l'Inspector, car ils héritent de `PlayerMovementBase`.
+> 💡 Ce champ apparaît sur `PlayerMovementMilo` et `PlayerMovementLino` dans l'Inspector.
 
-### Notes
+### 📝 Notes
 
-- Le timer se réinitialise à chaque saut pour éviter les double-sauts en l'air.
-- Réduire à `0` désactive complètement le coyote time.
-
----
+- 🚫 Le timer se reset à chaque saut → pas de double saut en l'air
+- Mettre à `0` pour désactiver complètement
 
 ---
 
-## 7. ExitZone — Passage au niveau suivant
+## 7. 🚪 ExitZone — Passage au niveau suivant
 
-**Script :** `Assets/SCRIPT/ExitZone.cs`
-**Placement :** Sur un GameObject avec un **Collider2D en mode Trigger**, à placer librement dans le niveau.
+**📄 Script :** `Assets/SCRIPT/ExitZone.cs`
+**📍 Placement :** Trigger zone à placer librement dans le niveau
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject (ex: `ExitZone`).
-2. Ajouter un `Collider2D` (Box ou Circle) et cocher **Is Trigger**.
-3. Attacher le script `ExitZone`.
-4. Positionner la zone à l'endroit voulu dans le niveau (sortie, porte, bord...).
+1. Créer un GameObject (ex: `ExitZone`)
+2. Ajouter un `Collider2D` → cocher **Is Trigger** ✅
+3. Attacher `ExitZone`
+4. 📍 Positionner où tu veux dans le niveau (sortie, porte, bord...)
 
-### Comportement
+### 🎮 Comportement
 
-- Quand **Milo** entre dans la zone → `GameManager.LoadNextScene()` est appelé.
-- Le `GameManager` charge la scène suivante dans son tableau `_sceneOrder`.
-- La transition est animée via `SceneFader` si présent.
-
-> Seul Milo peut déclencher la zone (Lino suit toujours Milo).
+- Quand **Milo** entre dans la zone → `GameManager.LoadNextScene()` 🚀
+- La transition est animée via `SceneFader` si présent
+- Seul Milo peut déclencher *(Lino suit toujours)*
 
 ---
 
-## 8. MenuPause — Menu pause
+## 8. ⏸️ MenuPause — Menu pause
 
-**Script :** `Assets/SCRIPT/MenuPause.cs`
-**Placement :** Sur un GameObject dans chaque scène de jeu (ou sur un objet persistant).
+**📄 Script :** `Assets/SCRIPT/MenuPause.cs`
+**📍 Placement :** GameObject dans chaque scène de jeu
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un **Canvas UI** avec un Panel enfant (le menu pause).
-2. Dans le Panel, ajouter les boutons : **Resume**, **Options**, **Main Menu**, **Quit**.
-3. Créer un GameObject vide `MenuPause` et attacher le script.
-4. Dans l'Inspector, assigner :
-   - `_container` → le Panel racine du menu pause
+1. Créer un **Canvas UI** avec un Panel enfant (le menu pause)
+2. Ajouter les boutons : **Resume**, **Options**, **Main Menu**, **Quit**
+3. Créer un GameObject vide `MenuPause` → attacher le script
+4. Assigner dans l'Inspector :
+   - `_container` → le Panel racine du menu
    - `_optionsMenu` → le composant `OptionsMenu` *(optionnel)*
 
-### Wiring des boutons
+### 🔗 Wiring des boutons
 
-| Bouton | Méthode à appeler |
+| Bouton | Méthode |
 |---|---|
-| Resume | `MenuPause.ResumeButton()` |
-| Options | `MenuPause.OptionsButton()` |
-| Main Menu | `MenuPause.MainMenuButton()` |
-| Quit | `MenuPause.QuitGame()` |
+| ▶️ Resume | `MenuPause.ResumeButton()` |
+| ⚙️ Options | `MenuPause.OptionsButton()` |
+| 🏠 Main Menu | `MenuPause.MainMenuButton()` |
+| ❌ Quit | `MenuPause.QuitGame()` |
 
-### Comportement
+### 🎮 Comportement
 
-- **Escape** : alterne entre ouverture et fermeture du menu.
-- À l'ouverture : `Time.timeScale = 0` (jeu figé).
-- À la fermeture : `Time.timeScale = 1` (jeu repris).
+- **Escape** : ouvre ET ferme le menu (toggle)
+- À l'ouverture → `Time.timeScale = 0` ⏸️
+- À la fermeture → `Time.timeScale = 1` ▶️
 
-> **Prérequis :** Un **EventSystem** doit être présent dans la scène pour que les boutons fonctionnent. Ajouter via `GameObject > UI > Event System`.
+> ⚠️ **Prérequis :** Un **EventSystem** doit être dans la scène !
+> Ajouter via `GameObject > UI > Event System`
 
 ---
 
-## 9. OptionsMenu — Menu options
+## 9. ⚙️ OptionsMenu — Menu options
 
-**Script :** `Assets/SCRIPT/OptionsMenu.cs`
-**Placement :** Sur le GameObject racine du panel Options (enfant du Canvas).
+**📄 Script :** `Assets/SCRIPT/OptionsMenu.cs`
+**📍 Placement :** Sur le root du panel Options (enfant du Canvas)
 
-### Setup UI
+### ⚙️ Setup UI
 
-Créer dans le Canvas un Panel `OptionsPanel` contenant :
-- Un **Slider** (0→1) pour la musique
-- Un **Slider** (0→1) pour les SFX
-- Un **TMP_Dropdown** pour la langue
-- Un bouton **Retour** qui appelle `OptionsMenu.Hide()`
+Créer dans le Canvas un Panel `OptionsPanel` avec :
+- 🎵 Un **Slider** (0→1) pour le volume musique
+- 🔊 Un **Slider** (0→1) pour le volume SFX
+- 🌍 Un **TMP_Dropdown** pour la langue
+- ◀️ Un bouton **Retour** → `OptionsMenu.Hide()`
 
-Attacher `OptionsMenu` au panel root. Assigner dans l'Inspector :
+Assigner dans l'Inspector :
 
 | Champ | Ce qu'il faut glisser |
 |---|---|
-| **Music Slider** | Le Slider de volume musique |
-| **SFX Slider** | Le Slider de volume SFX |
-| **Language Dropdown** | Le TMP_Dropdown de langue |
-| **Language Codes** | Tableau de codes correspondant aux options du Dropdown (ex: `fr`, `en`) |
-| **Panel** | Ce même GameObject (le root du panel) |
+| **Music Slider** | Slider volume musique |
+| **SFX Slider** | Slider volume SFX |
+| **Language Dropdown** | TMP_Dropdown de langue |
+| **Language Codes** | `fr`, `en` *(dans le même ordre que le Dropdown)* |
+| **Panel** | Ce même GameObject |
 
-### Wiring des callbacks
+### 🔗 Wiring des callbacks
 
 | Élément | Event | Méthode |
 |---|---|---|
@@ -368,29 +362,23 @@ Attacher `OptionsMenu` au panel root. Assigner dans l'Inspector :
 | SFX Slider | `OnValueChanged` | `OptionsMenu.OnSfxVolumeChanged` |
 | Language Dropdown | `OnValueChanged` | `OptionsMenu.OnLanguageChanged` |
 
-### Notes
-
-- Les sliders se positionnent automatiquement aux valeurs sauvegardées à l'ouverture.
-- Les codes langue dans `_languageCodes` doivent correspondre **exactement** aux noms de colonnes dans le CSV (ex: `fr`, `en`).
+> 💡 Les sliders se positionnent automatiquement aux valeurs sauvegardées à l'ouverture !
 
 ---
 
-## 10. LocalizationManager — Système de langue
+## 10. 🌍 LocalizationManager — Système de langue
 
-**Script :** `Assets/SCRIPT/LocalizationManager.cs`
-**Placement :** GameObject vide dans la scène **Debut**, nommé `LocalizationManager`.
+**📄 Script :** `Assets/SCRIPT/LocalizationManager.cs`
+**📍 Placement :** GameObject vide dans la scène **Debut**
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject vide dans Debut et attacher `LocalizationManager`.
-2. Créer les fichiers CSV dans `Assets/Resources/Localization/`.
-3. Dans l'Inspector, référencer les fichiers CSV (sans extension, sans `Assets/Resources/`) :
+1. Créer un GameObject vide `LocalizationManager` dans Debut
+2. Attacher le script `LocalizationManager`
+3. Créer les fichiers CSV dans `Assets/Resources/Localization/`
+4. Dans `_csvFiles` de l'Inspector → `Localization/dialogues`
 
-```
-Localization/dialogues
-```
-
-### Format CSV
+### 📄 Format CSV
 
 ```
 key,fr,en
@@ -398,367 +386,362 @@ intro_01,Bonjour Milo !,Hello Milo!
 intro_02,"C'est l'heure, partons !","It's time, let's go!"
 ```
 
-- Première ligne = en-tête avec les codes de langue
-- Première colonne = clé unique
-- Champs contenant des virgules ou apostrophes → entourer de guillemets `"`
-- Encodage : **UTF-8**
+- 1ère ligne = en-tête avec les codes de langue
+- 1ère colonne = clé unique
+- Champs avec virgules/apostrophes → entourer de `"guillemets"`
+- Encodage : **UTF-8** ✅
 
-### Ajouter une langue
+### ➕ Ajouter une langue
 
-Ajouter simplement une colonne dans le CSV :
+Ajouter une colonne dans le CSV :
 
 ```
 key,fr,en,es
 intro_01,Bonjour !,Hello!,¡Hola!
 ```
 
-Puis ajouter `"es"` dans `_languageCodes` de l'`OptionsMenu` et une option dans le Dropdown.
+Puis ajouter `"es"` dans `_languageCodes` de l'OptionsMenu + une option dans le Dropdown.
 
-### API
+### 💻 API
 
 ```csharp
-LocalizationManager.Instance.Get("intro_01");           // texte courant
-LocalizationManager.Instance.SetLanguage("en");          // changer de langue
-LocalizationManager.Instance.CurrentLanguage;            // "fr" / "en" / ...
+LocalizationManager.Instance.Get("intro_01");       // texte courant
+LocalizationManager.Instance.SetLanguage("en");      // changer de langue
+LocalizationManager.Instance.CurrentLanguage;        // "fr" / "en" / ...
 ```
 
 ---
 
-## 11. LocalizedText — Texte UI localisé
+## 11. 🔤 LocalizedText — Texte UI localisé
 
-**Script :** `Assets/SCRIPT/LocalizedText.cs`
-**Placement :** Sur n'importe quel GameObject avec un `TextMeshProUGUI`.
+**📄 Script :** `Assets/SCRIPT/LocalizedText.cs`
+**📍 Placement :** Sur tout GameObject avec un `TextMeshProUGUI`
 
-### Setup
+### ⚙️ Setup
 
-1. Sélectionner le GameObject du texte UI (bouton, label...).
-2. Attacher `LocalizedText`.
-3. Dans l'Inspector, saisir la **clé CSV** dans le champ `_key`.
+1. Sélectionner le GameObject du texte UI
+2. Attacher `LocalizedText`
+3. Saisir la **clé CSV** dans le champ `_key` de l'Inspector
 
-Le texte se met à jour automatiquement au chargement et à chaque changement de langue.
+✅ Le texte se met à jour automatiquement au chargement et à chaque changement de langue !
 
-> Si `LocalizationManager` est absent de la scène, le texte reste inchangé (pas d'erreur).
-
----
+> 💡 Si `LocalizationManager` est absent, le texte reste inchangé *(pas d'erreur)*
 
 ---
 
-## 12. AudioManager — Gestion du son
+## 12. 🔊 AudioManager — Gestion du son
 
-**Script :** `Assets/SCRIPT/AudioManager.cs`
-**Placement :** GameObject vide dans la scène **Debut**, nommé `AudioManager`.
+**📄 Script :** `Assets/SCRIPT/AudioManager.cs`
+**📍 Placement :** GameObject vide dans la scène **Debut**
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject vide `AudioManager` dans Debut.
-2. Attacher le script `AudioManager`.
+1. Créer un GameObject vide `AudioManager` dans Debut
+2. Attacher le script `AudioManager`
 3. Dans `_sounds`, ajouter autant d'entrées que de SFX :
 
 | Champ | Description |
 |---|---|
-| **Name** | Identifiant appelé depuis le code (ex: `"Jump"`, `"Land"`, `"FireflyCatch"`) |
+| **Name** | Identifiant du son : `"Jump"`, `"Land"`, `"FireflyCatch"` |
 | **Clip** | L'AudioClip à jouer |
 | **Volume** | Volume de base [0-1] |
 | **Pitch** | Hauteur [0.1-3] |
-| **Loop** | Cocher si le son doit boucler |
+| **Loop** | ♻️ Cocher pour un son en boucle |
 
-### Paramètres musique
+### 🎵 Paramètres musique
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Music Volume** | Volume global de la musique [0-1] | 0.8 |
-| **Fade Duration** | Durée du crossfade entre deux musiques | 1s |
+| **Music Volume** | Volume global musique [0-1] | 0.8 |
+| **Fade Duration** | Durée du crossfade | 1s |
 
-### API
+### 💻 API
 
 ```csharp
-AudioManager.Instance?.Play("Jump");          // jouer un SFX
-AudioManager.Instance?.Stop("Jump");          // arrêter un SFX
-AudioManager.Instance?.StopAll();             // arrêter tous les SFX
-AudioManager.Instance?.SetMusicVolume(0.5f);  // changer volume musique
-AudioManager.Instance?.SetSfxVolume(0.8f);   // changer volume SFX
+AudioManager.Instance?.Play("Jump");          // ▶️ jouer un SFX
+AudioManager.Instance?.Stop("Jump");          // ⏹️ arrêter un SFX
+AudioManager.Instance?.StopAll();             // ⏹️ arrêter tous les SFX
+AudioManager.Instance?.SetMusicVolume(0.5f);  // 🎵 volume musique
+AudioManager.Instance?.SetSfxVolume(0.8f);   // 🔊 volume SFX
 ```
 
 ---
 
-## 13. SceneMusic — Musique par scène
+## 13. 🎵 SceneMusic — Musique par scène
 
-**Script :** `Assets/SCRIPT/SceneMusic.cs`
-**Placement :** Un GameObject dans **chaque scène** où une musique doit jouer.
+**📄 Script :** `Assets/SCRIPT/SceneMusic.cs`
+**📍 Placement :** Dans **chaque scène** qui a une musique
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject vide `SceneMusic` dans la scène.
-2. Attacher `SceneMusic`.
-3. Assigner l'`AudioClip` de la musique dans `_musicClip`.
+1. Créer un GameObject vide `SceneMusic` dans la scène
+2. Attacher `SceneMusic`
+3. Glisser l'`AudioClip` dans `_musicClip` 🎶
 
-### Comportement
+### 🎮 Comportement
 
-- Au démarrage de la scène, appelle `AudioManager.PlayMusic()` avec un crossfade automatique.
-- Si `_musicClip` est vide → la musique en cours s'arrête.
-- Si la même musique joue déjà (ex: même clip entre deux niveaux) → elle ne repart pas du début.
+- 🎵 Au démarrage → appelle `AudioManager.PlayMusic()` avec crossfade automatique
+- 🔇 Si `_musicClip` est vide → la musique s'arrête
+- ♻️ Si la même musique joue déjà → elle ne repart pas du début
 
 ---
 
-## 14. CameraFollow — Caméra
+## 14. 🎥 CameraFollow — Caméra
 
-**Script :** `Assets/SCRIPT/CameraFollow.cs`
-**Placement :** Sur la **Main Camera** de chaque scène de jeu.
+**📄 Script :** `Assets/SCRIPT/CameraFollow.cs`
+**📍 Placement :** Sur la **Main Camera** de chaque scène de jeu
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
 | Champ | Description |
 |---|---|
-| **Milo** | Transform du GameObject Milo |
-| **Lino** | Transform du GameObject Lino |
-| **Follow Speed** | Vitesse de lerp de la caméra vers la cible |
-| **Offset Z** | Décalage Z de la caméra (généralement -10) |
-| **Is Great Room** | Si coché, la caméra est **fixe** (ne suit pas les personnages) |
+| **Milo** | Transform de Milo |
+| **Lino** | Transform de Lino |
+| **Follow Speed** | Vitesse de lerp de la caméra |
+| **Offset Z** | Décalage Z *(généralement -10)* |
+| **Is Great Room** | ✅ Coché = caméra **fixe**, décoché = caméra qui suit |
 
-### Comportement
+### 🎮 Comportement
 
-- **Is Great Room coché** → caméra statique, aucun suivi.
-- **Is Great Room décoché** → la caméra suit le **point médian** entre Milo et Lino avec lerp.
+- 📌 **Is Great Room coché** → caméra statique
+- 🎯 **Is Great Room décoché** → suit le **point médian** entre Milo et Lino
 
 ---
 
-## 15. Firefly — Luciole
+## 15. ✨ Firefly — Luciole
 
-**Script :** `Assets/SCRIPT/Firefly.cs`
-**Placement :** Sur le GameObject de la luciole, avec un `Collider2D` en mode **Trigger**.
+**📄 Script :** `Assets/SCRIPT/Firefly.cs`
+**📍 Placement :** Sur le GameObject luciole, avec un `Collider2D` Trigger
 
-### Setup
+### ⚙️ Setup
 
-1. Créer le GameObject luciole avec un `SpriteRenderer` et un `Collider2D` (Trigger).
-2. Attacher `Firefly`.
+1. Créer le GameObject luciole avec `SpriteRenderer` + `Collider2D` (Trigger)
+2. Attacher `Firefly`
 3. Remplir les références :
 
 | Champ | Description |
 |---|---|
-| **Visible To** | Quel chat peut voir et attraper la luciole (Milo ou Lino) |
+| **Visible To** | 🐱 Quel chat peut voir/attraper la luciole |
 | **Character Switcher** | Le `CharacterSwitcher` de la scène |
 | **Float Speed** | Vitesse de l'animation flottante |
-| **Float Amplitude** | Amplitude (hauteur) du mouvement |
-| **Obstacle To Destroy** | *(Optionnel)* GameObject supprimé quand la luciole est attrapée |
-| **Lino Blocker** | *(Optionnel)* `LinoBlocker` débloqué quand la luciole est attrapée |
+| **Float Amplitude** | Amplitude du mouvement vertical |
+| **Obstacle To Destroy** | *(Optionnel)* Objet détruit à la capture |
+| **Lino Blocker** | *(Optionnel)* `LinoBlocker` débloqué à la capture |
 
-### Comportement
+### 🎮 Comportement
 
-- La luciole flotte verticalement en boucle.
-- Elle n'est **visible que pour le bon chat** (le script masque le `SpriteRenderer` sinon).
-- Quand le bon chat la touche → SFX `"FireflyCatch"`, obstacle détruit, `LinoBlocker` débloqué.
+- 💫 Flotte verticalement en boucle
+- 👁️ Visible **uniquement par le bon chat** (l'autre ne la voit pas !)
+- 🎯 Quand le bon chat la touche → SFX `"FireflyCatch"` + obstacle détruit + Lino débloqué
 
-> La luciole est **exclue de l'effet gris** du CharacterSwitcher (le composant `Firefly` sert de marqueur d'exclusion).
+> 🩶 La luciole est **exclue de l'effet gris** du CharacterSwitcher automatiquement
 
 ---
 
-## 16. LinoFollower — Lino suit Milo
+## 16. 🐾 LinoFollower — Lino suit Milo
 
-**Script :** `Assets/SCRIPT/LinoFollower.cs`
-**Placement :** Sur le GameObject **Lino**.
+**📄 Script :** `Assets/SCRIPT/LinoFollower.cs`
+**📍 Placement :** Sur le GameObject **Lino**
 
-### Setup
+### ⚙️ Setup
 
-1. Attacher `LinoFollower` à Lino.
-2. Assigner le `Transform` de Milo dans `_milo`.
-3. Placer des **zones Corridor** (voir ci-dessous) aux endroits où Lino doit suivre Milo.
+1. Attacher `LinoFollower` à Lino
+2. Glisser le `Transform` de Milo dans `_milo`
+3. Placer des **zones de suivi** dans le niveau *(voir ci-dessous)*
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Milo** | Transform du GameObject Milo | — |
-| **Speed** | Vitesse de déplacement de Lino vers Milo | 3 |
-| **Min Distance** | Distance minimale avant que Lino s'arrête | 0.5 |
-| **Follow Delay** | Délai (secondes) avec lequel Lino rejoue le chemin de Milo | 0.3s |
+| **Milo** | Transform de Milo | — |
+| **Speed** | Vitesse de Lino vers Milo | 3 |
+| **Min Distance** | Distance avant que Lino s'arrête | 0.5 |
+| **Follow Delay** | Délai avec lequel Lino rejoue le chemin | 0.3s |
 
-### Zones Corridor (tag requis)
+### 🏷️ Zones de suivi (tag `Corridor`)
 
-Pour définir une zone où Lino suit Milo :
+Pour créer une zone où Lino suit Milo :
 
-1. Créer un GameObject avec un `Collider2D` → **Is Trigger**.
-2. Lui donner le tag Unity **`Corridor`**.
-3. Positionner la zone dans le niveau.
+1. Créer un GameObject avec un `Collider2D` → **Is Trigger** ✅
+2. Donner le tag **`Corridor`** à ce GameObject
+3. Positionner dans le niveau
 
-Tant que Lino est dans une zone `Corridor`, il reproduit le chemin de Milo avec un léger retard.
+> 💡 Tant que Lino est dans une zone `Corridor`, il reproduit le chemin de Milo avec un léger retard.
 
 ---
 
-## 17. LinoBlocker — Blocage de Lino
+## 17. 🚧 LinoBlocker — Blocage de Lino
 
-**Script :** `Assets/SCRIPT/LinoBlocker.cs`
-**Placement :** Sur le GameObject **Lino**, en complément de `LinoFollower`.
+**📄 Script :** `Assets/SCRIPT/LinoBlocker.cs`
+**📍 Placement :** Sur le GameObject **Lino**
 
-### Comportement
+### 🎮 Comportement
 
-- Par défaut, **Lino ne peut pas avancer** (vélocité X forcée à 0).
-- Appeler `Unblock()` pour libérer Lino — déclenché par une `Firefly` ou un `ObjectTrigger`.
+- 🛑 Par défaut, Lino **ne peut pas avancer** (vélocité X = 0)
+- ✅ Appeler `Unblock()` pour le libérer — via une `Firefly` ou un `ObjectTrigger`
 
-### API
+### 💻 API
 
 ```csharp
-// Depuis Firefly ou ObjectTrigger
-linoBlocker.Unblock();
-
-// Lire l'état
-bool bloque = linoBlocker.IsBlocked;
+linoBlocker.Unblock();            // libérer Lino
+bool bloque = linoBlocker.IsBlocked;  // lire l'état
 ```
 
 ---
 
-## 18. ObjectTrigger — Trigger d'objet
+## 18. 💥 ObjectTrigger — Trigger d'objet
 
-**Script :** `Assets/SCRIPT/ObjectTrigger.cs`
-**Placement :** Sur un GameObject avec un `Collider2D` en mode **Trigger**.
+**📄 Script :** `Assets/SCRIPT/ObjectTrigger.cs`
+**📍 Placement :** Sur un GameObject avec un `Collider2D` Trigger
 
-### Setup
+### 🎛️ Paramètres Inspector
 
 | Champ | Description |
 |---|---|
-| **Lino** | GameObject de Lino *(pour accéder au `LinoBlocker`)* |
-| **Object To Disappear** | L'objet à désactiver (ou détruire) quand Milo entre |
-| **Milo Tag** | Tag du déclencheur (par défaut `"Milo"`) |
-| **Destroy Instead Of Disable** | Si coché, détruit l'objet au lieu de le désactiver |
+| **Lino** | GameObject de Lino *(pour `LinoBlocker`)* |
+| **Object To Disappear** | L'objet à désactiver/détruire quand Milo entre |
+| **Milo Tag** | Tag du déclencheur *(défaut : `"Milo"`)* |
+| **Destroy Instead Of Disable** | Détruire plutôt que désactiver |
 
-### Comportement
+### 🎮 Comportement
 
-- Quand Milo entre dans le trigger → l'objet cible disparaît + `LinoBlocker.Unblock()` est appelé.
-- Le trigger se détruit lui-même après le déclenchement (one-shot).
+- Milo entre → objet cible disparaît + `LinoBlocker.Unblock()` 🔓
+- 💥 Le trigger se détruit après déclenchement *(one-shot)*
 
 ---
 
-## 19. MovingPlatform — Plateforme mobile
+## 19. 🟫 MovingPlatform — Plateforme mobile
 
-**Script :** `Assets/SCRIPT/MovingPlatform.cs`
-**Placement :** Sur le GameObject de la plateforme.
+**📄 Script :** `Assets/SCRIPT/MovingPlatform.cs`
+**📍 Placement :** Sur le GameObject de la plateforme
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Direction** | Horizontal ou Vertical | Horizontal |
-| **Distance** | Amplitude du mouvement (en unités Unity) | 3 |
-| **Speed** | Vitesse du mouvement (fréquence du sinus) | 2 |
+| **Direction** | ↔️ Horizontal ou ↕️ Vertical | Horizontal |
+| **Distance** | Amplitude du mouvement (unités Unity) | 3 |
+| **Speed** | Vitesse du mouvement | 2 |
 
-### Comportement
+### 🎮 Comportement
 
-Mouvement sinusoïdal automatique. Pas de Rigidbody requis — le Transform est déplacé directement.
+Mouvement sinusoïdal automatique — aucun Rigidbody requis !
 
-> Pour que le chat reste sur la plateforme, la plateforme doit avoir un Collider2D **non-trigger** avec un tag ou layer que le ground check du personnage détecte.
+> 💡 Pour que le chat reste sur la plateforme, elle doit avoir un `Collider2D` non-trigger avec le bon Layer pour le ground check.
 
 ---
 
-## 20. RespawnOnFall — Respawn
+## 20. 💀 RespawnOnFall — Respawn
 
-**Script :** `Assets/SCRIPT/RespawnOnFall.cs`
-**Placement :** Sur **Milo** et **Lino**.
+**📄 Script :** `Assets/SCRIPT/RespawnOnFall.cs`
+**📍 Placement :** Sur **Milo** ET **Lino**
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
 | **Death Height** | Hauteur Y en dessous de laquelle le respawn se déclenche | -10 |
 
-### Comportement
+### 🎮 Comportement
 
-- Mémorise la position de départ au `Start()`.
-- Si le personnage descend en dessous de `_deathHeight` → téléportation à la position de départ + vélocité remise à zéro.
+- 📍 Mémorise la position de départ au `Start()`
+- 💀 Tombe en dessous de `_deathHeight` → téléportation au spawn + vélocité reset
 
-> Ajuster `_deathHeight` selon la géométrie de chaque niveau.
+> ⚠️ Ajuster `_deathHeight` selon la taille de chaque niveau !
 
 ---
 
-## 21. TypingEffect — Effet de frappe (intro/outro)
+## 21. ⌨️ TypingEffect — Effet de frappe (intro/outro)
 
-**Script :** `Assets/SCRIPT/TypingEffect.cs`
-**Placement :** Sur un GameObject UI dans une scène d'intro ou de fin.
+**📄 Script :** `Assets/SCRIPT/TypingEffect.cs`
+**📍 Placement :** Sur un GameObject UI dans une scène d'intro ou de fin
 
-### Setup
+### ⚙️ Setup
 
-1. Créer un GameObject avec un `TextMeshProUGUI`.
-2. Attacher `TypingEffect`.
-3. Assigner le `TextMeshProUGUI` dans `_textDisplay` *(auto-détecté si absent)*.
-4. Remplir le tableau `_phrases`.
+1. Créer un GameObject avec un `TextMeshProUGUI`
+2. Attacher `TypingEffect`
+3. Glisser le `TextMeshProUGUI` dans `_textDisplay` *(auto-détecté si vide)*
+4. Remplir le tableau `_phrases`
 
-### Paramètres Inspector
+### 🎛️ Paramètres Inspector
 
-| Champ | Description | Valeur par défaut |
+| Champ | Description | Défaut |
 |---|---|---|
-| **Phrases** | Tableau de textes affichés en séquence | — |
-| **Text Display** | Le `TextMeshProUGUI` cible | auto |
-| **Letter Delay** | Délai entre chaque lettre (secondes) | 0.05s |
-| **Phrase Delay** | Pause entre chaque phrase (secondes) | 1s |
-| **Load Next Scene On Complete** | Si coché, charge la scène suivante après la dernière phrase | false |
-| **Scene Load Delay** | Délai avant le chargement de scène | 1s |
+| **Phrases** | Tableau de textes en séquence | — |
+| **Text Display** | `TextMeshProUGUI` cible | auto |
+| **Letter Delay** | ⌨️ Délai entre chaque lettre | 0.05s |
+| **Phrase Delay** | ⏳ Pause entre chaque phrase | 1s |
+| **Load Next Scene On Complete** | 🚀 Charge la scène suivante après la dernière phrase | false |
+| **Scene Load Delay** | Délai avant le chargement | 1s |
 
 ---
 
-## 22. Menu — Écran titre
+## 22. 🏠 Menu — Écran titre
 
-**Script :** `Assets/SCRIPT/Menu.cs`
-**Placement :** Sur un GameObject dans la scène **Menu**.
+**📄 Script :** `Assets/SCRIPT/Menu.cs`
+**📍 Placement :** Sur un GameObject dans la scène **Menu**
 
-### Wiring des boutons
+### 🔗 Wiring des boutons
 
 | Bouton | Méthode |
 |---|---|
-| Jouer / Play | `Menu.PlayGame()` |
-| Quitter / Quit | `Menu.QuitGame()` |
+| 🎮 Jouer / Play | `Menu.PlayGame()` |
+| ❌ Quitter / Quit | `Menu.QuitGame()` |
 
-### Comportement
+### 🎮 Comportement
 
-- `PlayGame()` → appelle `GameManager.ResetAndStart()` (repart depuis le début de `_sceneOrder`).
-- Si le `GameManager` n'est pas encore chargé → charge directement la scène `"Debut"`.
+- `PlayGame()` → `GameManager.ResetAndStart()` *(repart depuis le début)*
+- Si GameManager pas encore chargé → charge directement `"Debut"`
 
 ---
 
-## Checklist Unity Editor — configuration manuelle requise
+## ✅ Checklist Unity Editor — configuration manuelle
 
-Les éléments suivants ne peuvent pas être scriptés et doivent être faits directement dans l'éditeur Unity.
+> 🛠️ Ces étapes ne peuvent pas être scriptées — à faire directement dans Unity !
 
-### 1. Scène Debut — ajouter LocalizationManager
+### 1️⃣ Scène Debut — ajouter LocalizationManager
 
-- Créer un **GameObject vide** nommé `LocalizationManager`
-- Attacher le script `LocalizationManager`
-- Dans `_csvFiles` : vérifier que `Localization/dialogues` est bien présent
+- [ ] Créer un **GameObject vide** nommé `LocalizationManager`
+- [ ] Attacher le script `LocalizationManager`
+- [ ] Vérifier que `Localization/dialogues` est dans `_csvFiles`
 
-### 2. ExitZone — dans chaque niveau
+### 2️⃣ ExitZone — dans chaque niveau
 
-- Créer un **GameObject** à l'endroit de sortie du niveau
-- Ajouter un `Collider2D` → cocher **Is Trigger**
-- Attacher le script `ExitZone`
-- Répéter pour Level1, Level2, Level3
+- [ ] Créer un GameObject à la sortie du niveau
+- [ ] Ajouter `Collider2D` → **Is Trigger** ✅
+- [ ] Attacher `ExitZone`
+- [ ] Répéter pour Level1, Level2, Level3
 
-### 3. MenuPause — ajouter le bouton Options
+### 3️⃣ MenuPause — bouton Options
 
-- Dans le Canvas du menu pause, ajouter un bouton **Options**
-- Le wirer sur `MenuPause.OptionsButton()`
-- Dans l'Inspector du `MenuPause`, assigner `_optionsMenu` → le composant `OptionsMenu`
+- [ ] Ajouter un bouton **Options** dans le Canvas pause
+- [ ] Wirer sur `MenuPause.OptionsButton()`
+- [ ] Assigner `_optionsMenu` dans l'Inspector du `MenuPause`
 
-### 4. OptionsMenu — créer le Panel UI
+### 4️⃣ OptionsMenu — créer le Panel UI
 
-Créer dans le Canvas un Panel `OptionsPanel` contenant :
-
-| Élément | Type Unity | Configuration |
+| Élément | Type | Configuration |
 |---|---|---|
-| Slider musique | `Slider` | Min=0, Max=1 — `OnValueChanged` → `OptionsMenu.OnMusicVolumeChanged` |
-| Slider SFX | `Slider` | Min=0, Max=1 — `OnValueChanged` → `OptionsMenu.OnSfxVolumeChanged` |
-| Dropdown langue | `TMP_Dropdown` | Options : "Français", "English" — `OnValueChanged` → `OptionsMenu.OnLanguageChanged` |
-| Bouton Retour | `Button` | `OnClick` → `OptionsMenu.Hide()` |
+| 🎵 Slider musique | `Slider` | Min=0, Max=1 → `OnMusicVolumeChanged` |
+| 🔊 Slider SFX | `Slider` | Min=0, Max=1 → `OnSfxVolumeChanged` |
+| 🌍 Dropdown langue | `TMP_Dropdown` | "Français", "English" → `OnLanguageChanged` |
+| ◀️ Bouton Retour | `Button` | → `OptionsMenu.Hide()` |
 
-Attacher `OptionsMenu` au root du Panel. Assigner dans l'Inspector :
-- `_musicSlider`, `_sfxSlider`, `_languageDropdown`, `_panel`
-- `_languageCodes` : `fr`, `en` (dans le même ordre que les options du Dropdown)
+- [ ] Assigner `_musicSlider`, `_sfxSlider`, `_languageDropdown`, `_panel`
+- [ ] `_languageCodes` : `fr`, `en` *(même ordre que le Dropdown)*
 
-### 5. CSV dialogues — remplir les vraies clés
+### 5️⃣ CSV dialogues — remplir les vrais textes
 
-Éditer `Assets/Resources/Localization/dialogues.csv` avec les textes du jeu :
+Éditer `Assets/Resources/Localization/dialogues.csv` :
 
 ```
 key,fr,en
-nom_de_la_cle,Texte en français,"Texte en anglais"
+ma_cle,Texte en français,"Texte en anglais"
 ```
 
-Puis dans chaque `DialogueZone`, remplir le tableau `_lineKeys` avec les clés correspondantes.
+- [ ] Remplir avec les textes du jeu
+- [ ] Dans chaque `DialogueZone`, remplir `_lineKeys` avec les clés
 
-*Document mis à jour — 2026-05-28.*
+---
+
+*🐱 Document mis à jour — 2026-05-28*
