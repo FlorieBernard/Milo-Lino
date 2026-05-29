@@ -114,15 +114,18 @@ public abstract class PlayerMovementBase : MonoBehaviour
     private void HandleRunVFX()
     {
         if (_runVFX == null) return;
+     
 
         // Play the run particle system only when moving horizontally on the ground
         if (Mathf.Abs(Horizontal) > 0.1f && IsGrounded())
         {
+            Debug.Log("Toto");
             if (!_runVFX.isPlaying)
                 _runVFX.Play();
         }
         else
         {
+            Debug.Log("Toto2");
             if (_runVFX.isPlaying)
                 _runVFX.Stop();
         }

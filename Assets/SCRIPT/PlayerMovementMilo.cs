@@ -4,6 +4,8 @@ public class PlayerMovementMilo : PlayerMovementBase
 {
     [SerializeField] private ParticleSystem smokePrefab;
 
+    [SerializeField] private Transform _vfxAnchor;
+
     private bool _wasGrounded = true;
 
     protected override void Update()
@@ -32,9 +34,10 @@ public class PlayerMovementMilo : PlayerMovementBase
     private void SpawnSmoke()
     {
         if (smokePrefab == null) return;
+      
 
         Vector3 spawnPos = transform.position + new Vector3(0f, -0.5f, 0f);
-        ParticleSystem smoke = Instantiate(smokePrefab, spawnPos, Quaternion.identity);
+        ParticleSystem smoke = Instantiate(smokePrefab, _vfxAnchor.position, Quaternion.identity);
         smoke.Play();
         Destroy(smoke.gameObject, smoke.main.duration + smoke.main.startLifetime.constantMax);
     }
