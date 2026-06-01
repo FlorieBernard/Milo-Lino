@@ -1,43 +1,46 @@
 fileFormatVersion: 2
-guid: df4aca810c95d634693686be43040b37
+guid: 1978abf6ceb68a9458af90ed3c0ad2d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1444782229581382885
-    second: essais paralaxe_0
+      213: 9053339593409125515
+    second: Luciole_0
   - first:
-      213: 5990662581577350625
-    second: essais paralaxe_1
+      213: 2315457730208430939
+    second: Luciole_1
   - first:
-      213: 606347026803683053
-    second: essais paralaxe_2
+      213: 2920653009798333970
+    second: Luciole_2
   - first:
-      213: -2407119064857935732
-    second: essais paralaxe_3
+      213: 26297782492067624
+    second: Luciole_3
   - first:
-      213: -1937247175056475622
-    second: essais paralaxe_4
+      213: 1034801881843823695
+    second: Luciole_4
   - first:
-      213: 8360184233202175174
-    second: essais paralaxe_5
+      213: -8979747216396526314
+    second: Luciole_5
   - first:
-      213: -6743965410240680394
-    second: essais paralaxe_6
+      213: 1568942876865672709
+    second: Luciole_6
   - first:
-      213: 5694734344732135887
-    second: essais paralaxe_7
+      213: -2402093925629760893
+    second: Luciole_7
   - first:
-      213: 4069234530169325704
-    second: essais paralaxe_8
+      213: -6612650482262035615
+    second: Luciole_8
   - first:
-      213: 5708160946204957115
-    second: essais paralaxe_9
+      213: 3668650494082038956
+    second: Luciole_9
   - first:
-      213: -7572677417151552832
-    second: essais paralaxe_10
+      213: -2794473826801898104
+    second: Luciole_10
   - first:
-      213: 6433753618330978232
-    second: essais paralaxe_11
+      213: -8536172080866708313
+    second: Luciole_11
+  - first:
+      213: 3880656245364339241
+    second: Luciole_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +87,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 900
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -133,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: essais paralaxe_0
+      name: Luciole_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 382
-        width: 222
-        height: 627
+        x: 681
+        y: 1274
+        width: 233
+        height: 167
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b1b310c873a13fbe0800000000000000
-      internalID: -1444782229581382885
+      spriteID: b8c5120c46ce3ad70800000000000000
+      internalID: 9053339593409125515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_1
+      name: Luciole_1
       rect:
         serializedVersion: 2
-        x: 235
-        y: 1009
-        width: 16
-        height: 15
+        x: 917
+        y: 1441
+        width: 143
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ed7428c0eb132350800000000000000
-      internalID: 5990662581577350625
+      spriteID: b5b718da988222020800000000000000
+      internalID: 2315457730208430939
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_2
+      name: Luciole_2
       rect:
         serializedVersion: 2
-        x: 255
-        y: 997
-        width: 7
-        height: 7
+        x: 1260
+        y: 1359
+        width: 193
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,62 +195,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dee6f37886d2a6800800000000000000
-      internalID: 606347026803683053
+      spriteID: 2168439207e388820800000000000000
+      internalID: 2920653009798333970
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_3
+      name: Luciole_3
       rect:
         serializedVersion: 2
-        x: 265
-        y: 957
-        width: 22
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c808217c6f1389ed0800000000000000
-      internalID: -2407119064857935732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: essais paralaxe_4
-      rect:
-        serializedVersion: 2
-        x: 259
-        y: 962
-        width: 13
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a1a31a055f38d15e0800000000000000
-      internalID: -1937247175056475622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: essais paralaxe_5
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 978
+        x: 1478
+        y: 1339
         width: 8
         height: 8
       alignment: 0
@@ -258,20 +217,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6cc46d41447550470800000000000000
-      internalID: 8360184233202175174
+      spriteID: 827f1df91bd6d5000800000000000000
+      internalID: 26297782492067624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_6
+      name: Luciole_4
       rect:
         serializedVersion: 2
-        x: 742
-        y: 920
-        width: 26
-        height: 40
+        x: 588
+        y: 1136
+        width: 73
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -280,20 +239,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63e2511c03f9862a0800000000000000
-      internalID: -6743965410240680394
+      spriteID: f44f43434da5c5e00800000000000000
+      internalID: 1034801881843823695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_7
+      name: Luciole_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 867
+        x: 687
+        y: 498
+        width: 838
+        height: 830
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,18 +261,128 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc1d9fbe6b2c70f40800000000000000
-      internalID: 5694734344732135887
+      spriteID: 61dd1e1cb77816380800000000000000
+      internalID: -8979747216396526314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_8
+      name: Luciole_6
       rect:
         serializedVersion: 2
-        x: 350
-        y: 826
+        x: 528
+        y: 665
+        width: 71
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5063570eb3106c510800000000000000
+      internalID: 1568942876865672709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luciole_7
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 472
+        width: 85
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38ae6bd2d4c0aaed0800000000000000
+      internalID: -2402093925629760893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luciole_8
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 432
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 163b4f4fb652b34a0800000000000000
+      internalID: -6612650482262035615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luciole_9
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 378
+        width: 55
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac32d0ef2aa9e230800000000000000
+      internalID: 3668650494082038956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luciole_10
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 353
+        width: 35
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88da85b3cd80839d0800000000000000
+      internalID: -2794473826801898104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Luciole_11
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 313
         width: 8
         height: 8
       alignment: 0
@@ -324,20 +393,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8880f76de33d87830800000000000000
-      internalID: 4069234530169325704
+      spriteID: 7a4355218bc698980800000000000000
+      internalID: -8536172080866708313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: essais paralaxe_9
+      name: Luciole_12
       rect:
         serializedVersion: 2
-        x: 362
-        y: 833
-        width: 7
-        height: 8
+        x: 1557
+        y: 285
+        width: 57
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -346,52 +415,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bb9dd4f2326773f40800000000000000
-      internalID: 5708160946204957115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: essais paralaxe_10
-      rect:
-        serializedVersion: 2
-        x: 637
-        y: 805
-        width: 33
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0c22f08c20278e690800000000000000
-      internalID: -7572677417151552832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: essais paralaxe_11
-      rect:
-        serializedVersion: 2
-        x: 365
-        y: 822
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8b7800114d8494950800000000000000
-      internalID: 6433753618330978232
+      spriteID: 922b7586b4cdad530800000000000000
+      internalID: 3880656245364339241
       vertices: []
       indices: 
       edges: []
@@ -410,18 +435,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      essais paralaxe_0: -1444782229581382885
-      essais paralaxe_1: 5990662581577350625
-      essais paralaxe_10: -7572677417151552832
-      essais paralaxe_11: 6433753618330978232
-      essais paralaxe_2: 606347026803683053
-      essais paralaxe_3: -2407119064857935732
-      essais paralaxe_4: -1937247175056475622
-      essais paralaxe_5: 8360184233202175174
-      essais paralaxe_6: -6743965410240680394
-      essais paralaxe_7: 5694734344732135887
-      essais paralaxe_8: 4069234530169325704
-      essais paralaxe_9: 5708160946204957115
+      Luciole_0: 9053339593409125515
+      Luciole_1: 2315457730208430939
+      Luciole_10: -2794473826801898104
+      Luciole_11: -8536172080866708313
+      Luciole_12: 3880656245364339241
+      Luciole_2: 2920653009798333970
+      Luciole_3: 26297782492067624
+      Luciole_4: 1034801881843823695
+      Luciole_5: -8979747216396526314
+      Luciole_6: 1568942876865672709
+      Luciole_7: -2402093925629760893
+      Luciole_8: -6612650482262035615
+      Luciole_9: 3668650494082038956
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
