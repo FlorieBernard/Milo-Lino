@@ -85,7 +85,12 @@ public class CharacterSwitcher : MonoBehaviour
 
     private void SwitchCharacter()
     {
-        if (_miloMovement == null || _linoMovement == null) return;
+        Debug.Log("Swith miaou");
+
+        if (_miloMovement == null || _linoMovement == null)
+        {
+            Debug.Log("Milo or Lino is null");
+        }
 
         _miloMovement.enabled = !_miloMovement.enabled;
         _linoMovement.enabled = !_linoMovement.enabled;
