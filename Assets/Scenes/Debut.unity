@@ -151,6 +151,7 @@ MonoBehaviour:
   _sounds: []
   _musicVolume: 0.8
   _fadeDuration: 1
+  _muffledCutoff: 800
 --- !u!4 &199231997
 Transform:
   m_ObjectHideFlags: 0
@@ -656,9 +657,7 @@ MonoBehaviour:
   _sceneOrder:
   - Debut
   - Level1
-  - Corridor1
   - Level2
-  - Corridor2
   - Level3
   - Fin
 --- !u!4 &1549448908

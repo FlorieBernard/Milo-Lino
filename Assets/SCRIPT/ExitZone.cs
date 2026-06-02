@@ -8,6 +8,7 @@ public class ExitZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("AHAHHAHAHAHAHAHHAHAHHAA");
         if (other.CompareTag("Milo"))
             GameManager.Instance?.LoadNextScene();
     }

@@ -35,4 +35,27 @@ public class ParallaxZone : MonoBehaviour
     //    foreach (var r in FindObjectsByType<RespawnOnFall>(FindObjectsSortMode.None))
     //        r.enabled = enabled;
     //}
+
+    private CameraManager _cameraManager;
+    public CameraManager CameraManager
+    {
+        get { return _cameraManager; }
+        private set { _cameraManager = value; }
+    }
+
+    [SerializeField] private bool _fixCam;
+    [SerializeField] private bool _moveCam;
+
+    private void Awake()
+    {
+        _cameraManager = FindAnyObjectByType<CameraManager>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag is "Milo")
+        {
+            _cameraManager.SetParallaxMode(_fixCam, _moveCam);
+        }
+    }
 }
