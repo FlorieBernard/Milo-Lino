@@ -23,8 +23,8 @@ public class CameraManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         // Debug shortcuts — editor only, stripped from builds.
-        if (Input.GetKeyDown(KeyCode.I)) SetParallaxMode(true);
-        if (Input.GetKeyDown(KeyCode.O)) SetParallaxMode(false);
+        if (Input.GetKeyDown(KeyCode.I)) SetParallaxMode(true,false);
+        if (Input.GetKeyDown(KeyCode.O)) SetParallaxMode(false,true);
 #endif
     }
 
@@ -32,10 +32,10 @@ public class CameraManager : MonoBehaviour
     /// Switches between the follow camera (parallax visible) and the fixed camera.
     /// Called automatically by ParallaxZone — no need to call this manually.
     /// </summary>
-    public void SetParallaxMode(bool enabled)
+    public void SetParallaxMode(bool cineCamFix, bool cineCamFow)
     {
-        _cineFollowCam.gameObject.SetActive(enabled);
-        _cineFixedCam.gameObject.SetActive(!enabled);
+        _cineFixedCam.gameObject.SetActive(cineCamFix);
+        _cineFollowCam.gameObject.SetActive(cineCamFow);
     }
 
     private void SetUpCamera()

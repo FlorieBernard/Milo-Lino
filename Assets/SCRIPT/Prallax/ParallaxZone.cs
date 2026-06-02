@@ -13,26 +13,26 @@ using UnityEngine;
 /// </summary>
 public class ParallaxZone : MonoBehaviour
 {
-    public enum ZoneMode { Start, End }
+    //public enum ZoneMode { Start, End }
 
-    [Tooltip("Start = enter parallax area. End = leave parallax area.")]
-    [SerializeField] private ZoneMode _mode = ZoneMode.Start;
+    //[Tooltip("Start = enter parallax area. End = leave parallax area.")]
+    //[SerializeField] private ZoneMode _mode = ZoneMode.Start;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!IsPlayer(other)) return;
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (!IsPlayer(other)) return;
 
-        bool entering = _mode == ZoneMode.Start;
-        CameraManager.Instance?.SetParallaxMode(entering);
-        SetRespawnEnabled(!entering);
-    }
+    //    bool entering = _mode == ZoneMode.Start;
+    //    CameraManager.Instance?.SetParallaxMode(entering);
+    //    SetRespawnEnabled(!entering);
+    //}
 
-    private static bool IsPlayer(Collider2D col)
-        => col.CompareTag("Milo") || col.CompareTag("Lino");
+    //private static bool IsPlayer(Collider2D col)
+    //    => col.CompareTag("Milo") || col.CompareTag("Lino");
 
-    private static void SetRespawnEnabled(bool enabled)
-    {
-        foreach (var r in FindObjectsByType<RespawnOnFall>(FindObjectsSortMode.None))
-            r.enabled = enabled;
-    }
+    //private static void SetRespawnEnabled(bool enabled)
+    //{
+    //    foreach (var r in FindObjectsByType<RespawnOnFall>(FindObjectsSortMode.None))
+    //        r.enabled = enabled;
+    //}
 }
