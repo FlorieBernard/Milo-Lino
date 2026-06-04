@@ -48,5 +48,8 @@ TagManager:
   - name: midground
     uniqueID: 3186664475
     locked: 0
+  - name: cats
+    uniqueID: 3747614773
+    locked: 0
   m_RenderingLayers:
   - Default

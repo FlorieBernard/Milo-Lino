@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 /// <summary>
 /// Shared base class for both playable cats.
@@ -37,6 +38,87 @@ public abstract class PlayerMovementBase : MonoBehaviour
     /// <summary>True while the player may jump (grounded or within coyote window).</summary>
     protected bool CanJump => _coyoteTimer > 0f;
 
+    [SerializeField] GameObject idleAnim, runAnim, jumpAnim, fallAnim, afraidAnim;
+
+    [SerializeField] private ParticleSystem smokePrefab;
+    [SerializeField] private Transform _vfxAnchor;
+    private bool _wasGrounded = true;
+
+    public enum CatState {Idle,Running,Jumping,Falling,Afraid}
+    CatState currentState;
+
+    private void Awake()
+    {
+        EnterState(CatState.Idle);
+    }
+
+    public void EnterState(CatState newState)
+    {
+        ExitCurrentState();
+        switch(newState)
+        {
+            case CatState.Idle:
+                ShowAnim(idleAnim);
+            break;
+            case CatState.Running:
+                ShowAnim(runAnim);
+            break;
+            case CatState.Jumping:
+                ShowAnim(jumpAnim);
+            break;
+            case CatState.Falling:
+                ShowAnim(fallAnim);
+                break;
+            case CatState.Afraid:
+                ShowAnim(afraidAnim);
+                break;
+        }
+        currentState = newState;
+    }
+
+    void UpdateCurrentState()
+    {
+        switch (currentState)
+        {
+            case CatState.Idle:
+                if (Mathf.Abs(_currentHorizontalSpeed) > 0.01f) EnterState(CatState.Running);
+                break;
+            case CatState.Running:
+                if (Mathf.Abs(_currentHorizontalSpeed) < 0.01f) EnterState(CatState.Idle);
+                break;
+            case CatState.Jumping:
+                if (_rb.linearVelocity.y < 0) EnterState(CatState.Falling);
+            break;
+            case CatState.Falling:
+                HandleLanding();
+            break;
+            case CatState.Afraid: break;
+        }
+    }
+
+    void ExitCurrentState()
+    {
+        switch (currentState)
+        {
+            case CatState.Idle: break;
+            case CatState.Running: break;
+            case CatState.Jumping: break;
+            case CatState.Falling: break;
+            case CatState.Afraid: break;
+        }
+    }
+
+
+    void ShowAnim(GameObject desired)
+    {
+        idleAnim.SetActive(false);
+        runAnim.SetActive(false);
+        jumpAnim.SetActive(false);
+        fallAnim.SetActive(false);
+        afraidAnim.SetActive(false);
+        desired.SetActive(true);
+    }
+
     protected virtual void Update()
     {
         Horizontal = Input.GetAxisRaw("Horizontal");
@@ -44,6 +126,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
         HandleJumpCut();
         HandleFlip();
         HandleRunVFX();
+        UpdateCurrentState();
     }
 
     protected virtual void FixedUpdate()
@@ -71,10 +154,12 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     protected void TryJump()
     {
+        EnterState(CatState.Jumping);
         _coyoteTimer = 0f; // consume the window so the player can't jump again mid-air
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         AudioManager.Instance?.Play("Jump");
         if (_jumpVFX != null) _jumpVFX.Play();
+        ShowAnim(jumpAnim);
     }
 
     private void UpdateCoyoteTimer()
@@ -119,15 +204,45 @@ public abstract class PlayerMovementBase : MonoBehaviour
         // Play the run particle system only when moving horizontally on the ground
         if (Mathf.Abs(Horizontal) > 0.1f && IsGrounded())
         {
-            Debug.Log("Toto");
+            //Debug.Log("Toto");
             if (!_runVFX.isPlaying)
                 _runVFX.Play();
         }
         else
         {
-            Debug.Log("Toto2");
+            //Debug.Log("Toto2");
             if (_runVFX.isPlaying)
                 _runVFX.Stop();
         }
     }
+
+    private void HandleLanding()
+    {
+        bool grounded = IsGrounded();
+
+        if (grounded && !_wasGrounded)
+        {
+            Landing();
+        }
+        _wasGrounded = grounded;
+    }
+
+
+    void Landing()
+    {
+        EnterState(CatState.Running);
+        SpawnSmoke();
+        AudioManager.Instance?.Play("Land");
+    }
+
+    private void SpawnSmoke()
+    {
+        if (smokePrefab == null) return;
+        Vector3 spawnPos = transform.position + new Vector3(0f, -0.5f, 0f);
+        ParticleSystem smoke = Instantiate(smokePrefab, _vfxAnchor.position, Quaternion.identity);
+        smoke.Play();
+        Destroy(smoke.gameObject, smoke.main.duration + smoke.main.startLifetime.constantMax);
+    }
+
+
 }

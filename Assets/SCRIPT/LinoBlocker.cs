@@ -4,11 +4,14 @@ public class LinoBlocker : MonoBehaviour
 {
     public bool IsBlocked { get; private set; } = true;
 
+    PlayerMovementBase pMoveBase;
     private Rigidbody2D _rb;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        pMoveBase = GetComponent<PlayerMovementBase>();
+        pMoveBase.EnterState(PlayerMovementBase.CatState.Afraid);
     }
 
     private void FixedUpdate()
@@ -20,5 +23,6 @@ public class LinoBlocker : MonoBehaviour
     public void Unblock()
     {
         IsBlocked = false;
+        pMoveBase.EnterState(PlayerMovementBase.CatState.Idle);
     }
 }
