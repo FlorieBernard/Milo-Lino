@@ -127,6 +127,8 @@ public class ReunionZone : MonoBehaviour
 
         if (_messageObject != null) _messageObject.SetActive(false);
 
-        gameObject.SetActive(false);
+        // Désactiver le trigger mais garder le blocker actif
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
     }
 }

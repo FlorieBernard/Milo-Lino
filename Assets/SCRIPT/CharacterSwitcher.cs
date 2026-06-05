@@ -57,7 +57,7 @@ public class CharacterSwitcher : MonoBehaviour
             _linoMovement.enabled = false;
             _linoRb = _linoMovement.GetComponent<Rigidbody2D>();
             _linoOriginalConstraints = _linoRb.constraints;
-            _linoRb.constraints = RigidbodyConstraints2D.FreezeAll;
+            _linoRb.constraints = RigidbodyConstraints2D.FreezeRotation; // LinoFollower gère le déplacement
         }
         if (_miloCollider != null && _linoCollider != null)
             Physics2D.IgnoreCollision(_miloCollider, _linoCollider, true);
@@ -117,7 +117,10 @@ public class CharacterSwitcher : MonoBehaviour
         if (nowInactive != null)
         {
             nowInactive.linearVelocity = Vector2.zero;
-            nowInactive.constraints = RigidbodyConstraints2D.FreezeAll;
+            // Lino's position is managed by LinoFollower — only freeze rotation
+            nowInactive.constraints = (nowInactive == _linoRb)
+                ? RigidbodyConstraints2D.FreezeRotation
+                : RigidbodyConstraints2D.FreezeAll;
         }
         if (nowActive != null)
         {
