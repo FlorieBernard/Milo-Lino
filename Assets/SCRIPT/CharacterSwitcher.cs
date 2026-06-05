@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Cinemachine;
 using UnityEngine;
 
 /// <summary>
@@ -24,7 +23,6 @@ public class CharacterSwitcher : MonoBehaviour
     [SerializeField] private Color _worldGreyTint = new Color(0.35f, 0.35f, 0.35f, 1f);
 
     [SerializeField] private Camera _mainCamera;
-    [SerializeField] private CinemachineCamera _cineFollowCam;
 
     [Header("Lino Exclusive Objects")]
     [SerializeField] private GameObject[] _linoOnlyObjects;
@@ -106,9 +104,7 @@ public class CharacterSwitcher : MonoBehaviour
 
         _isPlayingMilo = !_isPlayingMilo;
 
-        // Mettre à jour la cible de la caméra follow
-        if (_cineFollowCam != null)
-            _cineFollowCam.Follow = _isPlayingMilo ? _miloTransform : _linoMovement.transform;
+        CameraManager.Instance?.SetFollowTarget(_isPlayingMilo ? _miloTransform : _linoMovement.transform);
 
         // Freeze the inactive character so they don't slide on slopes.
         Rigidbody2D nowActive = _isPlayingMilo ? _miloRb : _linoRb;

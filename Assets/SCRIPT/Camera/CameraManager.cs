@@ -38,6 +38,12 @@ public class CameraManager : MonoBehaviour
         _cineFollowCam.gameObject.SetActive(cineCamFow);
     }
 
+    /// <summary>Updates the follow camera target (called on character switch).</summary>
+    public void SetFollowTarget(Transform target)
+    {
+        _cineFollowCam.Follow = target;
+    }
+
     private void SetUpCamera()
     {
         _cam.transform.position = _camStartPosition;
