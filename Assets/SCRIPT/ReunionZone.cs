@@ -5,11 +5,11 @@ using UnityEngine;
 /// Zone trigger de fin de niveau : bloque le premier chat arrivé jusqu'à ce que l'autre arrive.
 ///
 /// Comportement :
+///   - Milo ou Lino peut arriver en premier (les deux cas sont gérés).
 ///   - Si le chat arrive en sautant, on attend qu'il atterrisse avant de le figer.
 ///   - Un message s'affiche à l'écran pour prévenir le joueur.
 ///   - Après _switchDelay secondes, le chat est figé et on switch sur l'autre.
-///   - Quand le second chat entre, on libère le premier et Milo reprend le contrôle.
-///   - Milo ou Lino peut entrer en premier (les deux cas sont gérés).
+///   - Quand le second chat entre, on libère le premier et Milo reprend toujours le contrôle.
 ///
 /// Setup Inspector :
 ///   - CharacterSwitcher : le composant CharacterSwitcher de la scène
@@ -20,7 +20,7 @@ using UnityEngine;
 ///   - Collider2D en mode Trigger sur ce GameObject
 ///   - Tags "Milo" et "Lino" sur les personnages
 /// </summary>
-public class WaitForLinoZone : MonoBehaviour
+public class ReunionZone : MonoBehaviour
 {
     [SerializeField] private CharacterSwitcher _switcher;
     [SerializeField] private LinoFollower _linoFollower;
@@ -90,10 +90,11 @@ public class WaitForLinoZone : MonoBehaviour
         // Désactiver LinoFollower pendant l'attente
         _linoFollower?.SetActive(false);
 
-        // Switcher sur l'autre chat
+        // Switcher sur l'autre chat (symétrique : toujours basculer sur celui qui n'est pas figé)
         if (isMilo)
             _switcher?.ForceLino();
-        // Si Lino est entré en premier, Milo garde déjà le contrôle
+        else
+            _switcher?.ForceMilo();
     }
 
     private void OnSecondCatEntered()
