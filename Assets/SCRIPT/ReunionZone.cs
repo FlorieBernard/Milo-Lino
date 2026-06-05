@@ -6,9 +6,9 @@ using UnityEngine;
 ///
 /// Comportement :
 ///   - Milo ou Lino peut arriver en premier (les deux cas sont gérés).
-///   - Si le chat arrive en sautant, on attend qu'il atterrisse avant de continuer.
+///   - Dès l'atterrissage : inputs et mouvement figés immédiatement.
 ///   - Le message s'affiche et la caméra revient doucement à sa position initiale (blend Cinemachine).
-///   - Une fois le blend terminé : switch sur la fixed cam, freeze le chat, switch sur l'autre.
+///   - Une fois le blend terminé : switch sur l'autre chat.
 ///   - Quand le second chat entre, on libère le premier et Milo reprend toujours le contrôle.
 ///
 /// Setup Inspector :
@@ -24,10 +24,6 @@ public class ReunionZone : MonoBehaviour
     [SerializeField] private LinoFollower _linoFollower;
     [SerializeField] private Rigidbody2D _miloRb;
     [SerializeField] private Rigidbody2D _linoRb;
-
-    [Header("Blocage entrée")]
-    [Tooltip("Collider solide (non-trigger) positionné à l'entrée de la zone. Activé dès qu'un chat entre.")]
-    [SerializeField] private Collider2D _entranceBlocker;
 
     [Header("UI")]
     [Tooltip("GameObject contenant le texte d'attente. Désactivé par défaut dans la scène.")]
@@ -54,13 +50,11 @@ public class ReunionZone : MonoBehaviour
             if (other.CompareTag("Milo"))
             {
                 _phase = Phase.MiloWaiting;
-                if (_entranceBlocker != null) _entranceBlocker.enabled = true;
                 StartCoroutine(HandleFirstCat(_miloRb, isMilo: true));
             }
             else if (other.CompareTag("Lino"))
             {
                 _phase = Phase.LinoWaiting;
-                if (_entranceBlocker != null) _entranceBlocker.enabled = true;
                 StartCoroutine(HandleFirstCat(_linoRb, isMilo: false));
             }
         }
@@ -76,6 +70,13 @@ public class ReunionZone : MonoBehaviour
         while (rb != null && Mathf.Abs(rb.linearVelocity.y) > 0.1f)
             yield return null;
 
+        // Figer immédiatement après l'atterrissage — bloque les inputs et le mouvement
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
         // Afficher le message et lancer le retour caméra simultanément
         if (_messageObject != null)
         {
@@ -89,21 +90,30 @@ public class ReunionZone : MonoBehaviour
         while (CameraManager.Instance != null && CameraManager.Instance.IsBlending)
             yield return null;
 
-        // Figer le premier chat
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-
         // Désactiver LinoFollower pendant l'attente
         _linoFollower?.SetActive(false);
 
-        // Switcher sur l'autre chat
+        // Switcher sur l'autre chat (SwitchCharacter va restaurer les contraintes du chat actif)
         if (isMilo)
+        {
             _switcher?.ForceLino();
+            // Re-figer Milo : SwitchCharacter a restauré ses contraintes originales
+            if (_miloRb != null)
+            {
+                _miloRb.linearVelocity = Vector2.zero;
+                _miloRb.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+        }
         else
+        {
             _switcher?.ForceMilo();
+            // Re-figer Lino
+            if (_linoRb != null)
+            {
+                _linoRb.linearVelocity = Vector2.zero;
+                _linoRb.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+        }
     }
 
     private IEnumerator HideMessageAfterDelay()
@@ -127,7 +137,6 @@ public class ReunionZone : MonoBehaviour
 
         if (_messageObject != null) _messageObject.SetActive(false);
 
-        // Désactiver le trigger mais garder le blocker actif
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
     }
