@@ -18,16 +18,16 @@ public class CharacterSwitcher : MonoBehaviour
 
     [Header("Visual — Lino")]
     [SerializeField] private SpriteRenderer _linoSprite;
-    [SerializeField] private Color _linoActiveColor  = new Color(1f, 0.85f, 0.1f, 1f);
-    [SerializeField] private Color _linoSkyColor     = new Color(0.30f, 0.30f, 0.30f, 1f);
-    [SerializeField] private Color _worldGreyTint    = new Color(0.35f, 0.35f, 0.35f, 1f);
+    [SerializeField] private Color _linoActiveColor = new Color(1f, 0.85f, 0.1f, 1f);
+    [SerializeField] private Color _linoSkyColor = new Color(0.30f, 0.30f, 0.30f, 1f);
+    [SerializeField] private Color _worldGreyTint = new Color(0.35f, 0.35f, 0.35f, 1f);
 
     [SerializeField] private Camera _mainCamera;
 
     [Header("Lino Exclusive Objects")]
     [SerializeField] private GameObject[] _linoOnlyObjects;
-    [SerializeField] private Transform    _miloTransform;
-    [SerializeField] private float        _detectionDistance = 3f;
+    [SerializeField] private Transform _miloTransform;
+    [SerializeField] private float _detectionDistance = 3f;
 
     [Header("Controls")]
     [SerializeField] private bool _switchingEnabled = true;
@@ -98,7 +98,7 @@ public class CharacterSwitcher : MonoBehaviour
         _isPlayingMilo = !_isPlayingMilo;
 
         // Freeze the inactive character so they don't slide on slopes.
-        Rigidbody2D nowActive   = _isPlayingMilo ? _miloRb : _linoRb;
+        Rigidbody2D nowActive = _isPlayingMilo ? _miloRb : _linoRb;
         Rigidbody2D nowInactive = _isPlayingMilo ? _linoRb : _miloRb;
         RigidbodyConstraints2D activeConstraints = _isPlayingMilo
             ? _miloOriginalConstraints
@@ -107,7 +107,7 @@ public class CharacterSwitcher : MonoBehaviour
         if (nowInactive != null)
         {
             nowInactive.linearVelocity = Vector2.zero;
-            nowInactive.constraints    = RigidbodyConstraints2D.FreezeAll;
+            nowInactive.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         if (nowActive != null)
         {
@@ -200,7 +200,7 @@ public class CharacterSwitcher : MonoBehaviour
             if (obj == null) continue;
             float distance = Vector3.Distance(_miloTransform.position, obj.transform.position);
             bool shouldBeActive = !_isPlayingMilo || distance <= _detectionDistance;
-            bool wasActive      = obj.activeSelf;
+            bool wasActive = obj.activeSelf;
 
             obj.SetActive(shouldBeActive);
 

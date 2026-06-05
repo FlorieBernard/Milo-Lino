@@ -27,14 +27,14 @@ public class SceneFader : MonoBehaviour
 
     [Header("Timings")]
     [SerializeField] private float _fadeOutDuration = 0.5f;
-    [SerializeField] private float _holdDuration    = 0.1f;
-    [SerializeField] private float _fadeInDuration  = 0.5f;
-    [SerializeField] private float _fadeInDelay     = 0.0f;
+    [SerializeField] private float _holdDuration = 0.1f;
+    [SerializeField] private float _fadeInDuration = 0.5f;
+    [SerializeField] private float _fadeInDelay = 0.0f;
 
     [Header("Easing")]
     [SerializeField] private AnimationCurve _curve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-    private CanvasGroup   _canvasGroup;
+    private CanvasGroup _canvasGroup;
     private RectTransform _panelRect;
 
     private void Awake()
@@ -97,8 +97,8 @@ public class SceneFader : MonoBehaviour
 
         for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
         {
-            float linear   = t / duration;
-            float eased    = _curve.Evaluate(Mathf.Clamp01(linear));
+            float linear = t / duration;
+            float eased = _curve.Evaluate(Mathf.Clamp01(linear));
             float progress = Mathf.Lerp(from, to, eased);
             SetProgress(progress);
             yield return null;
@@ -151,7 +151,7 @@ public class SceneFader : MonoBehaviour
     private void BuildOverlay()
     {
         Canvas canvas = gameObject.AddComponent<Canvas>();
-        canvas.renderMode  = RenderMode.ScreenSpaceOverlay;
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 999;
 
         gameObject.AddComponent<CanvasScaler>();
@@ -164,14 +164,14 @@ public class SceneFader : MonoBehaviour
         image.color = _transitionColor;
 
         _panelRect = panel.GetComponent<RectTransform>();
-        _panelRect.anchorMin        = Vector2.zero;
-        _panelRect.anchorMax        = Vector2.one;
-        _panelRect.offsetMin        = Vector2.zero;
-        _panelRect.offsetMax        = Vector2.zero;
+        _panelRect.anchorMin = Vector2.zero;
+        _panelRect.anchorMax = Vector2.one;
+        _panelRect.offsetMin = Vector2.zero;
+        _panelRect.offsetMax = Vector2.zero;
         _panelRect.anchoredPosition = Vector2.zero;
 
         _canvasGroup = panel.AddComponent<CanvasGroup>();
-        _canvasGroup.alpha         = 1f;
+        _canvasGroup.alpha = 1f;
         _canvasGroup.blocksRaycasts = false;
     }
 }

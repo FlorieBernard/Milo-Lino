@@ -27,9 +27,9 @@ public class SpriteAnimator : MonoBehaviour
 
     private SpriteRenderer _renderer;
     private float _timer;
-    private int   _currentFrame;
-    private int   _direction = 1;   // +1 forward, -1 backward (PingPong)
-    private bool  _playing;
+    private int _currentFrame;
+    private int _direction = 1;   // +1 forward, -1 backward (PingPong)
+    private bool _playing;
 
     private void Awake()
     {

@@ -17,8 +17,8 @@ public class Parallax : MonoBehaviour
     [SerializeField][Range(0f, 1f)] private float _parallaxEffect;
 
     private Camera _cam;
-    private float  _startPosX;
-    private float  _startCamPosX;
+    private float _startPosX;
+    private float _startCamPosX;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class Parallax : MonoBehaviour
 
     private void Start()
     {
-        _startPosX    = transform.position.x;
+        _startPosX = transform.position.x;
         // Store camera start X so the offset is relative, not absolute.
         // Without this, if the camera doesn't start at x=0 the background jumps on load.
         _startCamPosX = _cam.transform.position.x;

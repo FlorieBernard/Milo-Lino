@@ -52,4 +52,12 @@ public class GameManager : MonoBehaviour
         else
             SceneManager.LoadScene(sceneName);
     }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            LoadNextScene();
+        }
+    }
 }

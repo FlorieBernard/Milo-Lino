@@ -96,7 +96,7 @@ public class LocalizationManager : MonoBehaviour
             string[] cols = SplitCsvLine(line);
             if (cols.Length <= langIndex) continue;
 
-            string key   = cols[0].Trim();
+            string key = cols[0].Trim();
             string value = cols[langIndex].Trim();
             if (!string.IsNullOrEmpty(key))
                 _strings[key] = value;
@@ -106,7 +106,7 @@ public class LocalizationManager : MonoBehaviour
     /// <summary>Splits a CSV line, respecting double-quoted fields that may contain commas.</summary>
     private static string[] SplitCsvLine(string line)
     {
-        var result  = new List<string>();
+        var result = new List<string>();
         bool inQuotes = false;
         var current = new System.Text.StringBuilder();
 

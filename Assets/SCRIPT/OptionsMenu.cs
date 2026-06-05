@@ -34,7 +34,7 @@ public class OptionsMenu : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             if (_musicSlider != null) _musicSlider.value = AudioManager.Instance.MusicVolume;
-            if (_sfxSlider   != null) _sfxSlider.value   = AudioManager.Instance.SfxVolume;
+            if (_sfxSlider != null) _sfxSlider.value = AudioManager.Instance.SfxVolume;
         }
 
         if (LocalizationManager.Instance != null && _languageDropdown != null)

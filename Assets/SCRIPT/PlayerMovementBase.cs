@@ -30,9 +30,9 @@ public abstract class PlayerMovementBase : MonoBehaviour
     protected float Horizontal { get; private set; }
     protected Rigidbody2D Rb => _rb;
 
-    private bool           _isOnIce = false;
-    private float          _currentHorizontalSpeed = 0f;
-    private float          _coyoteTimer = 0f;
+    private bool _isOnIce = false;
+    private float _currentHorizontalSpeed = 0f;
+    private float _coyoteTimer = 0f;
     private MovingPlatform _platform = null;
 
     /// <summary>True while the player may jump (grounded or within coyote window).</summary>
@@ -199,7 +199,6 @@ public abstract class PlayerMovementBase : MonoBehaviour
     private void HandleRunVFX()
     {
         if (_runVFX == null) return;
-     
 
         // Play the run particle system only when moving horizontally on the ground
         if (Mathf.Abs(Horizontal) > 0.1f && IsGrounded())

@@ -23,9 +23,6 @@ public class AnimationPlayer : MonoBehaviour
     bool playing = false;
     public Action OnAnimEnd;
 
-
-
-
     public void Play()
     {
         ApplySprite(0);
@@ -48,7 +45,6 @@ public class AnimationPlayer : MonoBehaviour
         playing = false;
     }
 
-
     public void Flip(bool wanted)
     {
         sprite.flipX = wanted;
@@ -60,15 +56,11 @@ public class AnimationPlayer : MonoBehaviour
         sprite.flipY = yWanted;
     }
 
-
     public void ApplySprite(int desired)
     {
         index = Mathf.Clamp(desired,0,sprites.Length-1);
         sprite.sprite = sprites[index];
     }
-
-
-
 
 
 
@@ -90,7 +82,6 @@ public class AnimationPlayer : MonoBehaviour
         ApplySprite(0);
         if (sprites.Length<2) this.enabled = false;
     }
-
 
     void Update()
     {
@@ -125,9 +116,6 @@ public class AnimationPlayer : MonoBehaviour
 
         ApplySprite(index);
     }
-
-
-
 
     void OnValidate()
     {
