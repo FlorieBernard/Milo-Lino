@@ -16,8 +16,12 @@ public class MenuButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void Awake()
     {
-        if (pawImage != null)
-            pawImage.canvasRenderer.SetAlpha(0f);
+        if (pawImage == null)
+        {
+            Debug.LogWarning($"[MenuButtonHover] Paw Image non assignée sur {gameObject.name}. Assigne l'Image enfant 'Patte' dans l'Inspector.", this);
+            return;
+        }
+        pawImage.canvasRenderer.SetAlpha(0f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -32,6 +36,7 @@ public class MenuButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void StartFade(float targetAlpha)
     {
+        if (pawImage == null) return;
         if (_fadeCoroutine != null)
             StopCoroutine(_fadeCoroutine);
         _fadeCoroutine = StartCoroutine(FadeTo(targetAlpha));
