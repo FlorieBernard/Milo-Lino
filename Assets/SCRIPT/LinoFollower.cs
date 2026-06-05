@@ -69,10 +69,13 @@ public class LinoFollower : MonoBehaviour
         Vector2 newPos = Vector2.MoveTowards(transform.position, targetPos, _speed * Time.fixedDeltaTime);
         _linoRb.MovePosition(newPos);
 
-        float scaleX = targetPos.x < transform.position.x
-            ? -Mathf.Abs(transform.localScale.x)
-            : Mathf.Abs(transform.localScale.x);
-        transform.localScale = new Vector3(scaleX, transform.localScale.y, 1f);
+        // Flip basé sur le mouvement réel (évite l'oscillation quand Lino est près du target)
+        float dx = newPos.x - transform.position.x;
+        if (Mathf.Abs(dx) > 0.001f)
+        {
+            float scaleX = dx < 0f ? -Mathf.Abs(transform.localScale.x) : Mathf.Abs(transform.localScale.x);
+            transform.localScale = new Vector3(scaleX, transform.localScale.y, 1f);
+        }
     }
 
     // Compatibilité avec l'ancien système Corridor

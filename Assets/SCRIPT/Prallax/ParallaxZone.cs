@@ -53,9 +53,7 @@ public class ParallaxZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag is "Milo")
-        {
+        if (other.CompareTag("Milo") || other.CompareTag("Lino"))
             _cameraManager.SetParallaxMode(_fixCam, _moveCam);
-        }
     }
 }
