@@ -12,12 +12,18 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineCamera _cineFollowCam;
     [SerializeField] private CinemachineCamera _cineFixedCam;
 
+    private CinemachineBrain _brain;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        if (_cam != null) _brain = _cam.GetComponent<CinemachineBrain>();
         SetUpCamera();
     }
+
+    /// <summary>True while Cinemachine is blending between two virtual cameras.</summary>
+    public bool IsBlending => _brain != null && _brain.IsBlending;
 
     private void Update()
     {

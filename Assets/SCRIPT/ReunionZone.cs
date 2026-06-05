@@ -6,19 +6,17 @@ using UnityEngine;
 ///
 /// Comportement :
 ///   - Milo ou Lino peut arriver en premier (les deux cas sont gérés).
-///   - Si le chat arrive en sautant, on attend qu'il atterrisse avant de le figer.
-///   - Un message s'affiche à l'écran pour prévenir le joueur.
-///   - Après _switchDelay secondes, le chat est figé et on switch sur l'autre.
+///   - Si le chat arrive en sautant, on attend qu'il atterrisse avant de continuer.
+///   - Le message s'affiche et la caméra revient doucement à sa position initiale (blend Cinemachine).
+///   - Une fois le blend terminé : switch sur la fixed cam, freeze le chat, switch sur l'autre.
 ///   - Quand le second chat entre, on libère le premier et Milo reprend toujours le contrôle.
 ///
 /// Setup Inspector :
-///   - CharacterSwitcher : le composant CharacterSwitcher de la scène
-///   - LinoFollower : le composant LinoFollower sur Lino
-///   - MiloRb / LinoRb : Rigidbody2D des deux chats
+///   - CharacterSwitcher, LinoFollower, MiloRb, LinoRb
 ///   - MessageObject : GameObject UI avec le texte d'attente (désactivé par défaut)
-///   - SwitchDelay : délai (secondes) après atterrissage avant de figer et switcher
 ///   - Collider2D en mode Trigger sur ce GameObject
 ///   - Tags "Milo" et "Lino" sur les personnages
+///   - La durée du retour caméra se configure dans le CinemachineBrain (Default Blend Duration)
 /// </summary>
 public class ReunionZone : MonoBehaviour
 {
@@ -30,10 +28,6 @@ public class ReunionZone : MonoBehaviour
     [Header("UI")]
     [Tooltip("GameObject contenant le texte d'attente. Désactivé par défaut dans la scène.")]
     [SerializeField] private GameObject _messageObject;
-
-    [Header("Timing")]
-    [Tooltip("Délai (secondes) après atterrissage avant de figer le chat et switcher.")]
-    [SerializeField] private float _switchDelay = 1.5f;
 
     private enum Phase { Idle, MiloWaiting, LinoWaiting }
     private Phase _phase = Phase.Idle;
@@ -74,11 +68,14 @@ public class ReunionZone : MonoBehaviour
         while (rb != null && Mathf.Abs(rb.linearVelocity.y) > 0.1f)
             yield return null;
 
-        // Afficher le message d'attente
+        // Afficher le message et lancer le retour caméra simultanément
         if (_messageObject != null) _messageObject.SetActive(true);
+        CameraManager.Instance?.SetParallaxMode(true, false);
 
-        // Délai avant de figer et switcher
-        yield return new WaitForSeconds(_switchDelay);
+        // Attendre que le blend Cinemachine soit terminé
+        yield return null; // une frame pour que IsBlending devienne true
+        while (CameraManager.Instance != null && CameraManager.Instance.IsBlending)
+            yield return null;
 
         // Figer le premier chat
         if (rb != null)
@@ -90,7 +87,7 @@ public class ReunionZone : MonoBehaviour
         // Désactiver LinoFollower pendant l'attente
         _linoFollower?.SetActive(false);
 
-        // Switcher sur l'autre chat (symétrique : toujours basculer sur celui qui n'est pas figé)
+        // Switcher sur l'autre chat
         if (isMilo)
             _switcher?.ForceLino();
         else
