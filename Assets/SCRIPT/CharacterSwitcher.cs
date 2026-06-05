@@ -9,6 +9,7 @@ public class CharacterSwitcher : MonoBehaviour
 {
     [SerializeField] private PlayerMovementMilo _miloMovement;
     [SerializeField] private PlayerMovementLino _linoMovement;
+    [SerializeField] private LinoFollower _linoFollower;
     [SerializeField] private Collider2D _miloCollider;
     [SerializeField] private Collider2D _linoCollider;
 
@@ -71,7 +72,8 @@ public class CharacterSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (_switchingEnabled && Input.GetKeyDown(KeyCode.Tab))
+        bool linoFollowing = _linoFollower != null && _linoFollower.IsActive;
+        if (_switchingEnabled && !linoFollowing && Input.GetKeyDown(KeyCode.Tab))
             SwitchCharacter();
 
         UpdateLinoObjects();
