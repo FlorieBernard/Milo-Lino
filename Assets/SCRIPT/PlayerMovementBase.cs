@@ -42,7 +42,6 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     [SerializeField] private ParticleSystem smokePrefab;
     [SerializeField] private Transform _vfxAnchor;
-    private bool _wasGrounded = true;
 
     public enum CatState {Idle,Running,Jumping,Falling,Afraid}
     CatState currentState;
@@ -90,7 +89,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
                 if (_rb.linearVelocity.y < 0) EnterState(CatState.Falling);
             break;
             case CatState.Falling:
-                HandleLanding();
+                if (IsGrounded()) Landing();
             break;
             case CatState.Afraid: break;
         }
@@ -215,16 +214,6 @@ public abstract class PlayerMovementBase : MonoBehaviour
         }
     }
 
-    private void HandleLanding()
-    {
-        bool grounded = IsGrounded();
-
-        if (grounded && !_wasGrounded)
-        {
-            Landing();
-        }
-        _wasGrounded = grounded;
-    }
 
 
     void Landing()
