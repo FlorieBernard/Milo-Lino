@@ -39,8 +39,10 @@ public class LinoFollower : MonoBehaviour
     {
         if (_milo == null) return;
 
-        // Enregistrer chaque frame (buffer max = _followDelay + 1s)
-        _history.Add((_milo.position, Time.time));
+        // Enregistrer uniquement si Milo a bougé (filtre les micro-oscillations physiques)
+        const float minRecordDist = 0.02f;
+        if (_history.Count == 0 || Vector2.Distance(_milo.position, _history[_history.Count - 1].pos) > minRecordDist)
+            _history.Add((_milo.position, Time.time));
         while (_history.Count > 0 && Time.time - _history[0].time > _followDelay + 1f)
             _history.RemoveAt(0);
 
@@ -64,7 +66,11 @@ public class LinoFollower : MonoBehaviour
         targetPos.z = transform.position.z;
 
         float dist = Vector2.Distance(transform.position, targetPos);
-        if (dist <= _minDistance) return;
+        if (dist <= _minDistance)
+        {
+            _linoRb.linearVelocity = new Vector2(0f, _linoRb.linearVelocity.y);
+            return;
+        }
 
         Vector2 newPos = Vector2.MoveTowards(transform.position, targetPos, _speed * Time.fixedDeltaTime);
         _linoRb.MovePosition(newPos);

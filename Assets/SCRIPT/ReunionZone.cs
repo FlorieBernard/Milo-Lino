@@ -28,6 +28,8 @@ public class ReunionZone : MonoBehaviour
     [Header("UI")]
     [Tooltip("GameObject contenant le texte d'attente. Désactivé par défaut dans la scène.")]
     [SerializeField] private GameObject _messageObject;
+    [Tooltip("Durée d'affichage du message avant disparition automatique (secondes).")]
+    [SerializeField] private float _messageHideDuration = 4f;
 
     private enum Phase { Idle, MiloWaiting, LinoWaiting }
     private Phase _phase = Phase.Idle;
@@ -69,7 +71,11 @@ public class ReunionZone : MonoBehaviour
             yield return null;
 
         // Afficher le message et lancer le retour caméra simultanément
-        if (_messageObject != null) _messageObject.SetActive(true);
+        if (_messageObject != null)
+        {
+            _messageObject.SetActive(true);
+            StartCoroutine(HideMessageAfterDelay());
+        }
         CameraManager.Instance?.SetParallaxMode(true, false);
 
         // Attendre que le blend Cinemachine soit terminé
@@ -92,6 +98,12 @@ public class ReunionZone : MonoBehaviour
             _switcher?.ForceLino();
         else
             _switcher?.ForceMilo();
+    }
+
+    private IEnumerator HideMessageAfterDelay()
+    {
+        yield return new WaitForSeconds(_messageHideDuration);
+        if (_messageObject != null) _messageObject.SetActive(false);
     }
 
     private void OnSecondCatEntered()
