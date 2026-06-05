@@ -25,6 +25,10 @@ public class ReunionZone : MonoBehaviour
     [SerializeField] private Rigidbody2D _miloRb;
     [SerializeField] private Rigidbody2D _linoRb;
 
+    [Header("Blocage sortie")]
+    [Tooltip("Collider solide positionné à l'entrée de la zone. Activé quand les DEUX chats sont dedans.")]
+    [SerializeField] private Collider2D _entranceBlocker;
+
     [Header("UI")]
     [Tooltip("GameObject contenant le texte d'attente. Désactivé par défaut dans la scène.")]
     [SerializeField] private GameObject _messageObject;
@@ -136,6 +140,9 @@ public class ReunionZone : MonoBehaviour
         _switcher?.ForceMilo();
 
         if (_messageObject != null) _messageObject.SetActive(false);
+
+        // Bloquer la sortie maintenant que les deux chats sont à l'intérieur
+        if (_entranceBlocker != null) _entranceBlocker.enabled = true;
 
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
