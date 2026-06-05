@@ -122,26 +122,19 @@ public class CatPawTrail : MonoBehaviour
     private (Vector2 start, Vector2 dir) GetRandomTrailPath()
     {
         var rt = canvas.GetComponent<RectTransform>();
-        float w = rt.rect.width;
-        float h = rt.rect.height;
-        float hw = w / 2f;
-        float hh = h / 2f;
+        float hw = rt.rect.width / 2f;
+        float hh = rt.rect.height / 2f;
 
-        Vector2[] corners = {
-            new(-hw, -hh),
-            new( hw, -hh),
-            new(-hw,  hh),
-            new( hw,  hh)
-        };
+        // Toujours de gauche à droite ou de droite à gauche
+        // Y de départ/arrivée proche du centre (±30% de la hauteur)
+        float startY = Random.Range(-hh * 0.3f, hh * 0.3f);
+        float endY = Random.Range(-hh * 0.3f, hh * 0.3f);
 
-        int startIdx = Random.Range(0, 4);
-        int endIdx = (startIdx + 2) % 4;
-        if (Random.value > 0.5f)
-            endIdx = 3 - startIdx;
+        bool leftToRight = Random.value > 0.5f;
+        Vector2 start = new Vector2(leftToRight ? -hw : hw, startY);
+        Vector2 end = new Vector2(leftToRight ? hw : -hw, endY);
 
-        Vector2 start = corners[startIdx];
-        Vector2 dir = (corners[endIdx] - corners[startIdx]).normalized;
-        return (start, dir);
+        return (start, (end - start).normalized);
     }
 
     private IEnumerator PawLifecycle(Image paw)

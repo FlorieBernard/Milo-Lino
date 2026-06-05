@@ -83,6 +83,13 @@ public class CharacterSwitcher : MonoBehaviour
         SwitchCharacter();
     }
 
+    /// <summary>Forces a switch to Lino if Milo is currently active.</summary>
+    public void ForceLino()
+    {
+        if (!_isPlayingMilo) return;
+        SwitchCharacter();
+    }
+
     private void SwitchCharacter()
     {
         Debug.Log("Swith miaou");
