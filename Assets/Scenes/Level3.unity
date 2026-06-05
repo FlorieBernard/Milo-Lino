@@ -9345,7 +9345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 526529515285248064, guid: 590085859c4767c489ac39e874f9aee2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0031753373
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 526529515285248064, guid: 590085859c4767c489ac39e874f9aee2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9534,7 +9534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  jumpingPower: 30
+  jumpingPower: 35
   _coyoteTime: 0.15
   _rb: {fileID: 1065971590}
   _groundCheck: {fileID: 1168719933}
