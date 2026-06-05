@@ -25,6 +25,10 @@ public class ReunionZone : MonoBehaviour
     [SerializeField] private Rigidbody2D _miloRb;
     [SerializeField] private Rigidbody2D _linoRb;
 
+    [Header("Blocage entrée")]
+    [Tooltip("Collider solide (non-trigger) positionné à l'entrée de la zone. Activé dès qu'un chat entre.")]
+    [SerializeField] private Collider2D _entranceBlocker;
+
     [Header("UI")]
     [Tooltip("GameObject contenant le texte d'attente. Désactivé par défaut dans la scène.")]
     [SerializeField] private GameObject _messageObject;
@@ -50,11 +54,13 @@ public class ReunionZone : MonoBehaviour
             if (other.CompareTag("Milo"))
             {
                 _phase = Phase.MiloWaiting;
+                if (_entranceBlocker != null) _entranceBlocker.enabled = true;
                 StartCoroutine(HandleFirstCat(_miloRb, isMilo: true));
             }
             else if (other.CompareTag("Lino"))
             {
                 _phase = Phase.LinoWaiting;
+                if (_entranceBlocker != null) _entranceBlocker.enabled = true;
                 StartCoroutine(HandleFirstCat(_linoRb, isMilo: false));
             }
         }
