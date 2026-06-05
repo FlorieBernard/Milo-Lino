@@ -40,6 +40,7 @@ public class CharacterSwitcher : MonoBehaviour
 
     // Maps each greyed SpriteRenderer to its original color for restoration.
     private readonly Dictionary<SpriteRenderer, Color> _originalColors = new();
+    private readonly Dictionary<ParticleSystem, ParticleSystem.MinMaxGradient> _originalParticleColors = new();
 
     public bool IsPlayingMilo => _isPlayingMilo;
 
@@ -161,9 +162,18 @@ public class CharacterSwitcher : MonoBehaviour
             _originalColors[sr] = sr.color;
             sr.color = _worldGreyTint;
         }
+
+        _originalParticleColors.Clear();
+        foreach (ParticleSystem ps in FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None))
+        {
+            if (IsExcludedPs(ps)) continue;
+            var main = ps.main;
+            _originalParticleColors[ps] = main.startColor;
+            main.startColor = new ParticleSystem.MinMaxGradient(_worldGreyTint);
+        }
     }
 
-    /// <summary>Restores all SpriteRenderers to their original colors.</summary>
+    /// <summary>Restores all SpriteRenderers and ParticleSystems to their original colors.</summary>
     private void RestoreWorldColors()
     {
         foreach (var kvp in _originalColors)
@@ -172,6 +182,16 @@ public class CharacterSwitcher : MonoBehaviour
                 kvp.Key.color = kvp.Value;
         }
         _originalColors.Clear();
+
+        foreach (var kvp in _originalParticleColors)
+        {
+            if (kvp.Key != null)
+            {
+                var main = kvp.Key.main;
+                main.startColor = kvp.Value;
+            }
+        }
+        _originalParticleColors.Clear();
     }
 
     /// <summary>
@@ -197,6 +217,13 @@ public class CharacterSwitcher : MonoBehaviour
         return sr == _linoSprite
             || sr == _miloSprite
             || sr.GetComponent<Firefly>() != null;
+    }
+
+    private bool IsExcludedPs(ParticleSystem ps)
+    {
+        return ps.transform.IsChildOf(_linoMovement.transform)
+            || ps.GetComponent<Firefly>() != null
+            || ps.GetComponentInParent<Firefly>() != null;
     }
 
     // ── Lino-only objects ─────────────────────────────────────────────────────
