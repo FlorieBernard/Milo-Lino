@@ -191,6 +191,12 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
+        if (!_musicSource.isPlaying)
+        {
+            _musicSource.volume = 0f;
+            yield break;
+        }
+
         float startVolume = _musicSource.volume;
         for (float t = 0; t < _fadeDuration; t += Time.unscaledDeltaTime)
         {
