@@ -16789,7 +16789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec892679b69a9c047903e34fa61a14a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicClip: {fileID: 0}
+  _musicClip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
 --- !u!4 &1708036783
 Transform:
   m_ObjectHideFlags: 0
@@ -21781,7 +21781,7 @@ MonoBehaviour:
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
+  m_VolumeTrigger: {fileID: 1708036783}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
