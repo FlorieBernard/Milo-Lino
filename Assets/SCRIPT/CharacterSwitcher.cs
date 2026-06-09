@@ -43,6 +43,9 @@ public class CharacterSwitcher : MonoBehaviour
     private readonly Dictionary<SpriteRenderer, Color> _originalColors = new();
     private readonly Dictionary<ParticleSystem, ParticleSystem.MinMaxGradient> _originalParticleColors = new();
 
+    private LevelConnector _levelConnector;
+    private Color _worldGreyTintRuntime;
+
     public bool IsPlayingMilo => _isPlayingMilo;
 
     private void Start()
@@ -66,8 +69,11 @@ public class CharacterSwitcher : MonoBehaviour
         if (_miloTransform == null && _miloMovement != null)
             _miloTransform = _miloMovement.transform;
 
+        _worldGreyTintRuntime = _worldGreyTint;
+        _levelConnector = FindFirstObjectByType<LevelConnector>();
         UpdateColors();
         UpdateLinoObjects();
+        SwapVfx(_isPlayingMilo);
     }
 
     private void Update()
@@ -129,10 +135,16 @@ public class CharacterSwitcher : MonoBehaviour
             nowActive.constraints = activeConstraints;
         }
         UpdateColors();
+        SwapVfx(_isPlayingMilo);
     }
 
     private void UpdateColors()
     {
+        float darkness = _levelConnector != null ? _levelConnector.LinoDarkness : 1f;
+
+        Color linoSky  = Color.Lerp(_miloSkyColor, _linoSkyColor, darkness);
+        Color worldTint = Color.Lerp(Color.white,  _worldGreyTint, darkness);
+
         if (_isPlayingMilo)
         {
             RestoreWorldColors();
@@ -142,10 +154,11 @@ public class CharacterSwitcher : MonoBehaviour
         }
         else
         {
+            _worldGreyTintRuntime = worldTint;
             ApplyGreyToWorld();
-            if (_miloSprite != null) _miloSprite.color = _worldGreyTint;
+            if (_miloSprite != null) _miloSprite.color = worldTint;
             if (_linoSprite != null) _linoSprite.color = _linoActiveColor;
-            if (_mainCamera != null) _mainCamera.backgroundColor = _linoSkyColor;
+            if (_mainCamera != null) _mainCamera.backgroundColor = linoSky;
         }
 
         // Milo hears poorly — apply low-pass filter when he is active.
@@ -165,7 +178,7 @@ public class CharacterSwitcher : MonoBehaviour
         {
             if (IsExcluded(sr)) continue;
             _originalColors[sr] = sr.color;
-            sr.color = _worldGreyTint;
+            sr.color = _worldGreyTintRuntime;
         }
 
         _originalParticleColors.Clear();
@@ -174,7 +187,7 @@ public class CharacterSwitcher : MonoBehaviour
             if (IsExcludedPs(ps)) continue;
             var main = ps.main;
             _originalParticleColors[ps] = main.startColor;
-            main.startColor = new ParticleSystem.MinMaxGradient(_worldGreyTint);
+            main.startColor = new ParticleSystem.MinMaxGradient(_worldGreyTintRuntime);
         }
     }
 
@@ -209,7 +222,7 @@ public class CharacterSwitcher : MonoBehaviour
             if (IsExcluded(sr)) continue;
             if (!_originalColors.ContainsKey(sr))
                 _originalColors[sr] = sr.color;
-            sr.color = _worldGreyTint;
+            sr.color = _worldGreyTintRuntime;
         }
     }
 
@@ -248,6 +261,29 @@ public class CharacterSwitcher : MonoBehaviour
             // Grey a newly activated object if Lino is currently playing.
             if (!_isPlayingMilo && shouldBeActive && !wasActive)
                 GreyObject(obj);
+        }
+    }
+
+    /// <summary>
+    /// Activates the correct ambient VFX based on the active character.
+    /// Reads from the current scene's LevelConnector. Safe if null.
+    /// </summary>
+    private void SwapVfx(bool playingMilo)
+    {
+        if (_levelConnector == null) return;
+
+        ParticleSystem miloVfx = _levelConnector.MiloVfx;
+        ParticleSystem linoVfx = _levelConnector.LinoVfx;
+
+        if (playingMilo)
+        {
+            linoVfx?.Stop();
+            miloVfx?.Play();
+        }
+        else
+        {
+            miloVfx?.Stop();
+            linoVfx?.Play();
         }
     }
 }
