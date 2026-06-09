@@ -43,6 +43,8 @@ public class CharacterSwitcher : MonoBehaviour
     private readonly Dictionary<SpriteRenderer, Color> _originalColors = new();
     private readonly Dictionary<ParticleSystem, ParticleSystem.MinMaxGradient> _originalParticleColors = new();
 
+    private LevelConnector _levelConnector;
+
     public bool IsPlayingMilo => _isPlayingMilo;
 
     private void Start()
@@ -66,8 +68,10 @@ public class CharacterSwitcher : MonoBehaviour
         if (_miloTransform == null && _miloMovement != null)
             _miloTransform = _miloMovement.transform;
 
+        _levelConnector = FindFirstObjectByType<LevelConnector>();
         UpdateColors();
         UpdateLinoObjects();
+        SwapVfx(_isPlayingMilo);
     }
 
     private void Update()
@@ -129,6 +133,7 @@ public class CharacterSwitcher : MonoBehaviour
             nowActive.constraints = activeConstraints;
         }
         UpdateColors();
+        SwapVfx(_isPlayingMilo);
     }
 
     private void UpdateColors()
@@ -248,6 +253,29 @@ public class CharacterSwitcher : MonoBehaviour
             // Grey a newly activated object if Lino is currently playing.
             if (!_isPlayingMilo && shouldBeActive && !wasActive)
                 GreyObject(obj);
+        }
+    }
+
+    /// <summary>
+    /// Activates the correct ambient VFX based on the active character.
+    /// Reads from the current scene's LevelConnector. Safe if null.
+    /// </summary>
+    private void SwapVfx(bool playingMilo)
+    {
+        if (_levelConnector == null) return;
+
+        ParticleSystem miloVfx = _levelConnector.MiloVfx;
+        ParticleSystem linoVfx = _levelConnector.LinoVfx;
+
+        if (playingMilo)
+        {
+            linoVfx?.Stop();
+            miloVfx?.Play();
+        }
+        else
+        {
+            miloVfx?.Stop();
+            linoVfx?.Play();
         }
     }
 }
