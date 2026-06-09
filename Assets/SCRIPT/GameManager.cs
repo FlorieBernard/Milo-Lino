@@ -4,22 +4,13 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Persistent singleton that manages scene progression.
 /// Place this GameObject in the "Debut" scene.
-/// Scene order is configured in the Inspector.
+/// Each scene defines its successor via a <see cref="LevelConnector"/> component.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private string[] _sceneOrder =
-    {
-        "Debut",
-        "Level1",
-        "Level2",
-        "Level3",
-        "Fin"
-    };
-
-    private int _currentIndex = 0;
+    [SerializeField] private string _firstScene = "Level1";
 
     private void Awake()
     {
@@ -32,17 +23,22 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    /// <summary>Loads the next scene as defined by the current scene's LevelConnector.</summary>
     public void LoadNextScene()
     {
-        _currentIndex++;
-        if (_currentIndex < _sceneOrder.Length)
-            LoadScene(_sceneOrder[_currentIndex]);
+        LevelConnector connector = FindFirstObjectByType<LevelConnector>();
+        if (connector == null)
+        {
+            Debug.LogWarning("GameManager: no LevelConnector found in current scene.");
+            return;
+        }
+        LoadScene(connector.NextScene);
     }
 
+    /// <summary>Resets progression and starts from the first scene.</summary>
     public void ResetAndStart()
     {
-        _currentIndex = 0;
-        LoadScene(_sceneOrder[_currentIndex]);
+        LoadScene(_firstScene);
     }
 
     private void LoadScene(string sceneName)
