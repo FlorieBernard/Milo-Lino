@@ -74,6 +74,7 @@ public class CharacterSwitcher : MonoBehaviour
         UpdateColors();
         UpdateLinoObjects();
         SwapVfx(_isPlayingMilo);
+        StartCommonVfx();
     }
 
     private void Update()
@@ -265,25 +266,28 @@ public class CharacterSwitcher : MonoBehaviour
     }
 
     /// <summary>
-    /// Activates the correct ambient VFX based on the active character.
-    /// Reads from the current scene's LevelConnector. Safe if null.
+    /// Démarre tous les VFX communs (actifs quel que soit le personnage).
+    /// Appelé une seule fois au Start.
+    /// </summary>
+    private void StartCommonVfx()
+    {
+        if (_levelConnector == null) return;
+        foreach (ParticleSystem ps in _levelConnector.CommonVfx)
+            ps?.Play();
+    }
+
+    /// <summary>
+    /// Active les VFX du personnage courant et stoppe ceux de l'autre.
+    /// Les VFX communs ne sont jamais touchés ici.
     /// </summary>
     private void SwapVfx(bool playingMilo)
     {
         if (_levelConnector == null) return;
 
-        ParticleSystem miloVfx = _levelConnector.MiloVfx;
-        ParticleSystem linoVfx = _levelConnector.LinoVfx;
+        IReadOnlyList<ParticleSystem> toPlay = playingMilo ? _levelConnector.MiloVfx : _levelConnector.LinoVfx;
+        IReadOnlyList<ParticleSystem> toStop = playingMilo ? _levelConnector.LinoVfx : _levelConnector.MiloVfx;
 
-        if (playingMilo)
-        {
-            linoVfx?.Stop();
-            miloVfx?.Play();
-        }
-        else
-        {
-            miloVfx?.Stop();
-            linoVfx?.Play();
-        }
+        foreach (ParticleSystem ps in toStop) ps?.Stop();
+        foreach (ParticleSystem ps in toPlay) ps?.Play();
     }
 }
