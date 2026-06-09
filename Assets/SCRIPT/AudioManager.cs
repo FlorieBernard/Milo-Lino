@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float _muffledCutoff = 800f;
 
     private AudioSource _musicSource;
+    private AudioSource _oneShotSource;
     private Coroutine _fadeCoroutine;
 
     private void Awake()
@@ -61,6 +62,9 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
+
+        // Set up one-shot source for dynamic clips (e.g. footsteps)
+        _oneShotSource = gameObject.AddComponent<AudioSource>();
 
         // Set up dedicated music source
         _musicSource = gameObject.AddComponent<AudioSource>();
@@ -134,6 +138,16 @@ public class AudioManager : MonoBehaviour
     {
         foreach (Sound s in _sounds)
             s.source?.Stop();
+    }
+
+    /// <summary>
+    /// Plays an arbitrary clip once without interrupting other sounds.
+    /// Respects the current SFX volume setting.
+    /// </summary>
+    public void PlayOneShot(AudioClip clip)
+    {
+        if (clip == null || _oneShotSource == null) return;
+        _oneShotSource.PlayOneShot(clip, SfxVolume);
     }
 
     // ── Music ────────────────────────────────────────────────────────────────

@@ -27,6 +27,11 @@ public abstract class PlayerMovementBase : MonoBehaviour
     [SerializeField] private ParticleSystem _runVFX;
     [SerializeField] private ParticleSystem _jumpVFX;
 
+    [Header("Footsteps")]
+    [SerializeField] private float _footstepInterval = 0.35f;
+
+    private float _footstepTimer;
+
     protected float Horizontal { get; private set; }
     protected Rigidbody2D Rb => _rb;
 
@@ -125,6 +130,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
         HandleJumpCut();
         HandleFlip();
         HandleRunVFX();
+        HandleFootsteps();
         UpdateCurrentState();
     }
 
@@ -221,6 +227,42 @@ public abstract class PlayerMovementBase : MonoBehaviour
         EnterState(CatState.Running);
         SpawnSmoke();
         AudioManager.Instance?.Play("Land");
+    }
+
+    /// <summary>
+    /// Triggers a footstep sound at regular intervals while the character
+    /// is grounded and moving. Resets the timer when the character stops.
+    /// </summary>
+    private void HandleFootsteps()
+    {
+        if (IsGrounded() && Mathf.Abs(Horizontal) > 0.1f)
+        {
+            _footstepTimer -= Time.deltaTime;
+            if (_footstepTimer <= 0f)
+            {
+                PlayFootstep();
+                _footstepTimer = _footstepInterval;
+            }
+        }
+        else
+        {
+            _footstepTimer = 0f;
+        }
+    }
+
+    /// <summary>
+    /// Detects the surface underfoot and plays a random clip from its FootstepSurface pool.
+    /// Silent if the surface has no FootstepSurface component.
+    /// </summary>
+    private void PlayFootstep()
+    {
+        Collider2D ground = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        if (ground == null) return;
+
+        FootstepSurface surface = ground.GetComponentInParent<FootstepSurface>();
+        if (surface == null) return;
+
+        AudioManager.Instance?.PlayOneShot(surface.GetRandom());
     }
 
     private void SpawnSmoke()
