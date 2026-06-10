@@ -22,9 +22,14 @@ public class Firefly : MonoBehaviour
     [SerializeField] private GameObject _obstacleToDestroy;
     [SerializeField] private LinoBlocker _linoBlocker;
 
+    [Header("Proximity Sound")]
+    [SerializeField] private float _proximityRadius = 3f;
+    [SerializeField] private LayerMask _playerLayer;
+
     private SpriteRenderer _renderer;
     private Vector3 _startPosition;
     private bool _caught = false;
+    private bool _isPlayerNearby = false;
 
     private void Start()
     {
@@ -48,6 +53,19 @@ public class Firefly : MonoBehaviour
                 : !_characterSwitcher.IsPlayingMilo;
             _renderer.enabled = shouldBeVisible;
         }
+
+        HandleProximitySound();
+    }
+
+    private void HandleProximitySound()
+    {
+        bool nearby = Physics2D.OverlapCircle(transform.position, _proximityRadius, _playerLayer) != null;
+        if (nearby == _isPlayerNearby) return;
+        _isPlayerNearby = nearby;
+        if (nearby)
+            AudioManager.Instance?.Play("FireflyProximity");
+        else
+            AudioManager.Instance?.Stop("FireflyProximity");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -69,6 +87,8 @@ public class Firefly : MonoBehaviour
     {
         _caught = true;
 
+        AudioManager.Instance?.Stop("FireflyProximity");
+        _isPlayerNearby = false;
         AudioManager.Instance?.Play("FireflyCatch");
 
         if (_obstacleToDestroy != null)
