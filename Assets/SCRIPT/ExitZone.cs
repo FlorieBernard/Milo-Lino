@@ -11,7 +11,7 @@ public class ExitZone : MonoBehaviour
 
         if (other.CompareTag("Milo"))
         {
-            Debug.Log("AHAHHAHAHAHAHAHHAHAHHAA");
+            Debug.Log("Next Scene");
             GameManager.Instance?.LoadNextScene();
         }
     }

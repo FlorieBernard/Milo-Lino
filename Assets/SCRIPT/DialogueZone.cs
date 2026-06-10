@@ -82,7 +82,7 @@ public class DialogueZone : MonoBehaviour
         _hasPlayed = true;
         _inputPressed = false;
 
-        _dialoguePanel.SetActive(true);
+        if (_dialoguePanel!=null) _dialoguePanel.SetActive(true);
         if (_continueIndicator != null) _continueIndicator.SetActive(false);
 
         int lineCount = Mathf.Min(
@@ -115,7 +115,7 @@ public class DialogueZone : MonoBehaviour
             if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
 
-        _dialoguePanel.SetActive(false);
+        if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
         _isRunning = false;
     }
 

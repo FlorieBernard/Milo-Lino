@@ -32,12 +32,12 @@ public class AudioManager : MonoBehaviour
 
     [Header("Music")]
     [Range(0f, 1f)]
-    [SerializeField] private float _musicVolume = 0.8f;
-    [SerializeField] private float _fadeDuration = 1f;
+    [SerializeField] public float _musicVolume = 0.1f;
+    [SerializeField] public float _fadeDuration = 1f;
 
     [Header("Hearing (Milo = muffled)")]
     [Tooltip("Low-pass cutoff when Milo is active. Lower = more muffled. ~800 Hz recommended.")]
-    [SerializeField] private float _muffledCutoff = 800f;
+    [SerializeField] public float _muffledCutoff = 800f;
 
     private AudioSource _musicSource;
     private AudioSource _oneShotSource;

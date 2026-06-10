@@ -29,6 +29,8 @@ public abstract class PlayerMovementBase : MonoBehaviour
 
     [Header("Footsteps")]
     [SerializeField] private float _footstepInterval = 0.35f;
+    [SerializeField] AudioSource footStepSource;
+
 
     private float _footstepTimer;
 
@@ -88,8 +90,10 @@ public abstract class PlayerMovementBase : MonoBehaviour
                 if (Mathf.Abs(_currentHorizontalSpeed) > 0.01f) EnterState(CatState.Running);
                 break;
             case CatState.Running:
-                if (Mathf.Abs(_currentHorizontalSpeed) < 0.01f) EnterState(CatState.Idle);
-                break;
+                if (IsGrounded() == false) EnterState(CatState.Falling);
+                else if (Mathf.Abs(_currentHorizontalSpeed) < 0.01f) EnterState(CatState.Idle);
+                else HandleFootsteps();
+                    break;
             case CatState.Jumping:
                 if (_rb.linearVelocity.y < 0) EnterState(CatState.Falling);
             break;
@@ -105,7 +109,7 @@ public abstract class PlayerMovementBase : MonoBehaviour
         switch (currentState)
         {
             case CatState.Idle: break;
-            case CatState.Running: break;
+            case CatState.Running: _footstepTimer = 0f; break;
             case CatState.Jumping: break;
             case CatState.Falling: break;
             case CatState.Afraid: break;
@@ -130,7 +134,6 @@ public abstract class PlayerMovementBase : MonoBehaviour
         HandleJumpCut();
         HandleFlip();
         HandleRunVFX();
-        HandleFootsteps();
         UpdateCurrentState();
     }
 
@@ -154,8 +157,15 @@ public abstract class PlayerMovementBase : MonoBehaviour
             _rb.position += _platform.Delta;
     }
 
+    FootstepSurface currentPlatform;
+
     protected bool IsGrounded()
-        => Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+    {
+        bool grounded = false;
+        Collider2D ground = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        if (ground != null) { currentPlatform = ground.GetComponent<FootstepSurface>(); grounded = true; }
+        return grounded;
+    }
 
     protected void TryJump()
     {
@@ -235,18 +245,11 @@ public abstract class PlayerMovementBase : MonoBehaviour
     /// </summary>
     private void HandleFootsteps()
     {
-        if (IsGrounded() && Mathf.Abs(Horizontal) > 0.1f)
+        _footstepTimer -= Time.deltaTime;
+        if (_footstepTimer <= 0f)
         {
-            _footstepTimer -= Time.deltaTime;
-            if (_footstepTimer <= 0f)
-            {
-                PlayFootstep();
-                _footstepTimer = _footstepInterval;
-            }
-        }
-        else
-        {
-            _footstepTimer = 0f;
+            PlayFootstep();
+            _footstepTimer = _footstepInterval;
         }
     }
 
@@ -256,13 +259,11 @@ public abstract class PlayerMovementBase : MonoBehaviour
     /// </summary>
     private void PlayFootstep()
     {
-        Collider2D ground = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _groundLayer);
-        if (ground == null) return;
-
-        FootstepSurface surface = ground.GetComponentInParent<FootstepSurface>();
-        if (surface == null) return;
-
-        AudioManager.Instance?.PlayOneShot(surface.GetRandom());
+        if (currentPlatform!=null&& footStepSource!=null)
+        {
+            AudioClip randomSound = currentPlatform.GetRandom();
+            if (randomSound != null) footStepSource.PlayOneShot(randomSound, 1f);
+        }
     }
 
     private void SpawnSmoke()

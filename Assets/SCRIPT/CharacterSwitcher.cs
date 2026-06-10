@@ -163,7 +163,7 @@ public class CharacterSwitcher : MonoBehaviour
         }
 
         // Milo hears poorly — apply low-pass filter when he is active.
-        AudioManager.Instance?.SetMuffled(_isPlayingMilo);
+        AudioManager.Instance?.SetMuffled(!_isPlayingMilo);
     }
 
     // ── World grey effect ─────────────────────────────────────────────────────

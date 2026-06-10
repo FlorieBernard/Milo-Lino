@@ -51,5 +51,8 @@ TagManager:
   - name: cats
     uniqueID: 3747614773
     locked: 0
+  - name: foreground
+    uniqueID: 2724668067
+    locked: 0
   m_RenderingLayers:
   - Default

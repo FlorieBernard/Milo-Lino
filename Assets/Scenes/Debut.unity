@@ -148,10 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24484dd90207c724780a3ddc20e54c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sounds: []
-  _musicVolume: 0.8
-  _fadeDuration: 1
-  _muffledCutoff: 800
+  _sounds:
+  - name: Automne Musique
+    clip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
+    volume: 0
+    pitch: 3
+    loop: 1
+    source: {fileID: 0}
+  _musicVolume: 0.01
+  _fadeDuration: 0.5
+  _muffledCutoff: 200
 --- !u!4 &199231997
 Transform:
   m_ObjectHideFlags: 0
@@ -577,8 +583,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nextScene: Level1
   _linoDarkness: 1
-  _miloVfx: {fileID: 0}
-  _linoVfx: {fileID: 0}
+  _commonVfx: []
+  _miloVfx:
+  - {fileID: 0}
+  _linoVfx:
+  - {fileID: 0}
 --- !u!4 &1499246944
 Transform:
   m_ObjectHideFlags: 0
