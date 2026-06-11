@@ -26,6 +26,12 @@ public class DialogueZone : MonoBehaviour
     [Tooltip("Optional. CSV keys for localized text. If set and LocalizationManager is present, overrides _lines.")]
     [SerializeField] private string[] _lineKeys;
     [SerializeField] private string[] _speakerNames;
+    [Tooltip("Optional. Emotion sprite per line; empty entry = character's default portrait.")]
+    [SerializeField] private Sprite[] _lineEmojis;
+
+    [Header("Name Colors")]
+    [SerializeField] private Color _miloNameColor = Color.white;
+    [SerializeField] private Color _linoNameColor = Color.white;
 
     [Header("UI References")]
     [SerializeField] private GameObject _dialoguePanel;
@@ -100,7 +106,8 @@ public class DialogueZone : MonoBehaviour
         for (int i = 0; i < lineCount; i++)
         {
             _nameText.text    = _speakerNames[i];
-            _portrait.sprite  = PickPortrait(_speakerNames[i]);
+            _nameText.color   = PickNameColor(_speakerNames[i]);
+            _portrait.sprite  = PickSprite(i, _speakerNames[i]);
             _dialogueText.text = string.Empty;
             _inputPressed = false;
 
@@ -184,5 +191,27 @@ public class DialogueZone : MonoBehaviour
         if (speakerName == "Milo") return _miloPortrait;
         if (speakerName == "Lino") return _linoPortrait;
         return _miloPortrait; // fallback
+    }
+
+    /// <summary>
+    /// Returns the per-line emotion sprite if one is set, otherwise the
+    /// speaker's default portrait.
+    /// </summary>
+    private Sprite PickSprite(int lineIndex, string speakerName)
+    {
+        if (_lineEmojis != null
+            && lineIndex < _lineEmojis.Length
+            && _lineEmojis[lineIndex] != null)
+        {
+            return _lineEmojis[lineIndex];
+        }
+
+        return PickPortrait(speakerName);
+    }
+
+    /// <summary>Returns the name color for the current speaker.</summary>
+    private Color PickNameColor(string speakerName)
+    {
+        return speakerName == "Lino" ? _linoNameColor : _miloNameColor;
     }
 }
