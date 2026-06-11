@@ -179,8 +179,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Il existe des lieux o\xF9 l\u2019on se retrouve sans les avoir cherch\xE9s.\r\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b252b30ffa1a5a247b1b70c3eba16372, type: 2}
-  m_sharedMaterial: {fileID: 4344969722895761632, guid: b252b30ffa1a5a247b1b70c3eba16372, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0264b6fa477dae44f9e64e310d92bba6, type: 2}
+  m_sharedMaterial: {fileID: -7066008973444323216, guid: 0264b6fa477dae44f9e64e310d92bba6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

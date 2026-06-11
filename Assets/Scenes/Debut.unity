@@ -151,24 +151,24 @@ MonoBehaviour:
   _sounds:
   - name: Automne Musique
     clip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
-    volume: 0
+    volume: 1
     pitch: 3
     loop: 1
     source: {fileID: 0}
   - name: Hiver Musique
     clip: {fileID: 8300000, guid: 0303c04cb9c5ef043a2cbb2474d5f5ae, type: 3}
-    volume: 0
+    volume: 1
     pitch: 3
     loop: 1
     source: {fileID: 0}
   - name: Printemps Musique
     clip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
-    volume: 0
+    volume: 1
     pitch: 3
     loop: 1
     source: {fileID: 0}
-  _musicVolume: 0.01
-  _fadeDuration: 0.5
+  _musicVolume: 1
+  _fadeDuration: 0.3
   _muffledCutoff: 200
 --- !u!4 &199231997
 Transform:
@@ -347,10 +347,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Il  existe des lieux o\xF9 l\u2019on se retrouve sans les avoir cherch\xE9s.\r\n"
+  m_text: "Il existe des lieux o\xF9 l\u2019on se retrouve sans les avoir cherch\xE9s.\r\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b252b30ffa1a5a247b1b70c3eba16372, type: 2}
-  m_sharedMaterial: {fileID: 4344969722895761632, guid: b252b30ffa1a5a247b1b70c3eba16372, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0264b6fa477dae44f9e64e310d92bba6, type: 2}
+  m_sharedMaterial: {fileID: -7066008973444323216, guid: 0264b6fa477dae44f9e64e310d92bba6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -600,6 +600,9 @@ MonoBehaviour:
   - {fileID: 0}
   _linoVfx:
   - {fileID: 0}
+  _commonSounds: []
+  _miloSounds: []
+  _linoSounds: []
 --- !u!4 &1499246944
 Transform:
   m_ObjectHideFlags: 0
