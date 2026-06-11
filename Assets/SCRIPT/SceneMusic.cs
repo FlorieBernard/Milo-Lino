@@ -11,6 +11,15 @@ public class SceneMusic : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance?.PlayMusic(_musicClip);
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("[SceneMusic] No AudioManager in scene — start from the 'Debut' scene to hear music.", this);
+            return;
+        }
+
+        if (_musicClip == null)
+            Debug.LogWarning("[SceneMusic] No clip assigned — current music will stop.", this);
+
+        AudioManager.Instance.PlayMusic(_musicClip);
     }
 }
