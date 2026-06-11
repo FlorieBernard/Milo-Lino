@@ -38,6 +38,8 @@ public class DialogueZone : MonoBehaviour
     [SerializeField] private Image _portrait;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _dialogueText;
+    [Tooltip("Optional. Dedicated Image for per-line emojis (hidden when the line has none).")]
+    [SerializeField] private Image _emojiImage;
     [Tooltip("Optional — shown while waiting for player input.")]
     [SerializeField] private GameObject _continueIndicator;
 
@@ -107,7 +109,8 @@ public class DialogueZone : MonoBehaviour
         {
             _nameText.text    = _speakerNames[i];
             _nameText.color   = PickNameColor(_speakerNames[i]);
-            _portrait.sprite  = PickSprite(i, _speakerNames[i]);
+            _portrait.sprite  = PickPortrait(_speakerNames[i]);
+            UpdateEmoji(i);
             _dialogueText.text = string.Empty;
             _inputPressed = false;
 
@@ -194,19 +197,19 @@ public class DialogueZone : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns the per-line emotion sprite if one is set, otherwise the
-    /// speaker's default portrait.
+    /// Shows the line's emoji in the dedicated Image, or hides it when the
+    /// line has no emoji (or no Image is assigned).
     /// </summary>
-    private Sprite PickSprite(int lineIndex, string speakerName)
+    private void UpdateEmoji(int lineIndex)
     {
-        if (_lineEmojis != null
-            && lineIndex < _lineEmojis.Length
-            && _lineEmojis[lineIndex] != null)
-        {
-            return _lineEmojis[lineIndex];
-        }
+        if (_emojiImage == null) return;
 
-        return PickPortrait(speakerName);
+        Sprite emoji = (_lineEmojis != null && lineIndex < _lineEmojis.Length)
+            ? _lineEmojis[lineIndex]
+            : null;
+
+        _emojiImage.sprite = emoji;
+        _emojiImage.gameObject.SetActive(emoji != null);
     }
 
     /// <summary>Returns the name color for the current speaker.</summary>
