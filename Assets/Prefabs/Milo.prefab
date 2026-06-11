@@ -806,6 +806,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 21300000, guid: 8095d8ef1fe5fa5448fb4a1ac35d31c4, type: 3}
+  - {fileID: 21300000, guid: 8095d8ef1fe5fa5448fb4a1ac35d31c4, type: 3}
+  - {fileID: 21300000, guid: fb78c5f81bf63c9418481337e5c654fa, type: 3}
+  - {fileID: 21300000, guid: fb78c5f81bf63c9418481337e5c654fa, type: 3}
   - {fileID: 21300000, guid: fb78c5f81bf63c9418481337e5c654fa, type: 3}
   - {fileID: 21300000, guid: 290d21b745b0901488cdb6f3dcbd9372, type: 3}
   fps: 6
