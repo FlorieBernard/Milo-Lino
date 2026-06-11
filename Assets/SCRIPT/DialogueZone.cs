@@ -30,8 +30,8 @@ public class DialogueZone : MonoBehaviour
     [SerializeField] private Sprite[] _lineEmojis;
 
     [Header("Name Colors")]
-    [SerializeField] private Color _miloNameColor = Color.white;
-    [SerializeField] private Color _linoNameColor = Color.white;
+    [SerializeField] private Color _miloNameColor = new Color(0.20f, 0.55f, 0.85f);
+    [SerializeField] private Color _linoNameColor = new Color(0.90f, 0.70f, 0.05f);
 
     [Header("UI References")]
     [SerializeField] private GameObject _dialoguePanel;
@@ -58,6 +58,11 @@ public class DialogueZone : MonoBehaviour
     private bool _hasPlayed  = false;
     private bool _inputPressed = false;
     private bool _isTyping   = false;
+
+    private static int _activeDialogues = 0;
+
+    /// <summary>True while any dialogue is running. Used to block player actions (e.g. jump).</summary>
+    public static bool IsDialogueRunning => _activeDialogues > 0;
 
     private void Update()
     {
@@ -92,6 +97,7 @@ public class DialogueZone : MonoBehaviour
         _isRunning = true;
         _hasPlayed = true;
         _inputPressed = false;
+        _activeDialogues++;
 
         if (_dialoguePanel != null)
         {
@@ -124,8 +130,21 @@ public class DialogueZone : MonoBehaviour
             if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
 
-        if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
+        if (_emojiImage != null) _emojiImage.gameObject.SetActive(false);
+        if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
         _isRunning = false;
+        _activeDialogues--;
+    }
+
+    // Safety net: if the zone is disabled mid-dialogue, the coroutine dies —
+    // release the global lock so the player is never stuck unable to jump.
+    private void OnDisable()
+    {
+        if (_isRunning)
+        {
+            _isRunning = false;
+            _activeDialogues = Mathf.Max(0, _activeDialogues - 1);
+        }
     }
 
     private IEnumerator TypeLine(string line)

@@ -13,7 +13,8 @@ public class PlayerMovementLino : PlayerMovementBase
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space) && CanJump && (_blocker == null || !_blocker.IsBlocked))
+        if (Input.GetKeyDown(KeyCode.Space) && CanJump && !DialogueZone.IsDialogueRunning
+            && (_blocker == null || !_blocker.IsBlocked))
             TryJump();
     }
 }
