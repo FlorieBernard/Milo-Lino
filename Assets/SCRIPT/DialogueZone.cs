@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class DialogueZone : MonoBehaviour
 {
     public enum TriggerTarget { Milo, Lino, Both }
+    public enum AdvanceMode { InputOnly, TimerOnly, InputOrTimer }
 
     [Header("Trigger")]
     [Tooltip("Which character(s) can start this dialogue.")]
@@ -36,12 +37,12 @@ public class DialogueZone : MonoBehaviour
 
     [Header("Timings")]
     [SerializeField] private float _letterDelay = 0.04f;
-    [Tooltip("If Wait For Input is false, pause between lines (seconds).")]
+    [Tooltip("Delay before auto-advance (TimerOnly / InputOrTimer modes).")]
     [SerializeField] private float _linePause = 2f;
 
     [Header("Interaction")]
-    [Tooltip("Player presses Space/Enter to advance instead of auto-timer.")]
-    [SerializeField] private bool _waitForInput = true;
+    [Tooltip("How lines advance: input only, timer only, or whichever comes first.")]
+    [SerializeField] private AdvanceMode _advanceMode = AdvanceMode.InputOrTimer;
     [Tooltip("Skip typing and show full line instantly on input.")]
     [SerializeField] private bool _skipTypingOnInput = true;
 
@@ -108,15 +109,7 @@ public class DialogueZone : MonoBehaviour
             // Line finished — wait for input or auto-pause
             if (_continueIndicator != null) _continueIndicator.SetActive(true);
 
-            if (_waitForInput)
-            {
-                yield return new WaitUntil(() => _inputPressed);
-                _inputPressed = false;
-            }
-            else
-            {
-                yield return new WaitForSeconds(_linePause);
-            }
+            yield return StartCoroutine(WaitForAdvance());
 
             if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
@@ -145,6 +138,28 @@ public class DialogueZone : MonoBehaviour
 
         _dialogueText.text = line; // ensure full line is displayed
         _isTyping = false;
+    }
+
+    /// <summary>
+    /// Waits for the configured advance condition after a line is displayed:
+    /// player input, timer, or whichever comes first.
+    /// </summary>
+    private IEnumerator WaitForAdvance()
+    {
+        switch (_advanceMode)
+        {
+            case AdvanceMode.InputOnly:
+                yield return new WaitUntil(() => _inputPressed);
+                break;
+            case AdvanceMode.TimerOnly:
+                yield return new WaitForSeconds(_linePause);
+                break;
+            case AdvanceMode.InputOrTimer:
+                float deadline = Time.time + _linePause;
+                yield return new WaitUntil(() => _inputPressed || Time.time >= deadline);
+                break;
+        }
+        _inputPressed = false;
     }
 
     /// <summary>
