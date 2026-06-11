@@ -12,7 +12,7 @@
 - **SceneMusic — warnings** : log explicite si `AudioManager.Instance` est null (scène testée sans la scène "Debut") ou si aucun clip n'est assigné.
 
 ### Setup Unity restant (à faire dans l'éditeur)
-- **DialogueZone** : les zones qui utilisaient `Wait For Input = false` doivent passer `Advance Mode = TimerOnly` (le bool sérialisé a été remplacé). Remplir `_lineEmojis` et les deux couleurs de nom dans l'Inspector.
+- **DialogueZone** : rien à changer — toutes les zones sont en `InputOrTimer` (timer + espace) par défaut. Remplir `_lineEmojis` et les deux couleurs de nom dans l'Inspector.
 - **LevelConnector** : assigner les AudioSources d'ambiance dans `Common/Milo/Lino Sounds` (sources en `loop`, placées dans la scène).
 - **SceneMusic** : vérifier qu'un clip est bien assigné dans chaque scène; tester depuis la scène "Debut" (sinon pas d'AudioManager → warning console).
 - **MenuButtonHover** : ajouter Image enfant "Patte" sur chaque bouton du menu, assigner dans l'Inspector
