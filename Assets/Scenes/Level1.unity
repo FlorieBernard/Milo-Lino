@@ -16376,7 +16376,7 @@ MonoBehaviour:
   - {fileID: 1971549470}
   _linoVfx:
   - {fileID: 389917356}
-  - {fileID: 389917356}
+  - {fileID: 1665265794}
 --- !u!4 &1074926985
 Transform:
   m_ObjectHideFlags: 0
@@ -20616,6 +20616,11 @@ Transform:
   - {fileID: 385296728}
   m_Father: {fileID: 1879625907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1665265794 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5143258619638480296, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+  m_PrefabInstance: {fileID: 2762260076261665977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1689955315
 GameObject:
   m_ObjectHideFlags: 0
