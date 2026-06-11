@@ -121,7 +121,7 @@ public class DialogueZone : MonoBehaviour
             if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
 
-        //if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
+        if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
         _isRunning = false;
     }
 
