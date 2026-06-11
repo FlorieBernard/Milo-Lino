@@ -164,8 +164,8 @@ public class CharacterSwitcher : MonoBehaviour
             if (_mainCamera != null) _mainCamera.backgroundColor = linoSky;
         }
 
-        // Milo hears poorly — apply low-pass filter when he is active.
-        AudioManager.Instance?.SetMuffled(_isPlayingMilo);
+        // Lino hears muffled — apply low-pass filter when he is active.
+        AudioManager.Instance?.SetMuffled(!_isPlayingMilo);
     }
 
     // ── World grey effect ─────────────────────────────────────────────────────

@@ -8,7 +8,7 @@
 - **DialogueZone — couleur du nom** : `_miloNameColor` / `_linoNameColor` appliqués à `_nameText` selon le locuteur.
 - **LevelConnector — sons par personnage** : `_commonSounds` / `_miloSounds` / `_linoSounds` (AudioSource[]), pattern identique aux VFX.
 - **CharacterSwitcher — SwapSounds** : toutes les sources jouent dès le Start, mute/unmute au switch (boucles synchronisées, pas de redémarrage).
-- **Fix muffle** : c'est Milo qui entend étouffé (`SetMuffled(_isPlayingMilo)`), l'inversion est corrigée.
+- **Muffle** : c'est Lino qui entend étouffé (`SetMuffled(!_isPlayingMilo)`) — le code d'origine était correct, seuls les commentaires/docs étaient inversés et ont été alignés.
 - **SceneMusic — warnings** : log explicite si `AudioManager.Instance` est null (scène testée sans la scène "Debut") ou si aucun clip n'est assigné.
 
 ### Setup Unity restant (à faire dans l'éditeur)

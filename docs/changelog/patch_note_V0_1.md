@@ -9,5 +9,5 @@
 - **Audio** : sons d'ambiance par personnage sur `LevelConnector` (`Common/Milo/Lino Sounds`), mute/unmute au switch sans redémarrage des boucles.
 
 ### Fixes
-- **Audio** : inversion du filtre sourd corrigée — c'est Milo qui entend étouffé, pas Lino.
+- **Audio** : doc/commentaires du filtre sourd alignés sur le comportement voulu — c'est Lino qui entend étouffé quand il est actif.
 - **Audio** : `SceneMusic` logge un warning explicite quand l'AudioManager est absent ou qu'aucun clip n'est assigné (au lieu d'échouer en silence).

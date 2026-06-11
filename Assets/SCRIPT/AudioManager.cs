@@ -35,8 +35,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public float _musicVolume = 0.1f;
     [SerializeField] public float _fadeDuration = 1f;
 
-    [Header("Hearing (Milo = muffled)")]
-    [Tooltip("Low-pass cutoff when Milo is active. Lower = more muffled. ~800 Hz recommended.")]
+    [Header("Hearing (Lino = muffled)")]
+    [Tooltip("Low-pass cutoff when Lino is active. Lower = more muffled. ~800 Hz recommended.")]
     [SerializeField] public float _muffledCutoff = 800f;
 
     private AudioSource _musicSource;
@@ -106,7 +106,7 @@ public class AudioManager : MonoBehaviour
 
     /// <summary>
     /// Applies or removes a low-pass filter on the AudioListener to simulate muffled hearing.
-    /// Call with true when Milo is active, false when Lino is active.
+    /// Call with true when Lino is active, false when Milo is active.
     /// </summary>
     public void SetMuffled(bool muffled)
     {
