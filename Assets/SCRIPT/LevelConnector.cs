@@ -16,6 +16,11 @@ public class LevelConnector : MonoBehaviour
     [SerializeField] private ParticleSystem[] _miloVfx   = System.Array.Empty<ParticleSystem>();
     [SerializeField] private ParticleSystem[] _linoVfx   = System.Array.Empty<ParticleSystem>();
 
+    [Header("Ambient Sounds")]
+    [SerializeField] private AudioSource[] _commonSounds = System.Array.Empty<AudioSource>();
+    [SerializeField] private AudioSource[] _miloSounds   = System.Array.Empty<AudioSource>();
+    [SerializeField] private AudioSource[] _linoSounds   = System.Array.Empty<AudioSource>();
+
     /// <summary>The name of the scene to load after this one.</summary>
     public string NextScene => _nextScene;
 
@@ -30,4 +35,13 @@ public class LevelConnector : MonoBehaviour
 
     /// <summary>VFX actifs uniquement en mode Lino (ex. pluie).</summary>
     public IReadOnlyList<ParticleSystem> LinoVfx => _linoVfx;
+
+    /// <summary>Sons toujours audibles, quel que soit le personnage.</summary>
+    public IReadOnlyList<AudioSource> CommonSounds => _commonSounds;
+
+    /// <summary>Sons audibles uniquement en mode Milo.</summary>
+    public IReadOnlyList<AudioSource> MiloSounds => _miloSounds;
+
+    /// <summary>Sons audibles uniquement en mode Lino.</summary>
+    public IReadOnlyList<AudioSource> LinoSounds => _linoSounds;
 }
