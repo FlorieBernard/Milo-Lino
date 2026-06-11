@@ -106,6 +106,9 @@ public class DialogueZone : MonoBehaviour
         }
         if (_continueIndicator != null) _continueIndicator.SetActive(false);
 
+        // The name text may live outside the panel hierarchy — drive it explicitly.
+        if (_nameText != null) _nameText.gameObject.SetActive(true);
+
         int lineCount = Mathf.Min(
             Mathf.Max(_lines.Length, _lineKeys?.Length ?? 0),
             _speakerNames.Length
@@ -131,6 +134,7 @@ public class DialogueZone : MonoBehaviour
         }
 
         if (_emojiImage != null) _emojiImage.gameObject.SetActive(false);
+        if (_nameText != null) _nameText.gameObject.SetActive(false);
         if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
         _isRunning = false;
         _activeDialogues--;
