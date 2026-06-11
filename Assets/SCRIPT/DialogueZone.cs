@@ -58,6 +58,7 @@ public class DialogueZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Le trigger marche");
         if (_isRunning) return;
         if (!_repeatable && _hasPlayed) return;
         if (!CanTrigger(other)) return;
@@ -78,11 +79,16 @@ public class DialogueZone : MonoBehaviour
 
     private IEnumerator RunDialogue()
     {
+        Debug.Log("Dialogue is running");
         _isRunning = true;
         _hasPlayed = true;
         _inputPressed = false;
 
-        if (_dialoguePanel!=null) _dialoguePanel.SetActive(true);
+        if (_dialoguePanel != null)
+        {
+            Debug.Log("panel is not null");
+            _dialoguePanel.SetActive(true);
+        }
         if (_continueIndicator != null) _continueIndicator.SetActive(false);
 
         int lineCount = Mathf.Min(
@@ -115,7 +121,7 @@ public class DialogueZone : MonoBehaviour
             if (_continueIndicator != null) _continueIndicator.SetActive(false);
         }
 
-        if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
+        //if (_dialoguePanel!=null)_dialoguePanel.SetActive(false);
         _isRunning = false;
     }
 
