@@ -75,6 +75,7 @@ public class CharacterSwitcher : MonoBehaviour
         UpdateLinoObjects();
         SwapVfx(_isPlayingMilo);
         StartCommonVfx();
+        StartSounds();
     }
 
     private void Update()
@@ -137,6 +138,7 @@ public class CharacterSwitcher : MonoBehaviour
         }
         UpdateColors();
         SwapVfx(_isPlayingMilo);
+        SwapSounds(_isPlayingMilo);
     }
 
     private void UpdateColors()
@@ -289,5 +291,38 @@ public class CharacterSwitcher : MonoBehaviour
 
         foreach (ParticleSystem ps in toStop) ps?.Stop();
         foreach (ParticleSystem ps in toPlay) ps?.Play();
+    }
+
+    /// <summary>
+    /// Starts every ambient AudioSource once, then mutes the ones the current
+    /// character cannot hear. Sources keep playing muted so loops stay in sync.
+    /// </summary>
+    private void StartSounds()
+    {
+        if (_levelConnector == null) return;
+
+        foreach (AudioSource s in _levelConnector.CommonSounds) s?.Play();
+        foreach (AudioSource s in _levelConnector.MiloSounds)   s?.Play();
+        foreach (AudioSource s in _levelConnector.LinoSounds)   s?.Play();
+
+        SwapSounds(_isPlayingMilo);
+    }
+
+    /// <summary>
+    /// Mutes the sounds the current character cannot hear and unmutes his own.
+    /// Common sounds are never touched here.
+    /// </summary>
+    private void SwapSounds(bool playingMilo)
+    {
+        if (_levelConnector == null) return;
+
+        foreach (AudioSource s in _levelConnector.MiloSounds)
+        {
+            if (s != null) s.mute = !playingMilo;
+        }
+        foreach (AudioSource s in _levelConnector.LinoSounds)
+        {
+            if (s != null) s.mute = playingMilo;
+        }
     }
 }
