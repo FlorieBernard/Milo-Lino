@@ -6,7 +6,7 @@ public class PlayerMovementMilo : PlayerMovementBase
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space) && CanJump)
+        if (Input.GetKeyDown(KeyCode.Space) && CanJump && !DialogueZone.IsDialogueRunning)
             TryJump();
     }
 }

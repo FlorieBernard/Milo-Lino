@@ -14,7 +14,7 @@
 ### Setup Unity restant (à faire dans l'éditeur)
 - **DialogueZone** : toutes les zones sont en `InputOrTimer` (timer + espace) par défaut. Créer une Image UI dans le panneau de dialogue pour l'emoji et l'assigner dans `Emoji Image`; remplir `_lineEmojis` et les deux couleurs de nom dans l'Inspector.
 - **LevelConnector** : assigner les AudioSources d'ambiance dans `Common/Milo/Lino Sounds` (sources en `loop`, placées dans la scène).
-- **SceneMusic** : vérifier qu'un clip est bien assigné dans chaque scène; tester depuis la scène "Debut" (sinon pas d'AudioManager → warning console).
+- **SceneMusic** : résolu — les doublons SceneMusic sans clip (Level2, Level3, Debut) coupaient la musique; supprimés par Yohan, la musique fonctionne. Règle : un seul SceneMusic par scène, clip assigné.
 - **MenuButtonHover** : ajouter Image enfant "Patte" sur chaque bouton du menu, assigner dans l'Inspector
 - **CatPawTrail** : créer GameObject vide dans Canvas, attacher `CatPawTrail`, assigner `PawSprite` + `Canvas`
 - **WaitForLinoZone** : créer GameObject vide en fin de niveau avec BoxCollider2D (Is Trigger), attacher `WaitForLinoZone`, assigner `CharacterSwitcher`, `LinoFollower`, `MiloRb` / `LinoRb`, `MessageObject`

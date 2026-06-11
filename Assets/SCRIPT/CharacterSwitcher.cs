@@ -275,7 +275,10 @@ public class CharacterSwitcher : MonoBehaviour
     {
         if (_levelConnector == null) return;
         foreach (ParticleSystem ps in _levelConnector.CommonVfx)
-            ps?.Play();
+        {
+            // Unity-aware null check: catches destroyed objects, unlike "?."
+            if (ps != null) ps.Play();
+        }
     }
 
     /// <summary>
@@ -289,8 +292,14 @@ public class CharacterSwitcher : MonoBehaviour
         IReadOnlyList<ParticleSystem> toPlay = playingMilo ? _levelConnector.MiloVfx : _levelConnector.LinoVfx;
         IReadOnlyList<ParticleSystem> toStop = playingMilo ? _levelConnector.LinoVfx : _levelConnector.MiloVfx;
 
-        foreach (ParticleSystem ps in toStop) ps?.Stop();
-        foreach (ParticleSystem ps in toPlay) ps?.Play();
+        foreach (ParticleSystem ps in toStop)
+        {
+            if (ps != null) ps.Stop();
+        }
+        foreach (ParticleSystem ps in toPlay)
+        {
+            if (ps != null) ps.Play();
+        }
     }
 
     /// <summary>
@@ -301,9 +310,18 @@ public class CharacterSwitcher : MonoBehaviour
     {
         if (_levelConnector == null) return;
 
-        foreach (AudioSource s in _levelConnector.CommonSounds) s?.Play();
-        foreach (AudioSource s in _levelConnector.MiloSounds)   s?.Play();
-        foreach (AudioSource s in _levelConnector.LinoSounds)   s?.Play();
+        foreach (AudioSource s in _levelConnector.CommonSounds)
+        {
+            if (s != null) s.Play();
+        }
+        foreach (AudioSource s in _levelConnector.MiloSounds)
+        {
+            if (s != null) s.Play();
+        }
+        foreach (AudioSource s in _levelConnector.LinoSounds)
+        {
+            if (s != null) s.Play();
+        }
 
         SwapSounds(_isPlayingMilo);
     }
