@@ -2028,6 +2028,9 @@ MonoBehaviour:
   - {fileID: 0}
   _linoVfx:
   - {fileID: 0}
+  _commonSounds: []
+  _miloSounds: []
+  _linoSounds: []
 --- !u!4 &834313084
 Transform:
   m_ObjectHideFlags: 0

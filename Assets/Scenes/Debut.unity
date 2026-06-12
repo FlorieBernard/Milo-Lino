@@ -151,23 +151,23 @@ MonoBehaviour:
   _sounds:
   - name: Automne Musique
     clip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
-    volume: 1
+    volume: 0
     pitch: 3
     loop: 1
     source: {fileID: 0}
   - name: Hiver Musique
     clip: {fileID: 8300000, guid: 0303c04cb9c5ef043a2cbb2474d5f5ae, type: 3}
-    volume: 1
+    volume: 0
     pitch: 3
     loop: 1
     source: {fileID: 0}
   - name: Printemps Musique
     clip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
-    volume: 1
+    volume: 0
     pitch: 3
     loop: 1
     source: {fileID: 0}
-  _musicVolume: 1
+  _musicVolume: 0.2
   _fadeDuration: 0.3
   _muffledCutoff: 200
 --- !u!4 &199231997
