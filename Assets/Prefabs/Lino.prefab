@@ -154,6 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   jumpingPower: 32
+  _miloReflect: {fileID: 0}
+  _LinoReflect: {fileID: 0}
+  isReflect: 0
+  isLino: 0
   _coyoteTime: 0.15
   _rb: {fileID: 500785322717182199}
   _groundCheck: {fileID: 4008637770007258647}
@@ -291,7 +295,7 @@ SpriteRenderer:
   m_SortingLayerID: -547352523
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2bf831a9499729343a0dbb47900d0b99, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03c7246f725990147aef9a29615f7be7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -315,7 +319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 2bf831a9499729343a0dbb47900d0b99, type: 3}
+  - {fileID: 21300000, guid: 03c7246f725990147aef9a29615f7be7, type: 3}
+  - {fileID: 21300000, guid: 754cf77692a5c8949987ad55449e7554, type: 3}
+  - {fileID: 21300000, guid: a122b4350259ae740afed00cf3eb3cbd, type: 3}
   fps: 3
   playOnAwake: 1
   loopType: 1
@@ -398,7 +404,7 @@ SpriteRenderer:
   m_SortingLayerID: -547352523
   m_SortingLayer: 2
   m_SortingOrder: 50
-  m_Sprite: {fileID: 21300000, guid: 79c0cee2426b78c44b7004600f64bbf7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c19ab3532f918d44a28f626889e4836, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -422,13 +428,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 79c0cee2426b78c44b7004600f64bbf7, type: 3}
-  - {fileID: 21300000, guid: ae037b3774fa2b74c824550356f1201f, type: 3}
-  - {fileID: 21300000, guid: f3267e07baac32647872c6d17a07e339, type: 3}
-  - {fileID: 21300000, guid: 21363df03f9cbda49b7086795072c7ab, type: 3}
-  - {fileID: 21300000, guid: 7d1733779f9582d4da236083abfc8936, type: 3}
-  - {fileID: 21300000, guid: 53e9eefcff81b5641b49f128b2ba30d4, type: 3}
-  - {fileID: 21300000, guid: acac9d82ec7d3b84d8c610c1643d3cb1, type: 3}
+  - {fileID: 21300000, guid: 6c19ab3532f918d44a28f626889e4836, type: 3}
+  - {fileID: 21300000, guid: 05586a7678ae76d499c32371ef705c16, type: 3}
+  - {fileID: 21300000, guid: f09dcca7d6dfd5e4884538bfcca645b2, type: 3}
+  - {fileID: 21300000, guid: 9ac2b92f687986048a5228a0c99af7f3, type: 3}
+  - {fileID: 21300000, guid: a1d1b902ed6d760409b683b9ac642f4c, type: 3}
+  - {fileID: 21300000, guid: eb0d1af4e07ce0547b589d80daa40283, type: 3}
+  - {fileID: 21300000, guid: 1562a4115de30914f8bb9d054ff7a282, type: 3}
   fps: 12
   playOnAwake: 1
   loopType: 1
@@ -640,7 +646,7 @@ SpriteRenderer:
   m_SortingLayerID: -547352523
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1fce988b166b0d840a3a438504876d2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96e7e2ac6e7e20a4fb84e6a4d52a2214, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -664,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 1fce988b166b0d840a3a438504876d2d, type: 3}
+  - {fileID: 21300000, guid: 96e7e2ac6e7e20a4fb84e6a4d52a2214, type: 3}
   fps: 3
   playOnAwake: 1
   loopType: 1
@@ -778,7 +784,7 @@ SpriteRenderer:
   m_SortingLayerID: -547352523
   m_SortingLayer: 2
   m_SortingOrder: 50
-  m_Sprite: {fileID: 21300000, guid: a0876da3c8f4e56499826af36020f08a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aab8f4fa661d28d41aba80a714a9d478, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -802,7 +808,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: a0876da3c8f4e56499826af36020f08a, type: 3}
+  - {fileID: 21300000, guid: aab8f4fa661d28d41aba80a714a9d478, type: 3}
+  - {fileID: 21300000, guid: aab8f4fa661d28d41aba80a714a9d478, type: 3}
+  - {fileID: 21300000, guid: ccefffcbad7e41d4dbee0161f60cbc30, type: 3}
+  - {fileID: 21300000, guid: ccefffcbad7e41d4dbee0161f60cbc30, type: 3}
+  - {fileID: 21300000, guid: ccefffcbad7e41d4dbee0161f60cbc30, type: 3}
+  - {fileID: 21300000, guid: 11b43b997095246469a35bdd077111d6, type: 3}
   fps: 6
   playOnAwake: 1
   loopType: 1
@@ -885,7 +896,7 @@ SpriteRenderer:
   m_SortingLayerID: -547352523
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b2508550108bd6f4483371565ab4f89d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 90d49151c99ce2f43af1fa07bfae754e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -909,7 +920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: b2508550108bd6f4483371565ab4f89d, type: 3}
+  - {fileID: 21300000, guid: 90d49151c99ce2f43af1fa07bfae754e, type: 3}
   fps: 3
   playOnAwake: 1
   loopType: 1

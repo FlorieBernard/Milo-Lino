@@ -7176,23 +7176,160 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: _lines.Array.size
-      value: 5
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: '_lines.Array.data[0]'
-      value: 
+      value: "Si tu avances\u2026 j\u2019avance aussi."
       objectReference: {fileID: 0}
     - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: '_lines.Array.data[1]'
-      value: 
+      value: "Je sais pas comment l\u2019expliquer\u2026 mais quand je pense \xE0
+        nous\u2026"
       objectReference: {fileID: 0}
     - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: '_lines.Array.data[2]'
-      value: 
+      value: "Je souris des moustaches sans m\u2019en rendre compte."
       objectReference: {fileID: 0}
     - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: '_lines.Array.data[3]'
+      value: Tu es mon jaune.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[4]'
+      value: "Tu es celui qui rend tout plus lumineux\u2026 m\xEAme sans le savoir."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[5]'
+      value: "Je\u2026 me suis confi\xE9."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[6]'
+      value: "\xC7a m\u2019a fait peur au d\xE9but\u2026comme si tout allait s\u2019effondrer
+        si je parlais."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[7]'
+      value: "Mais en fait\u2026\xE7a m\u2019a soulag\xE9."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[8]'
+      value: "Je te l\u2019avais dit."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[9]'
+      value: "Je crois que\u2026 je me sens vraiment compris avec toi."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[10]'
+      value: "Et parfois\u2026 je me dis que le monde peut \xEAtre un peu plus beau
+        quand on n\u2019est pas seul. \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[11]'
+      value: 'Alors reste avec moi.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lines.Array.data[12]'
+      value: "On comprendra le reste\u2026 ensemble."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: _lineEmojis.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: _speakerNames.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[0]'
       value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d3fb527bd19644843a3d6146a9de29b9, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[4]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d3fb527bd19644843a3d6146a9de29b9, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[5]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[6]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[7]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[8]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d3fb527bd19644843a3d6146a9de29b9, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[9]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[10]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c3fd1f7b4fda61d4d8af7b3836c02417, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[11]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d3fb527bd19644843a3d6146a9de29b9, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_lineEmojis.Array.data[12]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d3fb527bd19644843a3d6146a9de29b9, type: 3}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[0]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[3]'
+      value: Milo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[4]'
+      value: Milo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[5]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[6]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[7]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[8]'
+      value: Milo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[9]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[10]'
+      value: Lino
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[11]'
+      value: Milo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664770251353508100, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
+      propertyPath: '_speakerNames.Array.data[12]'
+      value: Milo
       objectReference: {fileID: 0}
     - target: {fileID: 4320726030490232030, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: m_Pivot.x
@@ -7280,7 +7417,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3fadc395a5043684180d8d102112150c, type: 3}
     - target: {fileID: 6315089283887346660, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -922.37
+      value: -924.41
       objectReference: {fileID: 0}
     - target: {fileID: 8763388859323237649, guid: 32d82acfbc5c3994b866c6f40fcd42dc, type: 3}
       propertyPath: m_Name
@@ -7810,7 +7947,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8686,6 +8823,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 339011214474658911, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 418381410737195708, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 1.5
@@ -8700,11 +8841,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 833971832503359026, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.11
+      value: 21.76
       objectReference: {fileID: 0}
     - target: {fileID: 833971832503359026, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263587762409956721, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1546464033086475106, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8717,6 +8862,26 @@ PrefabInstance:
     - target: {fileID: 1546464033086475106, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139768661175412801, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: _messageObject
+      value: 
+      objectReference: {fileID: 975354864}
+    - target: {fileID: 2977856780772800746, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143270564989843706, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: _runVFX
+      value: 
+      objectReference: {fileID: 628855732}
+    - target: {fileID: 4924788213343271052, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6143755250354912505, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469768926443634475, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8758,13 +8923,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7555651278040636964, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8276476471638734003, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.52
       objectReference: {fileID: 0}
     - target: {fileID: 8276476471638734003, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.55
+      value: -5.85
       objectReference: {fileID: 0}
     - target: {fileID: 8751216598688280754, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
       propertyPath: m_Name
@@ -8786,6 +8955,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+--- !u!198 &628855732 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3100775309482078483, guid: 04e1f044d480c6149aa29b8bd9556ccc, type: 3}
+  m_PrefabInstance: {fileID: 628855731}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &644777977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10096,7 +10270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec892679b69a9c047903e34fa61a14a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicClip: {fileID: 8300000, guid: 495f161cf4d212e449ec36b5a3418a93, type: 3}
+  _musicClip: {fileID: 8300000, guid: 3ab06ebec80d89b4db6b55116580179e, type: 3}
 --- !u!4 &949297288
 Transform:
   m_ObjectHideFlags: 0
