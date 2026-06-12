@@ -8,6 +8,8 @@ TagManager:
   - Corridor
   - Ice
   - Lino
+  - LinoReflect
+  - MiloReflect
   layers:
   - Default
   - TransparentFX
